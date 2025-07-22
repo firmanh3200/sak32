@@ -1,7 +1,7 @@
 /* Default/Light Theme Variables */
 :root {
     --bs-body-bg: #f8f9fa; /* Light grey background */
-    --bs-body-color: #212529; /* Dark text */
+    --bs-body-color: #f5ca6d; /* Dark text */
     --bs-border-color: #dee2e6; /* Light grey border */
     --bs-body-color-rgb: 33,37,41; /* For shadows */
 
@@ -135,7 +135,7 @@ body.dark-theme {
     --bs-nav-tabs-border-color: rgba(255, 255, 255, 0.125);
     --bs-nav-tabs-link-color: #e9ecef;
     --bs-nav-tabs-link-active-color: #f8f9fa;
-    --bs-nav-tabs-link-active-bg: #2b3035;
+    --bs-nav-tabs-link-active-bg: #fcb900;
     --bs-nav-tabs-link-active-border-color: rgba(255, 255, 255, 0.125);
     --bs-tab-content-bg: #2b3035;
 
