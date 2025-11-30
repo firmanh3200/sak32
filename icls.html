@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tabel Perbedaan Standar ICLS (Sakernas 2026)</title>
+    <style>
+        /* Desain Modern & Responsif (Meniru Tampilan E-Form CAPI) */
+        :root {
+            --color-primary: #007bff;
+            --color-secondary: #6c757d;
+            --color-accent: #28a745;
+            --color-bg-light: #f8f9fa;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--color-bg-light);
+            color: #333;
+            margin: 0;
+            padding: 20px;
+        }
+        .table-container {
+            overflow-x: auto; /* Memastikan responsif pada layar sempit */
+        }
+        .icls-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            background-color: white;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+        .icls-table th, .icls-table td {
+            padding: 15px;
+            border: 1px solid #dee2e6;
+            text-align: left;
+            vertical-align: top;
+        }
+        .icls-table th {
+            background-color: var(--color-primary);
+            color: white;
+            font-weight: 600;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+        .icls-table tr:nth-child(even) {
+            background-color: #f4f4f4; /* Warna dinamis */
+        }
+        
+        /* Interaktif dan Menarik: Hover Effect */
+        .icls-table tr:hover {
+            background-color: #fff3cd; /* Warna kuning muda saat hover */
+            transition: background-color 0.3s;
+        }
+
+        /* Gaya Khusus untuk Penekanan Konsep Kunci */
+        .concept-icls19 { color: #dc3545; font-weight: 600; }
+        .concept-icse { color: #007bff; font-style: italic; }
+
+        /* Responsif: Mengubah Tabel menjadi Kartu (Hanya untuk Layar Sangat Sempit) */
+        @media screen and (max-width: 768px) {
+            .icls-table, .icls-table thead, .icls-table tbody, .icls-table th, .icls-table td, .icls-table tr {
+                display: block;
+            }
+            .icls-table thead tr {
+                position: absolute;
+                top: -9999px;
+                left: -9999px;
+            }
+            .icls-table tr {
+                border: 3px solid #ccc;
+                margin-bottom: 10px;
+                border-radius: 8px;
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            }
+            .icls-table td {
+                border: none;
+                border-bottom: 1px solid #eee;
+                position: relative;
+                padding-left: 50%;
+                text-align: right;
+            }
+            .icls-table td:before {
+                position: absolute;
+                top: 0;
+                left: 6px;
+                width: 45%;
+                padding-right: 10px;
+                white-space: nowrap;
+                content: attr(data-label);
+                font-weight: bold;
+                text-align: left;
+                color: var(--color-primary);
+            }
+            /* Menyesuaikan padding untuk konten yang lebih baik pada kartu */
+            .icls-table td:first-child { padding-top: 20px; }
+            .icls-table td:last-child { border-bottom: none; padding-bottom: 20px; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="table-container">
+    <header style="margin-bottom: 20px;">
+        <h2 style="color: var(--color-primary); border-bottom: 3px solid var(--color-accent); padding-bottom: 5px;">
+            Komparasi Standar Internasional Statistik Ketenagakerjaan (ICLS)
+        </h2>
+        <p>Ringkasan standar ICLS yang diimplementasikan dalam Sakernas Februari 2026 (Moda CAPI).</p>
+        <p style="font-size: 0.9em; color: var(--color-secondary);">
+            *Catatan: Sumber tidak menyebutkan ICLS ke-22. ICLS ke-20 (ICSE-18) dimasukkan karena merupakan pembaruan penting dalam status pekerjaan.
+        </p>
+    </header>
+
+    <table class="icls-table">
+        <thead>
+            <tr>
+                <th>Standar Internasional</th>
+                <th>Tahun Resolusi</th>
+                <th>Fokus Utama</th>
+                <th>Konsep Kunci & Metodologi</th>
+                <th>Penerapan di Sakernas 2026</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr id="icls13">
+                <td data-label="Standar">ICLS ke-13</td>
+                <td data-label="Tahun">Sebelum 2013</td>
+                <td data-label="Fokus Utama">Statistik Ketenagakerjaan Konvensional</td>
+                <td data-label="Konsep Kunci">
+                    Konsep pekerjaan yang berorientasi pada **penghasilan atau keuntungan semata** [7, 8].
+                    Definisi **Pekerja Subsisten** (hasil produksi sebagian besar/seluruhnya dikonsumsi rumah tangga) [9].
+                </td>
+                <td data-label="Penerapan Sakernas">
+                    Dipertahankan untuk **menjaga *series* data** [5, 10].
+                    Digunakan untuk memperoleh estimasi data pokok seperti **penduduk bekerja, pengangguran, TPT, dan TPAK** [3].
+                </td>
+            </tr>
+            <tr id="icls19">
+                <td data-label="Standar">ICLS ke-19</td>
+                <td data-label="Tahun">2013</td>
+                <td data-label="Fokus Utama">Tenaga Kerja yang Kurang Termanfaatkan (*Labour Underutilization*)</td>
+                <td data-label="Konsep Kunci">
+                    **Memperluas cakupan pengukuran** terhadap semua bentuk pekerjaan [7].
+                    Definisi pekerjaan **diperbarui, tidak lagi terbatas pada aktivitas yang menghasilkan penghasilan** [8].
+                    Penekanan pada pengukuran <span class="concept-icls19">***labour underutilization***</span> (seperti setengah pengangguran dan angkatan kerja potensial) [3, 8, 11-13].
+                </td>
+                <td data-label="Penerapan Sakernas">
+                    Diimplementasikan bersama ICLS 13 untuk memperoleh indikator **tenaga kerja yang kurang termanfaatkan** [3, 10, 14].
+                    Digunakan untuk mengidentifikasi pengangguran dan <span class="concept-icls19">***potential labour force***</span> [15-18].
+                </td>
+            </tr>
+            <tr id="icls20">
+                <td data-label="Standar">ICLS ke-20 (ICSE-18)</td>
+                <td data-label="Tahun">2018</td>
+                <td data-label="Fokus Utama">Statistik Hubungan Kerja atau Status dalam Pekerjaan</td>
+                <td data-label="Konsep Kunci">
+                    Memperbarui ICSE 1993 [8].
+                    Menghasilkan kerangka <span class="concept-icse">***ICSE-18***</span> [1, 19].
+                    Mengakomodasi bentuk-bentuk hubungan kerja yang beragam, termasuk kategori **dependent contractors** (orang yang bekerja mandiri tetapi bergantung secara ekonomi/operasional) [1, 20-22].
+                </td>
+                <td data-label="Penerapan Sakernas">
+                    Diimplementasikan untuk memperoleh indikator **status pekerjaan berdasarkan ICSE-18** [3].
+                    Modul 15 (MJI) dan Modul 18 (SJD) dirancang khusus untuk mengidentifikasi **dependent contractors** [20-22].
+                </td>
+            </tr>
+            <tr id="icls21">
+                <td data-label="Standar">ICLS ke-21</td>
+                <td data-label="Tahun">2023</td>
+                <td data-label="Fokus Utama">Statistik Ekonomi Informal</td>
+                <td data-label="Konsep Kunci">
+                    Memperbarui konsep **sektor informal dan pekerjaan informal** [2, 23].
+                    **Memperluas cakupan pengukuran informalitas** untuk semua bentuk pekerjaan [2].
+                    Diselaraskan dengan kerangka statistik ekonomi global seperti <span class="concept-icse">***System of National Accounts (SNA) 2008 dan SNA 2026***</span> [2].
+                </td>
+                <td data-label="Penerapan Sakernas">
+                    Diimplementasikan untuk memperoleh indikator **pekerja/usaha/pekerjaan formal/informal** [3, 23].
+                    Digunakan sebagai rujukan konsep pendapatan (*earning*) dan upah (MJJ_UPAH dan MJJ_LABA) [24-26].
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+</body>
+</html>

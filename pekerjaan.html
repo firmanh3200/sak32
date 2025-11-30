@@ -1,0 +1,1382 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panduan Modul Survei Ketenagakerjaan</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #4361ee;
+            --secondary-color: #3a0ca3;
+            --accent-color: #f72585;
+            --light-color: #f8f9fa;
+            --dark-color: #212529;
+            --success-color: #06ffa5;
+            --warning-color: #ffbe0b;
+            --danger-color: #fb5607;
+            --info-color: #4cc9f0;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            color: var(--dark-color);
+            background-color: #f5f7fb;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+        
+        .tabs {
+            display: flex;
+            flex-wrap: wrap;
+            background-color: #f1f5f9;
+            border-bottom: 1px solid #e2e8f0;
+            overflow-x: auto;
+        }
+        
+        .tab {
+            padding: 15px 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-bottom: 3px solid transparent;
+            white-space: nowrap;
+            font-weight: 500;
+        }
+        
+        .tab:hover {
+            background-color: rgba(67, 97, 238, 0.1);
+        }
+        
+        .tab.active {
+            background-color: white;
+            border-bottom: 3px solid var(--primary-color);
+            color: var(--primary-color);
+        }
+        
+        .tab-content {
+            padding: 30px;
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        h2 {
+            color: var(--secondary-color);
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e2e8f0;
+        }
+        
+        h3 {
+            color: var(--primary-color);
+            margin: 20px 0 15px;
+        }
+        
+        .module-info {
+            background-color: var(--light-color);
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 25px;
+        }
+        
+        .question-box {
+            background-color: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+        
+        .question-box:hover {
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transform: translateY(-2px);
+        }
+        
+        .question-title {
+            font-weight: 600;
+            color: var(--primary-color);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .question-title i {
+            margin-right: 10px;
+        }
+        
+        .options {
+            margin-left: 25px;
+        }
+        
+        .option {
+            margin-bottom: 8px;
+            display: flex;
+            align-items: flex-start;
+        }
+        
+        .option-number {
+            background-color: var(--primary-color);
+            color: white;
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 10px;
+            flex-shrink: 0;
+            font-size: 0.8rem;
+        }
+        
+        .example {
+            background-color: #f8f9fa;
+            border-left: 4px solid var(--info-color);
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        
+        .example-title {
+            font-weight: 600;
+            color: var(--info-color);
+            margin-bottom: 5px;
+        }
+        
+        .note {
+            background-color: #fff3cd;
+            border-left: 4px solid var(--warning-color);
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        
+        .note-title {
+            font-weight: 600;
+            color: var(--warning-color);
+            margin-bottom: 5px;
+        }
+        
+        .accordion {
+            margin-bottom: 20px;
+        }
+        
+        .accordion-item {
+            border: 1px solid #e2e8f0;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            overflow: hidden;
+        }
+        
+        .accordion-header {
+            background-color: #f8f9fa;
+            padding: 15px;
+            cursor: pointer;
+            font-weight: 500;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .accordion-header:hover {
+            background-color: #e9ecef;
+        }
+        
+        .accordion-body {
+            padding: 15px;
+            display: none;
+        }
+        
+        .accordion-body.active {
+            display: block;
+        }
+        
+        .badge {
+            display: inline-block;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            margin-left: 10px;
+        }
+        
+        .badge-primary {
+            background-color: rgba(67, 97, 238, 0.1);
+            color: var(--primary-color);
+        }
+        
+        .badge-success {
+            background-color: rgba(6, 255, 165, 0.1);
+            color: #00a878;
+        }
+        
+        .badge-warning {
+            background-color: rgba(255, 190, 11, 0.1);
+            color: #d6a100;
+        }
+        
+        .badge-danger {
+            background-color: rgba(251, 86, 7, 0.1);
+            color: #d64000;
+        }
+        
+        .badge-info {
+            background-color: rgba(76, 201, 240, 0.1);
+            color: #0c8599;
+        }
+        
+        .footer {
+            background-color: #f8f9fa;
+            padding: 20px;
+            text-align: center;
+            color: #6c757d;
+            border-top: 1px solid #e2e8f0;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                border-radius: 0;
+            }
+            
+            .tabs {
+                overflow-x: scroll;
+                -webkit-overflow-scrolling: touch;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .tab-content {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Modul Survei Ketenagakerjaan</h1>
+            <p class="subtitle">Panduan Komprehensif untuk Pengumpulan Data Ketenagakerjaan</p>
+        </header>
+        
+        <div class="tabs">
+            <div class="tab active" onclick="openTab(event, 'module10')">
+                <i class="fas fa-briefcase"></i> Modul 10: Pekerjaan Utama - Karakteristik
+            </div>
+            <div class="tab" onclick="openTab(event, 'module11')">
+                <i class="fas fa-map-marker-alt"></i> Modul 11: Pekerjaan Utama - Tempat Kerja
+            </div>
+            <div class="tab" onclick="openTab(event, 'module12')">
+                <i class="fas fa-clock"></i> Modul 12: Pekerjaan Utama - Masa Kerja
+            </div>
+            <div class="tab" onclick="openTab(event, 'module13')">
+                <i class="fas fa-file-contract"></i> Modul 13: Pekerjaan Utama - Perjanjian Kerja
+            </div>
+            <div class="tab" onclick="openTab(event, 'module14')">
+                <i class="fas fa-user-tie"></i> Modul 14: Pekerjaan Utama - Pekerja Informal
+            </div>
+            <div class="tab" onclick="openTab(event, 'module15')">
+                <i class="fas fa-handshake"></i> Modul 15: Pekerjaan Utama - Pekerja Independen
+            </div>
+            <div class="tab" onclick="openTab(event, 'module16')">
+                <i class="fas fa-building"></i> Modul 16: Pekerjaan Utama - Status Tempat Kerja
+            </div>
+            <div class="tab" onclick="openTab(event, 'module17')">
+                <i class="fas fa-plus-circle"></i> Modul 17: Pekerjaan Tambahan - Karakteristik
+            </div>
+            <div class="tab" onclick="openTab(event, 'module18')">
+                <i class="fas fa-link"></i> Modul 18: Pekerjaan Tambahan - Dependent Contractor
+            </div>
+        </div>
+        
+        <!-- Modul 10: Pekerjaan Utama - Karakteristik -->
+        <div id="module10" class="tab-content active">
+            <h2>Modul 10: Pekerjaan Utama - Karakteristik (MJJ)</h2>
+            
+            <div class="module-info">
+                <p>Modul ini ditujukan untuk responden yang telah diidentifikasi sebagai bekerja berdasarkan pertanyaan sebelumnya. Modul ini menangkap informasi tentang karakteristik pekerjaan utama responden.</p>
+            </div>
+            
+            <div class="accordion">
+                <div class="accordion-item">
+                    <div class="accordion-header" onclick="toggleAccordion(this)">
+                        <span>Pertanyaan 10.1: Jumlah Pekerjaan/Usaha</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="accordion-body">
+                        <div class="question-box">
+                            <div class="question-title">
+                                <i class="fas fa-question-circle"></i> Apakah (NAMA) biasanya memiliki lebih dari satu pekerjaan/usaha?
+                            </div>
+                            <div class="options">
+                                <div class="option">
+                                    <div class="option-number">1</div>
+                                    <div>TIDAK, HANYA SATU PEKERJAAN/USAHA</div>
+                                </div>
+                                <div class="option">
+                                    <div class="option-number">2</div>
+                                    <div>YA, LEBIH DARI SATU PEKERJAAN/USAHA</div>
+                                </div>
+                            </div>
+                            
+                            <div class="note">
+                                <div class="note-title">Catatan:</div>
+                                <p>Seseorang yang yang bekerja untuk lebih dari satu pelanggan tidak dianggap memiliki lebih dari satu pekerjaan/usaha. Pekerjaan/usaha yang terpisah harus melibatkan kegiatan ekonomi yang berbeda atau status pekerjaan yang berbeda.</p>
+                                <p>Contoh: seseorang yang menjalankan usaha dan juga bekerja sebagai pegawai pemerintah, atau seorang yang menjalankan usaha toko kelontong dan menjadi sopir taksi di waktu lain.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="accordion-item">
+                    <div class="accordion-header" onclick="toggleAccordion(this)">
+                        <span>Pertanyaan 10.2: Jenis Pekerjaan</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="accordion-body">
+                        <div class="question-box">
+                            <div class="question-title">
+                                <i class="fas fa-question-circle"></i> Apa yang dikerjakan (NAMA) di tempat kerja pada pekerjaan utama?
+                            </div>
+                            <p>Pertanyaan ini untuk mengidentifikasi lapangan dan jenis pekerjaan. Lapangan usaha/pekerjaan ialah bidang kegiatan dari pekerjaan/usaha/perusahaan/kantor tempat seseorang bekerja, atau yang dihasilkan oleh perusahaan/kantor tempat responden bekerja.</p>
+                            <p>Jenis pekerjaan adalah macam pekerjaan yang dilakukan oleh seseorang atau ditugaskan kepada seseorang atau apa yang dilakukan di tempat bekerjanya.</p>
+                            
+                            <div class="example">
+                                <div class="example-title">Contoh Penulisan:</div>
+                                <table style="width: 100%; border-collapse: collapse;">
+                                    <tr>
+                                        <th style="border: 1px solid #ddd; padding: 8px; text-align: left;">Penulisan yang Salah</th>
+                                        <th style="border: 1px solid #ddd; padding: 8px; text-align: left;">Penulisan yang Benar</th>
+                                    </tr>
+                                    <tr>
+                                        <td style="border: 1px solid #ddd; padding: 8px;">Petani padi</td>
+                                        <td style="border: 1px solid #ddd; padding: 8px;">Pemilik, pembajak dan penebar benih padi</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="border: 1px solid #ddd; padding: 8px;">Penjual pakaian di toko</td>
+                                        <td style="border: 1px solid #ddd; padding: 8px;">Pemilik, melayani pembeli, dan berbelanja barang dagangan</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="border: 1px solid #ddd; padding: 8px;">Operator mesin</td>
+                                        <td style="border: 1px solid #ddd; padding: 8px;">Operator mesin pengolah kayu</td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="accordion-item">
+                    <div class="accordion-header" onclick="toggleAccordion(this)">
+                        <span>Pertanyaan 10.3: Komoditas Utama</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="accordion-body">
+                        <div class="question-box">
+                            <div class="question-title">
+                                <i class="fas fa-question-circle"></i> Apa komoditas utama yang diproduksi/dihasilkan/dijual/dilayani dari kegiatan usaha/perusahaan/kantor tempat (NAMA) bekerja?
+                            </div>
+                            <p>Pertanyaan ini untuk menanyakan output yang dihasilkan dari tempat kerja. Informasi ini akan berguna bagi PML untuk mengidentifikasi lapangan pekerjaan responden.</p>
+                            
+                            <div class="example">
+                                <div class="example-title">Contoh:</div>
+                                <p>Untuk seseorang yang bekerja di bidang periklanan: "Jasa periklanan"</p>
+                                <p>Untuk seorang dokter di puskesmas: "Jasa pelayanan kesehatan"</p>
+                                <p>Untuk seorang satpam: "Jasa keamanan"</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="accordion-item">
+                    <div class="accordion-header" onclick="toggleAccordion(this)">
+                        <span>Pertanyaan 10.4: Bidang Tempat Kerja</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="accordion-body">
+                        <div class="question-box">
+                            <div class="question-title">
+                                <i class="fas fa-question-circle"></i> Bergerak di bidang apakah usaha/perusahaan/kantor tempat (NAMA) bekerja?
+                            </div>
+                            <p>Beberapa hal yang harus diperhatikan dalam mengisi jawaban pertanyaan ini:</p>
+                            <ol>
+                                <li>Hindari hanya menulis nama usaha/perusahaan/kantor. Pengecualian dapat dilakukan pada nama yang sudah mencakup kegiatan yang dilakukan. Contoh: Rumah Makan "Mendang Mending", Hotel "Swiss Bell", "PT. KONSTRUKSI ERA MANDIRI", dll.</li>
+                                <li>Bidang berupa perdagangan eceran, ditulis juga lokasi penjualan (toko, kaki lima, los pasar, pedagang keliling, toko online, dll). Tuliskan Lokasi usahanya apakah di took, los pasar dan lain-lain.</li>
+                                <li>Pada bidang pendidikan formal, jangan hanya ditulis jenjangnya saja tetapi juga status negeri/swasta. Contoh: SD Negeri Cibubur 01 Pagi, SMP Swasta Pangudi Luhur, SMA Swasta Tarakanita, dll.</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="accordion-item">
+                    <div class="accordion-header" onclick="toggleAccordion(this)">
+                        <span>Pertanyaan 10.5: Status Pekerjaan</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="accordion-body">
+                        <div class="question-box">
+                            <div class="question-title">
+                                <i class="fas fa-question-circle"></i> Apakah status pekerjaan (NAMA) pada pekerjaan utama?
+                            </div>
+                            <p>Status pekerjaan adalah jenis kedudukan seseorang dalam pekerjaan. Status pekerjaan merujuk pada jenis hubungan antara responden dan unit tempat mereka bekerja.</p>
+                            
+                            <div class="options">
+                                <div class="option">
+                                    <div class="option-number">1</div>
+                                    <div><strong>Pekerja (Buruh/Karyawan/Pegawai/Pekerja Bebas)</strong> - Responden memiliki pekerjaan dengan kontrak tertulis ataupun lisan yang memberikan pembayaran. Pembayaran yang didapatkan tanpa mempertimbangkan seberapa besar pendapatan atau keuntungan yang dihasilkan oleh tempat kerja.</div>
+                                </div>
+                                <div class="option">
+                                    <div class="option-number">2</div>
+                                    <div><strong>Berusaha</strong> - Responden bekerja atas nama sendiri atau dengan mitra. Status berusaha ini menanggung risiko secara ekonomi.</div>
+                                </div>
+                                <div class="option">
+                                    <div class="option-number">3</div>
+                                    <div><strong>Membantu dalam Usaha Keluarga atau Rumah Tangga</strong> - Responden berpartisipasi dalam kegiatan apa pun untuk mendukung kegiatan usaha keluarga/rumah tangga/kerabat lain.</div>
+                                </div>
+                                <div class="option">
+                                    <div class="option-number">4</div>
+                                    <div><strong>Sebagai Magang/Praktik Kerja Dibayar</strong> - Responden memiliki pekerjaan sementara untuk memperoleh pengalaman atau keterampilan di tempat kerja.</div>
+                                </div>
+                                <div class="option">
+                                    <div class="option-number">5</div>
+                                    <div><strong>Membantu Anggota Keluarga yang Bekerja untuk Orang Lain</strong> - Responden membantu dengan tugas atau tanggung jawab pekerjaan seorang anggota rumah tangga atau anggota keluarga yang tinggal di tempat lain.</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Modul 11: Pekerjaan Utama - Tempat Kerja -->
+        <div id="module11" class="tab-content">
+            <h2>Modul 11: Pekerjaan Utama - Tempat Kerja (MJU)</h2>
+            
+            <div class="module-info">
+                <p>Modul ini ditujukan untuk responden yang telah diidentifikasi sebagai bekerja berdasarkan pertanyaan sebelumnya. Modul ini menangkap informasi tentang tempat kerja dari pekerjaan utama responden.</p>
+            </div>
+            
+            <div class="accordion">
+                <div class="accordion-item">
+                    <div class="accordion-header" onclick="toggleAccordion(this)">
+                        <span>Pertanyaan 11.1: Jenis Instansi</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="accordion-body">
+                        <div class="question-box">
+                            <div class="question-title">
+                                <i class="fas fa-question-circle"></i> Apakah jenis instansi/lembaga/institusi dari tempat kerja/usaha (NAMA)?
+                            </div>
+                            <div class="options">
+                                <div class="option">
+                                    <div class="option-number">1</div>
+                                    <div>Pemerintah/negeri</div>
+                                </div>
+                                <div class="option">
+                                    <div class="option-number">2</div>
+                                    <div>BUMN/BUMD</div>
+                                </div>
+                                <div class="option">
+                                    <div class="option-number">3</div>
+                                    <div>Lembaga/organisasi internasional</div>
+                                </div>
+                                <div class="option">
+                                    <div class="option-number">4</div>
+                                    <div>PT/Persero/koperasi/CV/Firma/Persekutuan Perdata sektor pertanian</div>
+                                </div>
+                                <div class="option">
+                                    <div class="option-number">5</div>
+                                    <div>PT/Persero/koperasi/CV/Firma/Persekutuan Perdata sektor non-pertanian</div>
+                                </div>
+                                <div class="option">
+                                    <div class="option-number">6</div>
+                                    <div>Usaha lainnya/usaha perorangan/usaha rumah tangga sektor pertanian</div>
+                                </div>
+                                <div class="option">
+                                    <div class="option-number">7</div>
+                                    <div>Usaha lainnya/usaha perorangan/usaha rumah tangga sektor non-pertanian</div>
+                                </div>
+                                <div class="option">
+                                    <div class="option-number">8</div>
+                                    <div>Lembaga non-profit/nirlaba</div>
+                                </div>
+                                <div class="option">
+                                    <div class="option-number">9</div>
+                                    <div>Rumah tangga (misal: asisten rumah tangga, tukang kebun, satpam di rumah tangga, guru les privat khusus di satu rumah tangga, dll)</div>
+                                </div>
+                            </div>
+                            
+                            <div class="note">
+                                <div class="note-title">Catatan:</div>
+                                <p>Untuk responden dengan status pekerjaan 2 (Berusaha) atau 3 (Membantu dalam Usaha Keluarga), opsi 1, 2, atau 3 tidak boleh dipilih.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="accordion-item">
+                    <div class="accordion-header" onclick="toggleAccordion(this)">
+                        <span>Pertanyaan 11.2: Jumlah Pekerja</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="accordion-body">
+                        <div class="question-box">
+                            <div class="question-title">
+                                <i class="fas fa-question-circle"></i> Berapa total orang yang bekerja di tempat kerja (NAMA), termasuk pengusaha dan (NAMA)?
+                            </div>
+                            <p>Pertanyaan ini bertujuan untuk mengetahui jumlah orang yang bekerja di tempat kerja responden termasuk pengusaha dan responden itu sendiri.</p>
+                            <p>Jumlah yang dimaksud merujuk pada situasi terkini, apabila jumlahnya bervariasi dalam satuan waktu tertentu maka dapat digunakan pendekatan misalnya rata-rata dalam empat minggu terakhir atau 30 hari terakhir.</p>
+                            <p>Jumlah pekerja yang masuk dalam pertanyaan ini termasuk juga mereka yang sementara tidak bekerja pada seminggu yang lalu, pekerja magang berbayar, dan pekerja keluarga. Pekerja yang paruh waktu dan kontrak juga termasuk dalam pertanyaan ini.</p>
+                            
+                            <div class="options">
+                                <div class="option">
+                                    <div class="option-number">1</div>
+                                    <div>1-2</div>
+                                </div>
+                                <div class="option">
+                                    <div class="option-number">2</div>
+                                    <div>3-4</div>
+                                </div>
+                                <div class="option">
+                                    <div class="option-number">3</div>
+                                    <div>5-9</div>
+                                </div>
+                                <div class="option">
+                                    <div class="option-number">4</div>
+                                    <div>10-22</div>
+                                </div>
+                                <div class="option">
+                                    <div class="option-number">5</div>
+                                    <div>23-26</div>
+                                </div>
+                                <div class="option">
+                                    <div class="option-number">6</div>
+                                    <div>27-49</div>
+                                </div>
+                                <div class="option">
+                                    <div class="option-number">7</div>
+                                    <div>50+</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="accordion-item">
+                    <div class="accordion-header" onclick="toggleAccordion(this)">
+                        <span>Pertanyaan 11.3: Lokasi Tempat Bekerja</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="accordion-body">
+                        <div class="question-box">
+                            <div class="question-title">
+                                <i class="fas fa-question-circle"></i> Di tempat apa (NAMA) biasanya bekerja, misalnya di kantor, di jalan, di rumah sendiri, di dalam kendaraan, dan sebagainya?
+                            </div>
+                            <p>Pertanyaan ini digunakan untuk menangkap lokasi seseorang bekerja. Melalui pertanyaan ini dapat dihasilkan prevalensi pekerja berbasis rumahan (home-based worker).</p>
+                            
+                            <div class="options">
+                                <div class="option">
+                                    <div class="option-number">01</div>
+                                    <div>DI RUMAH SENDIRI</div>
+                                </div>
+                                <div class="option">
+                                    <div class="option-number">02</div>
+                                    <div>RUMAH KELUARGA/TEMAN/TETANGGA</div>
+                                </div>
+                                <div class="option">
+                                    <div class="option-number">03</div>
+                                    <div>DI RUMAH MAJIKAN/PEMBERI KERJA</div>
+                                </div>
+                                <div class="option">
+                                    <div class="option-number">04</div>
+                                    <div>DI LOKASI PERTANIAN, LAHAN PERTANIAN ATAU PERIKANAN (SAWAH/KEBUN/LADANG/HUTAN/LAUT/DANAU/RAWA/KOLAM/EMPANG)</div>
+                                </div>
+                                <div class="option">
+                                    <div class="option-number">05</div>
+                                    <div>DI SENTRA USAHA, KANTOR, PABRIK, MALL, PASAR DENGAN BANGUNAN, PERTOKOAN, TEMPAT ATAU LOKASI TETAP</div>
+                                </div>
+                                <div class="option">
+                                    <div class="option-number">06</div>
+                                    <div>PASAR TANPA BANGUNAN</div>
+                                </div>
+                                <div class="option">
+                                    <div class="option-number">07</div>
+                                    <div>DI JALAN ATAU RUANG PUBLIK LAINNYA TANPA STRUKTUR TETAP</div>
+                                </div>
+                                <div class="option">
+                                    <div class="option-number">08</div>
+                                    <div>DI KENDARAAN (TANPA ADA TEMPAT PANGKAL SEHARI-HARI)</div>
+                                </div>
+                                <div class="option">
+                                    <div class="option-number">09</div>
+                                    <div>RUMAH KE RUMAH (TUKANG KREDIT, BANK KELILING)</div>
+                                </div>
+                                <div class="option">
+                                    <div class="option-number">10</div>
+                                    <div>LAINNYA, TULISKAN…………….</div>
+                                </div>
+                                <div class="option">
+                                    <div class="option-number">97</div>
+                                    <div>TIDAK TAHU</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Modul 12: Pekerjaan Utama - Masa Kerja -->
+        <div id="module12" class="tab-content">
+            <h2>Modul 12: Pekerjaan Utama - Masa Kerja (MJT)</h2>
+            
+            <div class="module-info">
+                <p>Modul ini ditujukan untuk responden yang telah diidentifikasi sebagai bekerja berdasarkan pertanyaan sebelumnya. Modul ini menangkap informasi tentang masa kerja dari pekerjaan utama responden.</p>
+            </div>
+            
+            <div class="accordion">
+                <div class="accordion-item">
+                    <div class="accordion-header" onclick="toggleAccordion(this)">
+                        <span>Pertanyaan 12.1: Mulai Pekerjaan Utama</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="accordion-body">
+                        <div class="question-box">
+                            <div class="question-title">
+                                <i class="fas fa-question-circle"></i> Kapan (NAMA) mulai bekerja pada pekerjaan utama?
+                            </div>
+                            <p>Pertanyaan ini bertujuan untuk:</p>
+                            <ol>
+                                <li>Mengetahui kapan mulai berada di Pekerjaan Utama,</li>
+                                <li>Menghitung masa kerja (Job Tenure),</li>
+                                <li>Mengidentifikasi New Entrance (mulai bekerja di Setahun Terakhir dan Belum Pernah punya pengalaman kerja).</li>
+                            </ol>
+                            
+                            <div class="note">
+                                <div class="note-title">Catatan:</div>
+                                <ul>
+                                    <li>Di sektor pertanian tanaman pangan dan hortikultura dianggap tidak pindah/berhenti bekerja meski pernah mengganti komoditas yang ditanamnya,</li>
+                                    <li>Untuk PNS, mulai bekerja dicatat saat menjadi CPNS,</li>
+                                    <li>Isikan bulan dan tahun kapan responden mulai bekerja. Untuk bulan dan tahun harus terisi meskipun dengan perkiraan terbaik.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="accordion-item">
+                    <div class="accordion-header" onclick="toggleAccordion(this)">
+                        <span>Pertanyaan 12.2: Lama Mencari Pekerjaan</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="accordion-body">
+                        <div class="question-box">
+                            <div class="question-title">
+                                <i class="fas fa-question-circle"></i> Berapa lama waktu yang diperlukan (NAMA) untuk mencari pekerjaan/mempersiapkan usaha untuk mendapatkan pekerjaan utama yang sekarang sedang dijalani?
+                            </div>
+                            <p>Lamanya waktu yang diperlukan untuk mencari pekerjaan/mempersiapkan usaha → untuk mendapatkan pekerjaan utama yang sekarang sedang dijalani. Isiannya dinyatakan dalam bulan.</p>
+                            
+                            <div class="note">
+                                <div class="note-title">Catatan:</div>
+                                <ul>
+                                    <li>Lamanya mencari pekerjaan boleh lebih dari 12 bulan. Jika lebih dari 1 tahun isikan lamanya bekerja dalam bulan.</li>
+                                    <li>Jika responden mulai bekerja sebelum Februari 2025, maka pertanyaan ini tidak akan ditanyakan.</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="example">
+                                <div class="example-title">Contoh:</div>
+                                <p>Budiono bekerja sebagai apoteker di RS. WARAS sejak Maret 2025. Untuk mendapatkan pekerjaan tersebut, Budiono melakukan proses pencarian informasi lowongan pekerjaan dan serangkaian usaha untuk melamar kerja (seperti memasukkan biodata/CV, mengikuti tes, wawancara dll) sejak bulan Januari 2024.</p>
+                                <p>Sehingga lamanya waktu mencari pekerjaan untuk Budiono adalah 14 bulan → Januari 2024 s/d Maret 2025</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="accordion-item">
+                    <div class="accordion-header" onclick="toggleAccordion(this)">
+                        <span>Pertanyaan 12.3: Upah/Gaji Pertama</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="accordion-body">
+                        <div class="question-box">
+                            <div class="question-title">
+                                <i class="fas fa-question-circle"></i> Berapa rata-rata upah/gaji bulanan pertama kali yang diterima (NAMA) saat mulai bekerja pada pekerjaan utama saat ini?
+                            </div>
+                            <ol>
+                                <li>Upah/gaji bersih pertama adalah rata-rata upah/gaji bulanan yang pertama kali diterima saat mulai bekerja pada pekerjaan utama saat ini → baik berupa uang maupun barang yang dibayarkan oleh perusahaan/kantor/majikan.</li>
+                                <li>Pertanyaan ini digunakan untuk melihat perkembangan upah buruh responden yang bekerja pada pekerjaan ini sejak Februari 2016 → Variabel proksi penghitungan struktur dan skala upah (SUSU).</li>
+                            </ol>
+                            
+                            <div class="example">
+                                <div class="example-title">Contoh:</div>
+                                <p>Bellia bekerja sebagai Fungsional Statistisi Pertama di Badan Pusat Statistik. Bellia menerima SK CPNS pada Desember 2018, sedangkan SK PNS diterima pada Desember 2019.</p>
+                                <p>Dalam kasus ini, upah/gaji yang dicatat adalah rata-rata upah/gaji bulanan yang diterima pada saat masih CPNS.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Modul 13: Pekerjaan Utama - Perjanjian Kerja -->
+        <div id="module13" class="tab-content">
+            <h2>Modul 13: Pekerjaan Utama - Perjanjian Kerja (MJC)</h2>
+            
+            <div class="module-info">
+                <p>Modul ini ditujukan untuk responden yang telah diidentifikasi sebagai bekerja berdasarkan pertanyaan sebelumnya. Modul ini menangkap informasi tentang perjanjian kerja dari pekerjaan utama responden.</p>
+            </div>
+            
+            <div class="accordion">
+                <div class="accordion-item">
+                    <div class="accordion-header" onclick="toggleAccordion(this)">
+                        <span>Pertanyaan 13.1: Jenis Perjanjian Kerja</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="accordion-body">
+                        <div class="question-box">
+                            <div class="question-title">
+                                <i class="fas fa-question-circle"></i> Apakah (NAMA) memiliki perjanjian kerja tertulis atau lisan dengan pemberi kerja pada pekerjaan utama?
+                            </div>
+                            <p>Perjanjian/kerja adalah suatu perjanjian yang dibuat antara pekerja secara perorangan dengan pemberi kerja yang pada intinya memuat hak dan kewajiban masing-masing pihak.</p>
+                            <p>Tujuan dari pertanyaan ini adalah untuk menilai hubungan antara responden dan pemberi kerja.</p>
+                            
+                            <div class="options">
+                                <div class="option">
+                                    <div class="option-number">1</div>
+                                    <div>Kontrak/surat keputusan tertulis</div>
+                                </div>
+                                <div class="option">
+                                    <div class="option-number">2</div>
+                                    <div>Perjanjian lisan</div>
+                                </div>
+                                <div class="option">
+                                    <div class="option-number">3</div>
+                                    <div>Tidak ada perjanjian</div>
+                                </div>
+                                <div class="option">
+                                    <div class="option-number">97</div>
+                                    <div>Tidak tahu</div>
+                                </div>
+                            </div>
+                            
+                            <div class="note">
+                                <div class="note-title">Penjelasan:</div>
+                                <ul>
+                                    <li><strong>Kontrak/surat keputusan tertulis</strong> mencakup segala jenis perjanjian tertulis antara pekerja dan pemberi kerja yang menunjukkan tugas/peran dan kondisi kerja yang disepakati.</li>
+                                    <li><strong>Perjanjian lisan</strong> adalah perjanjian antara pekerja dengan pemberi kerja yang dilakukan secara lisan. Kesepakatan kerja mengenai jenis pekerjaan, waktu kerja, upah/gaji dan lain sebagainya hanya secara lisan.</li>
+                                    <li><strong>Tidak ada perjanjian</strong>, yaitu jika tidak ada pembicaraan atau kesepakatan sama sekali antara pekerja dan pemberi kerja mengenai jenis pekerjaan, waktu pekerjaan, upah/gaji, atau ketentuan lainnya.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="accordion-item">
+                    <div class="accordion-header" onclick="toggleAccordion(this)">
+                        <span>Pertanyaan 13.2: Periode Kontrak</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="accordion-body">
+                        <div class="question-box">
+                            <div class="question-title">
+                                <i class="fas fa-question-circle"></i> Apakah perjanjian/kontrak kerja (NAMA) untuk jangka waktu tertentu atau tidak tertentu?
+                            </div>
+                            <p>Tujuan pertanyaan ini adalah untuk mengidentifikasi kesepakatan bentuk dari periode waktu kerja yang berlaku antara pekerja dengan pemberi kerja, membedakan status kontrak (sementara, permanen, atau tidak menentu), serta mendukung analisis mengenai tingkat kepastian dan keamanan kerja responden.</p>
+                            
+                            <div class="options">
+                                <div class="option">
+                                    <div class="option-number">1</div>
+                                    <div>Perjanjian/kontrak kerja dengan jangka waktu tertentu</div>
+                                </div>
+                                <div class="option">
+                                    <div class="option-number">2</div>
+                                    <div>Perjanjian/kontrak kerja sampai tanggal pekerjaan selesai</div>
+                                </div>
+                                <div class="option">
+                                    <div class="option-number">3</div>
+                                    <div>Perjanjian/kontrak kerja tetap/permanen atau sampai pensiun</div>
+                                </div>
+                                <div class="option">
+                                    <div class="option-number">4</div>
+                                    <div>Perjanjian/kontrak kerja belum ditentukan, hingga pemberitahuan lebih lanjut</div>
+                                </div>
+                                <div class="option">
+                                    <div class="option-number">97</div>
+                                    <div>Tidak tahu</div>
+                                </div>
+                            </div>
+                            
+                            <div class="example">
+                                <div class="example-title">Contoh:</div>
+                                <p>Ibu Wina bekerja sebagai pegawai administrasi di kantor koperasi. Ia menandatangani kontrak kerja selama 1 tahun, mulai Januari 2025 sampai Desember 2025. Dalam kontraknya tertulis bahwa ia bekerja dari hari Senin sampai Jumat, dan mendapat gaji setiap bulan. Setelah kontraknya habis, kantor bisa memperpanjang atau tidak memperpanjang lagi. Maka Ibu Wina akan tercatat sebagai pegawai kontrak dengan jangka waktu tertentu (13.2 berkode 1).</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="accordion-item">
+                    <div class="accordion-header" onclick="toggleAccordion(this)">
+                        <span>Pertanyaan 13.3: Durasi Total Kontrak</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="accordion-body">
+                        <div class="question-box">
+                            <div class="question-title">
+                                <i class="fas fa-question-circle"></i> Berapa total durasi perjanjian/kontrak kerja (NAMA)?
+                            </div>
+                            <p>Tujuan dari pertanyaan ini adalah:</p>
+                            <ol>
+                                <li>Untuk mengetahui berapa lama jangka waktu kontrak tersebut akan berlangsung.</li>
+                                <li>Untuk menentukan total durasi perjanjian bagi responden dengan perjanjian lisan yang berjalan tanpa tanggal akhir yang disepakati</li>
+                                <li>Untuk menetapkan status dalam pekerjaan yang membedakan antara pekerja bebas dan pekerja jangka pendek, dan pekerja lain dengan durasi pekerjaan minimal 3 bulan (termasuk waktu yang telah dijalani dan yang masih akan dijalani)</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Modul 14: Pekerjaan Utama - Pekerja Informal -->
+        <div id="module14" class="tab-content">
+            <h2>Modul 14: Pekerjaan Utama - Pekerja Informal (MIE)</h2>
+            
+            <div class="module-info">
+                <p>Modul ini ditujukan untuk responden yang telah diidentifikasi sebagai bekerja berdasarkan pertanyaan sebelumnya. Modul ini menangkap informasi tentang jaminan sosial yang diterima oleh pekerja, baik yang disediakan oleh instansi/tempat bekerja, dibayar secara mandiri oleh responden, dan yang dibayarkan oleh pemerintah.</p>
+                <p>Modul ini digunakan sebagai salah satu tahapan dalam mengidentifikasi dan mengukur status pekerjaan informal di antara buruh/karyawan/pegawai dan dependent contractor. Fokusnya adalah memahami apakah buruh/karyawan/pegawai menerima manfaat yang biasanya melekat pada pekerjaan formal (misalnya, gaji tetap, jaminan sosial, atau tunjangan) atau dependent contractor yang mempunyai jaminan sosial secara mandiri.</p>
+            </div>
+            
+            <div class="accordion">
+                <div class="accordion-item">
+                    <div class="accordion-header" onclick="toggleAccordion(this)">
+                        <span>Pertanyaan 14.1: Jaminan Sosial dari Pemberi Kerja</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="accordion-body">
+                        <div class="question-box">
+                            <div class="question-title">
+                                <i class="fas fa-question-circle"></i> Apakah institusi/perusahaan/pemberi kerja tempat (NAMA) bekerja menyediakan jaminan sosial atau hak ketenagakerjaan berikut?
+                            </div>
+                            <p>Tujuan dari pertanyaan nomor 14.1.a–14.1.i adalah untuk:</p>
+                            <ol>
+                                <li>Memperoleh informasi terkait kepemilikan jaminan sosial dan hak ketenagakerjaan yang diberikan pemberi kerja terhadap responden bekerja.</li>
+                                <li>Mengidentifikasi responden bekerja yang tidak memperoleh jaminan sosial maupun hak ketenagakerjaan sesuai standar ketenagakerjaan formal, sebagai bagian dari upaya menentukan pekerja dalam kategori informal.</li>
+                                <li>Menyediakan informasi untuk analisis lebih lanjut mengenai tingkat informalitas pekerjaan, khususnya terkait perlindungan yang diberikan oleh pemberi kerja.</li>
+                            </ol>
+                            
+                            <div class="options">
+                                <div class="option">
+                                    <div class="option-number">a</div>
+                                    <div>Jaminan Kesehatan</div>
+                                </div>
+                                <div class="option">
+                                    <div class="option-number">b</div>
+                                    <div>Jaminan kecelakaan kerja</div>
+                                </div>
+                                <div class="option">
+                                    <div class="option-number">c</div>
+                                    <div>Jaminan kematian</div>
+                                </div>
+                                <div class="option">
+                                    <div class="option-number">d</div>
+                                    <div>Jaminan hari tua</div>
+                                </div>
+                                <div class="option">
+                                    <div class="option-number">e</div>
+                                    <div>Jaminan pensiun</div>
+                                </div>
+                                <div class="option">
+                                    <div class="option-number">f</div>
+                                    <div>Jaminan kehilangan pekerjaan</div>
+                                </div>
+                                <div class="option">
+                                    <div class="option-number">g</div>
+                                    <div>Cuti tahunan tanpa memotong upah/gaji pokok</div>
+                                </div>
+                                <div class="option">
+                                    <div class="option-number">h</div>
+                                    <div>Cuti bersalin/mendampingi istri melahirkan tanpa memotong upah/gaji pokok</div>
+                                </div>
+                                <div class="option">
+                                    <div class="option-number">i</div>
+                                    <div>Cuti sakit tanpa memotong upah/gaji pokok</div>
+                                </div>
+                            </div>
+                            
+                            <div class="note">
+                                <div class="note-title">Catatan:</div>
+                                <p>Perlu diperhatikan untuk responden yang berstatus sebagai ASN/TNI/Polri, isian jawaban pada pertanyaan nomor 14.1.a – 14.1.i berkode 1 (YA), kecuali pertanyaan nomor 14.1.f. Jaminan Kehilangan Pekerjaan.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="accordion-item">
+                    <div class="accordion-header" onclick="toggleAccordion(this)">
+                        <span>Pertanyaan 14.2: Jaminan Sosial Mandiri</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="accordion-body">
+                        <div class="question-box">
+                            <div class="question-title">
+                                <i class="fas fa-question-circle"></i> Apakah (NAMA) membayar sendiri iuran jaminan sosial sehubungan dengan pekerjaan/usaha utamanya?
+                            </div>
+                            <p>Tujuan pertanyaan nomor 14.2.a–14.2.f adalah:</p>
+                            <ol>
+                                <li>Mengetahui apakah terdapat kontribusi sukarela dari responden dengan membayar sendiri iuran jaminan sosial sehubungan dengan pekerjaan/usaha utama yang dimilikinya.</li>
+                                <li>Menentukan status formal atau informal dari dependent contractor dan menyediakan informasi untuk analisa informalitas pekerjaan.</li>
+                            </ol>
+                            
+                            <div class="note">
+                                <div class="note-title">Catatan:</div>
+                                <p>Pembayaran iuran jaminan sosial ini hanya yang berkaitan langsung dengan pekerjaan dan tidak termasuk iuran untuk kepentingan lain.</p>
+                                <p>Contoh: Pak Adi merupakan seorang karyawan swasta yang membayar sendiri iuran BPJS Ketenagakerjaan agar memperoleh jaminan kecelakaan kerja dan jaminan hari tua. Sehingga Pak Adi termasuk membayar sendiri untuk jaminan sosial pada pertanyaan nomor 14.2.b (Jaminan kecelakaan kerja) dan 14.2.d (Jaminan hari tua).</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Modul 15: Pekerjaan Utama - Pekerja Independen -->
+        <div id="module15" class="tab-content">
+            <h2>Modul 15: Pekerjaan Utama - Pekerja Independen (MJI)</h2>
+            
+            <div class="module-info">
+                <p>Modul ini ditujukan untuk responden umur 15 tahun ke atas yang menyatakan dirinya sebagai pekerja mandiri (independent worker).</p>
+                <p>Modul ini berfungsi untuk mengidentifikasi dependent contractors pada pekerjaan utama, yaitu orang yang bekerja secara mandiri namun bergantung secara ekonomi dan/atau operasional kepada satu pihak tertentu untuk pekerjaan atau pendapatan utamanya.</p>
+                <p>Merupakan bagian dari rangkaian pertanyaan yang diperlukan untuk menangkap informasi rinci tentang status pekerjaan sesuai ICSE-18.</p>
+            </div>
+            
+            <div class="accordion">
+                <div class="accordion-item">
+                    <div class="accordion-header" onclick="toggleAccordion(this)">
+                        <span>Pertanyaan 15.1: Sumber Pendapatan</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="accordion-body">
+                        <div class="question-box">
+                            <div class="question-title">
+                                <i class="fas fa-question-circle"></i> Apakah sebagian besar pendapatan dari usaha/kegiatan (NAMA) berasal dari satu pelanggan?
+                            </div>
+                            <p><strong>Tujuan:</strong></p>
+                            <ul>
+                                <li>Untuk mengetahui apakah responden bergantung pada satu pelanggan atau banyak pelanggan dalam menghasilkan pendapatan</li>
+                                <li>Untuk mengidentifikasi hubungan ketergantungan sebagai salah satu faktor untuk menentukan dependent contractors</li>
+                                <li>Digunakan untuk mengarahkan responden ke pertanyaan lebih lanjut dalam mengidentifikasi dependent contractors</li>
+                            </ul>
+                            
+                            <div class="options">
+                                <div class="option">
+                                    <div class="option-number">1</div>
+                                    <div>Ya, sebagian besar pendapatan berasal dari satu pelanggan</div>
+                                </div>
+                                <div class="option">
+                                    <div class="option-number">2</div>
+                                    <div>Tidak, sebagian besar pendapatan berasal dari lebih dari satu pelanggan</div>
+                                </div>
+                                <div class="option">
+                                    <div class="option-number">3</div>
+                                    <div>Belum mempunyai pelanggan</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="accordion-item">
+                    <div class="accordion-header" onclick="toggleAccordion(this)">
+                        <span>Pertanyaan 15.2: Cara Mendapatkan Pelanggan</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="accordion-body">
+                        <div class="question-box">
+                            <div class="question-title">
+                                <i class="fas fa-question-circle"></i> Bagaimana cara (NAMA) biasanya menerima pelanggan?
+                            </div>
+                            <p><strong>Tujuan:</strong></p>
+                            <ul>
+                                <li>Untuk mengetahui cara responden yang memiliki usaha dalam mendapatkan pelanggan.</li>
+                                <li>Untuk mengetahui apakah responden bergantung pada perusahaan lain yang menjadi perantara kepada pelanggan.</li>
+                                <li>Untuk mengidentifikasi ketergantungan hubungan sebagai salah satu faktor untuk menentukan dependent contractors.</li>
+                                <li>Digunakan untuk mengarahkan responden ke pertanyaan lebih lanjut dalam mengidentifikasi dependent contractors.</li>
+                            </ul>
+                            
+                            <div class="options">
+                                <div class="option">
+                                    <div class="option-number">1</div>
+                                    <div>Semua pelanggan diperoleh melalui perantara</div>
+                                </div>
+                                <div class="option">
+                                    <div class="option-number">2</div>
+                                    <div>Sebagian besar pelanggan diperoleh melalui perantara</div>
+                                </div>
+                                <div class="option">
+                                    <div class="option-number">3</div>
+                                    <div>Sebagian kecil pelanggannya diperoleh melalui perantara</div>
+                                </div>
+                                <div class="option">
+                                    <div class="option-number">4</div>
+                                    <div>Tidak ada pelanggan yang diperoleh melalui perantara</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Modul 16: Pekerjaan Utama - Status Tempat Kerja -->
+        <div id="module16" class="tab-content">
+            <h2>Modul 16: Pekerjaan Utama - Status Tempat Kerja (MJL)</h2>
+            
+            <div class="module-info">
+                <p>Modul ini mencakup pertanyaan untuk mengetahui legalitas dari unit ekonomi tempat pekerjaan utama responden umur 15 tahun ke atas yang pekerjaan utamanya di sektor swasta.</p>
+                <p>Modul ini dirancang untuk menerapkan definisi yang terkandung dalam Resolusi ILO ICLS ke-21 melalui penggabungan dengan modul lain yang berkaitan dengan pekerjaan di sektor informal dan pekerja independen.</p>
+            </div>
+            
+            <div class="accordion">
+                <div class="accordion-item">
+                    <div class="accordion-header" onclick="toggleAccordion(this)">
+                        <span>Pertanyaan 16.1: Pendaftaran Usaha</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="accordion-body">
+                        <div class="question-box">
+                            <div class="question-title">
+                                <i class="fas fa-question-circle"></i> Apakah usaha/perusahaan tempat (NAMA) bekerja terdaftar dalam sistem perizinan berusaha?
+                            </div>
+                            <p><strong>Tujuan dari pertanyaan nomor 16.1 adalah untuk:</strong></p>
+                            <ol>
+                                <li>Mengidentifikasi penduduk yang bekerja di sektor informal.</li>
+                                <li>Memperoleh informasi terkait pendaftaran usaha/perusahaan tempat responden bekerja pada sistem perizinan.</li>
+                                <li>Memperoleh informasi apakah responden adalah Wirausaha Pemula atau Wirausaha Mapan.</li>
+                            </ol>
+                            
+                            <div class="note">
+                                <div class="note-title">Penjelasan:</div>
+                                <p>Menurut Perpres No. 2 tahun 2022 tentang Pengembangan Kewirausahaan Nasional tahun 2021-2024:</p>
+                                <ul>
+                                    <li><strong>Wirausaha Pemula</strong> adalah Wirausaha yang merintis usahanya menuju Wirausaha Mapan dan usahanya telah terdaftar pada sistem perizinan berusaha terintegrasi secara elektronik.</li>
+                                    <li><strong>Wirausaha Mapan</strong> adalah Wirausaha yang usahanya telah berlangsung dalam jangka waktu lebih dari 42 (empat puluh dua) bulan sejak usahanya terdaftar pada sistem perizinan berusaha terintegrasi secara elektronik dan usahanya berkembang. Usaha yang berkembang ditandai dengan bertambahnya karyawan, investasi, omset, atau jumlah lokasi usaha.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="accordion-item">
+                    <div class="accordion-header" onclick="toggleAccordion(this)">
+                        <span>Pertanyaan 16.2: Status Badan Hukum</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="accordion-body">
+                        <div class="question-box">
+                            <div class="question-title">
+                                <i class="fas fa-question-circle"></i> Apakah bentuk badan usaha dari tempat (NAMA) bekerja?
+                            </div>
+                            <p>Pertanyaan ini ditanyakan jika status usaha/perusahaan tempat responden bekerja terdaftar di sistem perizinan.</p>
+                            
+                            <div class="note">
+                                <div class="note-title">Penjelasan:</div>
+                                <p><strong>Usaha Berbadan Hukum</strong> adalah jenis organisasi bisnis yang diakui sebagai entitas hukum terpisah dari pemiliknya, dengan kemampuan untuk memiliki aset, menuntut atau digugat, dan bertanggung jawab atas utang secara mandiri.</p>
+                                <p>Contoh usaha berbadan hukum di antaranya: Perseroan Terbatas (PT), Commanditaire Vennootschap (CV), firma, koperasi, yayasan, dan perusahaan terbuka/publik.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Modul 17: Pekerjaan Tambahan - Karakteristik -->
+        <div id="module17" class="tab-content">
+            <h2>Modul 17: Pekerjaan Tambahan Utama - Karakteristik (SJJ)</h2>
+            
+            <div class="module-info">
+                <p>Modul ini ditanyakan kepada responden yang bekerja.</p>
+                <p>Modul ini bertujuan untuk mendapatkan informasi mengenai pekerjaan tambahan utama atau pekerjaan kedua yang dilakukan seseorang di luar pekerjaan utamanya.</p>
+                <p>Pekerjaan tambahan utama atau pekerjaan kedua adalah pekerjaan lain di samping pekerjaan/usaha utama yang biasanya dilakukan untuk memperoleh atau membantu memperoleh pendapatan tambahan dan dilakukan minimal 1 jam dalam seminggu.</p>
+            </div>
+            
+            <div class="accordion">
+                <div class="accordion-item">
+                    <div class="accordion-header" onclick="toggleAccordion(this)">
+                        <span>Pertanyaan 17.1: Konfirmasi Pekerjaan Tambahan</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="accordion-body">
+                        <div class="question-box">
+                            <div class="question-title">
+                                <i class="fas fa-question-circle"></i> Sekarang saya ingin memastikan kembali, apakah (NAMA) memilki pekerjaan atau kegiatan usaha tambahan lain yang dilakukan untuk menghasilkan uang?
+                            </div>
+                            <p><strong>Penjelasan:</strong></p>
+                            <ul>
+                                <li>Pertanyaan ini untuk memastikan kembali jawaban responden mengenai apakah biasanya memiliki lebih dari satu pekerjaan/usaha pada pertanyaan sebelumnya di nomor 10.1 → Hal ini untuk mengantisipasi apabila responden keliru dalam memberikan jawaban pada pertanyaan sebelumnya.</li>
+                                <li>Misal sebelumnya responden mengaku hanya memilki satu pekerjaan/usaha, namun sepanjang wawancara kemudian didapatkan informasi bahwa responden sebenarnya memiliki lebih dari satu pekerjaan/usaha atau sebaliknya → Apabila isian berbeda dengan pertanyaan Nomor 10.1, maka jawaban pada pertanyaan sebelumnya tidak perlu diperbaiki.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="accordion-item">
+                    <div class="accordion-header" onclick="toggleAccordion(this)">
+                        <span>Pertanyaan 17.2: Jenis Pekerjaan Tambahan</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="accordion-body">
+                        <div class="question-box">
+                            <div class="question-title">
+                                <i class="fas fa-question-circle"></i> Apa yang dikerjakan (NAMA) di tempat kerja pada pekerjaan/usaha tambahan utama?
+                            </div>
+                            <p><strong>Penjelasan:</strong></p>
+                            <ul>
+                                <li>Pertanyaan ini ditanyakan jika responden sudah dipastikan kembali bahwa memiliki pekerjaan atau kegiatan usaha tambahan selain dari pekerjaan utama.</li>
+                                <li>Tujuan pertanyaan ini → mengidentifikasi lapangan dan jenis pekerjaan tambahan utama responden.</li>
+                                <li>Identifikasi lapangan dan jenis pekerjaan pada pekerjaan tambahan utama = identifikasi lapangan dan jenis pekerjaan pada pekerjaan utama di pertanyaan nomor 10.2.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="accordion-item">
+                    <div class="accordion-header" onclick="toggleAccordion(this)">
+                        <span>Pertanyaan 17.3: Komoditas Utama Tambahan</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="accordion-body">
+                        <div class="question-box">
+                            <div class="question-title">
+                                <i class="fas fa-question-circle"></i> Apa komoditas utama yang diproduksi/dihasilkan/dijual/dilayani dari kegiatan usaha/perusahaan/kantor tempat bekerja pada pekerjaan/usaha tambahan utama (NAMA)?
+                            </div>
+                            <p><strong>Penjelasan:</strong></p>
+                            <ul>
+                                <li>Pertanyaan ini untuk menanyakan output yang dihasilkan dari pekerjaan/kegiatan usaha tambahan utama.</li>
+                                <li>Informasi ini akan berguna bagi PML → mengidentifikasi lapangan pekerjaan tambahan utama responden sehingga harus diisi sejelas mungkin.</li>
+                                <li>Tata cara pengisian pertanyaan ini = tata cara pengisian pada pertanyaan nomor 10.3.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Modul 18: Pekerjaan Tambahan - Dependent Contractor -->
+        <div id="module18" class="tab-content">
+            <h2>Modul 18: Pekerjaan Tambahan Utama - Dependent Contractor (SJD)</h2>
+            
+            <div class="module-info">
+                <p>Modul ini hanya ditujukan untuk anggota rumah tangga berusia 15 tahun ke atas yang bekerja dan memiliki pekerjaan/usaha tambahan.</p>
+                <p>Tujuan dari modul ini adalah untuk mengidentifikasi dependent contractors pada pekerjaan utama tambahan, yaitu orang yang bekerja secara mandiri namun bergantung secara ekonomi dan/atau operasional kepada satu pihak tertentu untuk pekerjaan atau pendapatan utamanya.</p>
+                <p>Berdasarkan klasifikasi status dalam pekerjaan menurut ILO (ICSE-18):</p>
+                <ul>
+                    <li>Dependent contractor menempati posisi antara pekerja yang bekerja untuk orang lain (dependent worker) dan pekerja mandiri (independent worker).</li>
+                    <li>Mereka menjalankan kegiatan ekonomi mereka dengan cara yang tampak seperti wiraswasta, namun dalam praktiknya memiliki hubungan kerja yang tidak sepenuhnya independen.</li>
+                </ul>
+            </div>
+            
+            <div class="accordion">
+                <div class="accordion-item">
+                    <div class="accordion-header" onclick="toggleAccordion(this)">
+                        <span>Pertanyaan 18.1: Bentuk Pembayaran</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="accordion-body">
+                        <div class="question-box">
+                            <div class="question-title">
+                                <i class="fas fa-question-circle"></i> Apa saja bentuk pembayaran/pengupahan yang biasanya (NAMA) terima dari pekerjaan/usaha tambahan utamanya?
+                            </div>
+                            <p><strong>Tujuan:</strong></p>
+                            <ul>
+                                <li>Menganalisis bentuk pengupahan yang diterma responden dari pekerjaan atau usaha tambahan utamanya,</li>
+                                <li>Membedakan antara pekerja digaji, pekerja mandiri, dan dependent contractors,</li>
+                                <li>Verifikasi status pekerjaan sebagai karyawan tetapi tidak menerima upah/gaji.</li>
+                            </ul>
+                            
+                            <div class="note">
+                                <div class="note-title">Catatan:</div>
+                                <ul>
+                                    <li>Pertanyaan ini hanya ditanyakan kepada responden berusia 15 tahun ke atas dan sebelumnya tercatat memiliki pekerjaan atau kegiatan usaha lain dengan status pekerjaannya sebagai buruh/karyawan/pegawai, membantu dalam usaha keluarga atau rumah tangga, sebagai magang/praktik kerja dibayar, atau membantu anggota keluarga yang bekerja untuk orang lain.</li>
+                                    <li>Jenis pembayaran yang dimaksud adalah yang diterima langsung oleh responden, bukan oleh pihak ketiga/rumah tangga secara umum.</li>
+                                    <li>Bentuk pembayaran dapat diisi "YA" pada lebih dari satu jenis pembayaran</li>
+                                    <li>Konsep definisi sama dengan pertanyaan Nomor 10.14 (MJJ_REM_T).</li>
+                                    <li>Jika pertanyaan Nomor 18.1.a sampai dengan Nomor 18.1.i semua berkode 2 (Tidak), maka 18.1.j berkode 1 (Ya)</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="accordion-item">
+                    <div class="accordion-header" onclick="toggleAccordion(this)">
+                        <span>Pertanyaan 18.2: Sumber Pendapatan</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="accordion-body">
+                        <div class="question-box">
+                            <div class="question-title">
+                                <i class="fas fa-question-circle"></i> Apakah sebagian besar pendapatan dari usaha/kegiatan (NAMA) berasal dari satu pelanggan?
+                            </div>
+                            <p><strong>Tujuan:</strong></p>
+                            <ul>
+                                <li>Mengetahui ketergantungan pada satu/banyak pelanggan dalam menghasilkan pendapatan,</li>
+                                <li>Mengidentifikasi hubungan ketergantungan untuk menentukan dependent contractors,</li>
+                                <li>Mengarahkan responden ke pertanyaan identifikasi lanjutan dependent contractors.</li>
+                            </ul>
+                            
+                            <div class="note">
+                                <div class="note-title">Catatan:</div>
+                                <p>Penjelasan konsep dan definisi mengenai pertanyaan ini sama dengan penjelasan pada pertanyaan Nomor 15.1 (MJD_SINGLE).</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="accordion-item">
+                    <div class="accordion-header" onclick="toggleAccordion(this)">
+                        <span>Pertanyaan 18.3: Cara Mendapatkan Pelanggan</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="accordion-body">
+                        <div class="question-box">
+                            <div class="question-title">
+                                <i class="fas fa-question-circle"></i> Bagaimana cara (NAMA) biasanya menerima pelanggan?
+                            </div>
+                            <p><strong>Tujuan:</strong></p>
+                            <ul>
+                                <li>Mengetahui cara pemilik usaha mendapatkan pelanggan,</li>
+                                <li>Mengetahui pekerja bergantung pada perantara sebelum mendapat akses ke pelanggan,</li>
+                                <li>Mengidentifikasi hubungan ketergantungan untuk menentukan dependent contractors,</li>
+                                <li>Mengarahkan responden ke pertanyaan identifikasi lanjutan dependent contractors.</li>
+                            </ul>
+                            
+                            <div class="note">
+                                <div class="note-title">Catatan:</div>
+                                <p>Ditujukan untuk yang sebagian besar pendapatannya tak berasal dari satu pelanggan,</p>
+                                <p>Jawaban harus didasarkan pada pengalaman bagaimana responden biasanya menerima pelanggan.</p>
+                                <p>Penjelasan konsep dan definisi mengenai pertanyaan ini sama dengan penjelasan pada pertanyaan Nomor 15.2 (MJD_SOURCE).</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="accordion-item">
+                    <div class="accordion-header" onclick="toggleAccordion(this)">
+                        <span>Pertanyaan 18.4: Tingkat Kendali</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="accordion-body">
+                        <div class="question-box">
+                            <div class="question-title">
+                                <i class="fas fa-question-circle"></i> Apakah perusahaan/perantara/orang tempat (NAMA) bergantung mengendalikan pekerjaan (NAMA) dalam cara berikut?
+                            </div>
+                            <p><strong>Tujuan:</strong></p>
+                            <ul>
+                                <li>Menilai sejauh mana kendali dari perusahaan/perantara/orang jika ada hubungan ketergantungan.</li>
+                                <li>Merupakan bagian dari pertanyaan yang mengidentifikasi dependent contractors.</li>
+                                <li>Digunakan untuk menentukan status dependent contractors (termasuk dependent contractors jika pertanyaan 18.4.a – 18.4.f salah satunya ada yang terisi YA).</li>
+                            </ul>
+                            
+                            <div class="options">
+                                <div class="option">
+                                    <div class="option-number">a</div>
+                                    <div>Menetapkan harga produk atau jasa yang ditawarkan</div>
+                                </div>
+                                <div class="option">
+                                    <div class="option-number">b</div>
+                                    <div>Menentukan di mana, kapan, atau bagaimana harus melakukan pekerjaan</div>
+                                </div>
+                                <div class="option">
+                                    <div class="option-number">c</div>
+                                    <div>SELAIN KODE DI ATAS</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p>Modul Survei Ketenagakerjaan &copy; 2023 | Semua Hak Dilindungi</p>
+        </div>
+    </div>
+    
+    <script>
+        function openTab(evt, tabName) {
+            var i, tabcontent, tablinks;
+            
+            tabcontent = document.getElementsByClassName("tab-content");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].className = tabcontent[i].className.replace(" active", "");
+            }
+            
+            tablinks = document.getElementsByClassName("tab");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].className = tablinks[i].className.replace(" active", "");
+            }
+            
+            document.getElementById(tabName).className += " active";
+            evt.currentTarget.className += " active";
+        }
+        
+        function toggleAccordion(element) {
+            element.classList.toggle("active");
+            var body = element.nextElementSibling;
+            body.classList.toggle("active");
+            
+            // Change icon
+            var icon = element.querySelector("i");
+            if (icon.classList.contains("fa-chevron-down")) {
+                icon.classList.remove("fa-chevron-down");
+                icon.classList.add("fa-chevron-up");
+            } else {
+                icon.classList.remove("fa-chevron-up");
+                icon.classList.add("fa-chevron-down");
+            }
+        }
+    </script>
+</body>
+</html>

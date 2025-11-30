@@ -1,0 +1,895 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panduan Modul Ketenagakerjaan - Sakernas 2026</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #0d47a1;
+            --secondary-color: #1976d2;
+            --accent-color: #ffc107;
+            --light-color: #f5f5f5;
+            --dark-color: #212121;
+            --text-color: #424242;
+            --border-color: #e0e0e0;
+            --success-color: #388e3c;
+            --warning-color: #f57c00;
+            --error-color: #d32f2f;
+            --shadow: 0 4px 8px rgba(0,0,0,0.1);
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: var(--light-color);
+            color: var(--text-color);
+            line-height: 1.7;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 2rem 1rem;
+            text-align: center;
+            border-radius: 8px;
+            box-shadow: var(--shadow);
+            margin-bottom: 2rem;
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        header p {
+            font-size: 1.1rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .tab-container {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: var(--shadow);
+            overflow: hidden;
+        }
+
+        .tab-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            background-color: #f8f9fa;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .tab-button {
+            flex: 1;
+            min-width: 150px;
+            padding: 15px 10px;
+            background-color: transparent;
+            border: none;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--text-color);
+            transition: var(--transition);
+            position: relative;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .tab-button i {
+            font-size: 1.2rem;
+        }
+
+        .tab-button:hover {
+            background-color: rgba(25, 118, 210, 0.05);
+        }
+
+        .tab-button.active {
+            color: var(--primary-color);
+            background-color: white;
+            font-weight: 700;
+        }
+
+        .tab-button.active::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background-color: var(--primary-color);
+        }
+
+        .tab-content {
+            padding: 30px;
+            display: none;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .module-header {
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid var(--border-color);
+        }
+
+        .module-header h2 {
+            color: var(--primary-color);
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+        }
+
+        .section {
+            margin-bottom: 30px;
+        }
+
+        .section-title {
+            font-size: 1.4rem;
+            color: var(--dark-color);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-title i {
+            color: var(--secondary-color);
+        }
+
+        .card {
+            background-color: white;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            padding: 20px;
+            margin-bottom: 20px;
+            transition: var(--transition);
+        }
+
+        .card:hover {
+            box-shadow: var(--shadow);
+            transform: translateY(-2px);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .card-title {
+            font-size: 1.2rem;
+            font-weight: 500;
+            color: var(--dark-color);
+        }
+
+        .card-badge {
+            background-color: var(--secondary-color);
+            color: white;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        .collapsible {
+            background-color: #f8f9fa;
+            border: none;
+            padding: 15px;
+            width: 100%;
+            text-align: left;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            border-radius: 6px;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: var(--transition);
+            border: 1px solid var(--border-color);
+        }
+
+        .collapsible:hover {
+            background-color: #e9ecef;
+        }
+
+        .collapsible.active {
+            background-color: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+        }
+
+        .collapsible i {
+            transition: var(--transition);
+        }
+
+        .collapsible.active i {
+            transform: rotate(180deg);
+        }
+
+        .collapsible-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+        }
+
+        .collapsible-content.show {
+            max-height: 2000px; /* A large value to allow content to expand */
+            transition: max-height 0.5s ease-in;
+        }
+
+        .collapsible-inner {
+            padding: 20px;
+            background-color: white;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+        }
+
+        .definition-box, .example-box, .note-box {
+            padding: 15px 20px;
+            margin: 15px 0;
+            border-radius: 6px;
+            border-left: 5px solid;
+        }
+
+        .definition-box {
+            background-color: #e3f2fd;
+            border-color: var(--secondary-color);
+        }
+
+        .example-box {
+            background-color: #e8f5e9;
+            border-color: var(--success-color);
+        }
+
+        .note-box {
+            background-color: #fff8e1;
+            border-color: var(--warning-color);
+        }
+
+        .definition-box h4, .example-box h4, .note-box h4 {
+            margin-top: 0;
+            margin-bottom: 10px;
+            color: var(--dark-color);
+        }
+        
+        ul, ol {
+            padding-left: 25px;
+        }
+
+        li {
+            margin-bottom: 10px;
+        }
+
+        .question-item {
+            margin-bottom: 20px;
+            padding: 15px;
+            background-color: #f8f9fa;
+            border-radius: 6px;
+            border-left: 4px solid var(--accent-color);
+        }
+
+        .question-number {
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-right: 10px;
+        }
+
+        .question-text {
+            font-weight: 500;
+        }
+
+        .answer-options strong {
+            color: var(--primary-color);
+        }
+
+        .table-container {
+            overflow-x: auto;
+            margin: 15px 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+            font-size: 0.95rem;
+        }
+
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        th {
+            background-color: #f8f9fa;
+            font-weight: 500;
+            color: var(--dark-color);
+        }
+
+        tr:hover {
+            background-color: #f8f9fa;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            margin-top: 40px;
+            color: var(--text-color);
+            font-size: 0.9rem;
+            border-top: 1px solid var(--border-color);
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+
+            header h1 {
+                font-size: 2rem;
+            }
+
+            .tab-button {
+                font-size: 0.8rem;
+                padding: 10px 5px;
+            }
+
+            .tab-content {
+                padding: 20px;
+            }
+
+            .module-header h2 {
+                font-size: 1.5rem;
+            }
+
+            .section-title {
+                font-size: 1.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Panduan Modul Survei Angkatan Kerja Nasional</h1>
+            <p>Dokumen rinci untuk petugas pencacah Sakernas Februari 2026, mencakup definisi, tujuan, dan contoh pertanyaan untuk setiap modul.</p>
+        </header>
+
+        <main class="tab-container">
+            <div class="tab-buttons">
+                <button class="tab-button active" onclick="openTab(event, 'modul7')">
+                    <i class="fas fa-briefcase"></i>
+                    <span>Modul 7: Bekerja</span>
+                </button>
+                <button class="tab-button" onclick="openTab(event, 'modul8')">
+                    <i class="fas fa-pause-circle"></i>
+                    <span>Modul 8: Sementara Tidak Bekerja</span>
+                </button>
+                <button class="tab-button" onclick="openTab(event, 'modul9')">
+                    <i class="fas fa-seedling"></i>
+                    <span>Modul 9: Pekerjaan Pertanian</span>
+                </button>
+                <button class="tab-button" onclick="openTab(event, 'modul19')">
+                    <i class="fas fa-clock"></i>
+                    <span>Modul 19: Jam Kerja</span>
+                </button>
+                <button class="tab-button" onclick="openTab(event, 'modul20')">
+                    <i class="fas fa-search"></i>
+                    <span>Modul 20: Mencari Pekerjaan</span>
+                </button>
+                <button class="tab-button" onclick="openTab(event, 'modul21')">
+                    <i class="fas fa-history"></i>
+                    <span>Modul 21: Pengalaman Kerja</span>
+                </button>
+                <button class="tab-button" onclick="openTab(event, 'modul22')">
+                    <i class="fas fa-tasks"></i>
+                    <span>Modul 22: Kegiatan Lain</span>
+                </button>
+                <button class="tab-button" onclick="openTab(event, 'modul23')">
+                    <i class="fas fa-globe"></i>
+                    <span>Modul 23: Kerja Luar Negeri</span>
+                </button>
+            </div>
+
+            <!-- Konten untuk setiap tab akan dimasukkan di sini -->
+            <!-- Modul 7 -->
+            <div id="modul7" class="tab-content active">
+                <div class="module-header">
+                    <h2>MODUL 7 - BEKERJA (ATW)</h2>
+                    <p>Modul ini berisi pertanyaan untuk menetapkan status angkatan kerja responden dan memperoleh informasi kegiatan bekerja/berusaha dalam kurun waktu seminggu terakhir.</p>
+                </div>
+                <div class="section">
+                    <h3 class="section-title"><i class="fas fa-info-circle"></i> Konsep Definisi</h3>
+                    <div class="definition-box">
+                        <h4>Seminggu Terakhir</h4>
+                        <p>Adalah jangka waktu 7 hari berturut-turut yang berakhir sehari sebelum tanggal pencacahan. Misalnya, pendataan Sakernas Februari 2026 dilakukan tanggal 15 Februari 2026 maka yang dimaksud seminggu terakhir adalah dari tanggal 8 Februari 2026 sampai dengan 14 Februari 2026.</p>
+                    </div>
+                    <div class="definition-box">
+                        <h4>Bekerja (Employed, At Work)</h4>
+                        <p>Adalah kegiatan melakukan pekerjaan dengan maksud memperoleh atau membantu memperoleh bayaran/upah/gaji atau keuntungan/pendapatan paling sedikit selama satu jam dalam seminggu terakhir. Bekerja selama satu jam tersebut boleh dilakukan baik secara berturut-turut/tidak terputus maupun kumulatif satu jam dalam seminggu.</p>
+                    </div>
+                </div>
+                <div class="section">
+                    <h3 class="section-title"><i class="fas fa-question-circle"></i> Rincian Pertanyaan</h3>
+                    <div class="card">
+                        <div class="card-header">
+                            <h4 class="card-title">7.1 ATW_PAY - Bekerja untuk mendapatkan bayaran</h4>
+                            <span class="card-badge">Pertanyaan</span>
+                        </div>
+                        <button class="collapsible" onclick="toggleCollapsible(this)">
+                            <span>Tujuan & Penjelasan</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </button>
+                        <div class="collapsible-content">
+                            <div class="collapsible-inner">
+                                <p>Mengidentifikasi orang yang bekerja untuk orang lain dengan imbalan remunerasi seperti gaji, upah, tip, komisi, dll. Ini mencakup karyawan, pekerja lepas, pekerja informal, dan magang yang dibayar, asalkan minimal satu jam dalam seminggu terakhir.</p>
+                            </div>
+                        </div>
+                        <button class="collapsible" onclick="toggleCollapsible(this)">
+                            <span>Contoh Termasuk</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </button>
+                        <div class="collapsible-content">
+                            <div class="collapsible-inner">
+                                <ul>
+                                    <li>Pegawai toko yang menerima gaji bulanan.</li>
+                                    <li>Pekerja proyek harian yang dibayar per hari.</li>
+                                    <li>Freelancer desain grafis yang menerima bayaran per proyek.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header">
+                            <h4 class="card-title">7.2 ATW_PFT - Menjalankan usaha sendiri</h4>
+                            <span class="card-badge">Pertanyaan</span>
+                        </div>
+                        <button class="collapsible" onclick="toggleCollapsible(this)">
+                            <span>Tujuan & Penjelasan</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </button>
+                        <div class="collapsible-content">
+                            <div class="collapsible-inner">
+                                <p>Mengidentifikasi orang yang bekerja dalam usaha/bisnis mereka sendiri (berusaha sendiri) untuk memperoleh keuntungan, baik untung atau rugi, asalkan minimal satu jam dalam seminggu terakhir.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header">
+                            <h4 class="card-title">7.3 ATW_FAM - Membantu usaha keluarga</h4>
+                            <span class="card-badge">Pertanyaan</span>
+                        </div>
+                        <button class="collapsible" onclick="toggleCollapsible(this)">
+                            <span>Tujuan & Penjelasan</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </button>
+                        <div class="collapsible-content">
+                            <div class="collapsible-inner">
+                                <p>Mengidentifikasi orang yang bekerja tanpa upah dalam usaha yang dijalankan oleh anggota keluarga atau kerabat, minimal satu jam dalam seminggu terakhir.</p>
+                                <div class="note-box">
+                                    <h4>Catatan Penting</h4>
+                                    <p>Tidak termasuk membantu pekerjaan anggota keluarga yang statusnya <strong>buruh/karyawan/pegawai</strong> di sektor formal (Pemerintah, Pendidikan, Kesehatan, BUMN/D).</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Modul 8 -->
+            <div id="modul8" class="tab-content">
+                <div class="module-header">
+                    <h2>MODUL 8 - SEMENTARA TIDAK BEKERJA (ABS)</h2>
+                    <p>Modul ini mengidentifikasi orang yang memiliki pekerjaan tetapi sementara tidak bekerja dalam seminggu terakhir karena alasan tertentu dan memiliki jaminan untuk kembali bekerja.</p>
+                </div>
+                <div class="section">
+                    <h3 class="section-title"><i class="fas fa-info-circle"></i> Konsep Definisi</h3>
+                    <div class="definition-box">
+                        <h4>Sementara Tidak Bekerja</h4>
+                        <p>Mereka yang mempunyai pekerjaan/usaha tetapi selama seminggu terakhir tidak bekerja karena suatu alasan, serta memiliki jaminan atau kepastian untuk kembali bekerja pada pekerjaan/usahanya tersebut.</p>
+                    </div>
+                    <div class="note-box">
+                        <h4>Catatan Khusus</h4>
+                        <p><strong>Pekerja bebas</strong> yang sedang tidak bekerja <strong>tidak</strong> dikategorikan sebagai "sementara tidak bekerja" karena tidak memiliki jaminan hubungan kerja yang tetap.</p>
+                    </div>
+                </div>
+                <div class="section">
+                    <h3 class="section-title"><i class="fas fa-question-circle"></i> Rincian Pertanyaan</h3>
+                    <div class="card">
+                        <div class="card-header">
+                            <h4 class="card-title">8.1 ABS_JOB - Apakah sementara tidak bekerja?</h4>
+                            <span class="card-badge">Pertanyaan</span>
+                        </div>
+                        <button class="collapsible" onclick="toggleCollapsible(this)">
+                            <span>Penjelasan</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </button>
+                        <div class="collapsible-content">
+                            <div class="collapsible-inner">
+                                <p>Pertanyaan ini hanya ditanyakan jika responden menjawab "TIDAK" pada semua pertanyaan di Modul 7 (7.1, 7.2, 7.3).</p>
+                            </div>
+                        </div>
+                        <button class="collapsible" onclick="toggleCollapsible(this)">
+                            <span>Contoh</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </button>
+                        <div class="collapsible-content">
+                            <div class="collapsible-inner">
+                                <ul>
+                                    <li>Pegawai negeri yang sedang cuti tahunan.</li>
+                                    <li>Buruh pabrik yang sedang dirumahkan sementara tetapi masih menerima gaji.</li>
+                                    <li>Petani yang menunggu musim hujan untuk mulai menanam.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header">
+                            <h4 class="card-title">8.2 ABS_WHY - Alasan tidak bekerja</h4>
+                            <span class="card-badge">Pertanyaan</span>
+                        </div>
+                        <button class="collapsible" onclick="toggleCollapsible(this)">
+                            <span>Penjelasan</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </button>
+                        <div class="collapsible-content">
+                            <div class="collapsible-inner">
+                                <p>Menanyakan alasan utama responden tidak bekerja, seperti cuti, sakit, musim sepi, menunggu pekerjaan baru, dll.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Modul 9 -->
+            <div id="modul9" class="tab-content">
+                <div class="module-header">
+                    <h2>MODUL 9 - PEKERJAAN PERTANIAN (AGF)</h2>
+                    <p>Modul ini mengidentifikasi pekerja di sektor pertanian, termasuk mereka yang hasilnya untuk konsumsi sendiri (pekerja subsisten) dan yang berorientasi pasar.</p>
+                </div>
+                <div class="section">
+                    <h3 class="section-title"><i class="fas fa-question-circle"></i> Rincian Pertanyaan</h3>
+                    <div class="card">
+                        <div class="card-header">
+                            <h4 class="card-title">9.1 AGF_CHK - Kegiatan Pertanian (Bagi yang sudah bekerja)</h4>
+                            <span class="card-badge">Pertanyaan</span>
+                        </div>
+                        <button class="collapsible" onclick="toggleCollapsible(this)">
+                            <span>Tujuan</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </button>
+                        <div class="collapsible-content">
+                            <div class="collapsible-inner">
+                                <p>Mengidentifikasi jenis kegiatan pertanian yang dilakukan (tanaman pangan, hortikultura, perkebunan, peternakan, kehutanan, perikanan) oleh mereka yang sudah teridentifikasi bekerja di Modul 7 atau 8.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header">
+                            <h4 class="card-title">9.2 AGF_ANY - Kegiatan Pertanian (Bagi yang belum bekerja)</h4>
+                            <span class="card-badge">Pertanyaan</span>
+                        </div>
+                        <button class="collapsible" onclick="toggleCollapsible(this)">
+                            <span>Tujuan</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </button>
+                        <div class="collapsible-content">
+                            <div class="collapsible-inner">
+                                <p>Mengidentifikasi orang yang melakukan kegiatan pertanian minimal 1 jam dalam seminggu terakhir tetapi belum terdeteksi sebagai "bekerja" di modul sebelumnya, terutama yang berorientasi pasar.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header">
+                            <h4 class="card-title">9.3 AGF_SBS - Pemanfaatan Hasil Pertanian</h4>
+                            <span class="card-badge">Pertanyaan</span>
+                        </div>
+                        <button class="collapsible" onclick="toggleCollapsible(this)">
+                            <span>Tujuan</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </button>
+                        <div class="collapsible-content">
+                            <div class="collapsible-inner">
+                                <p>Menentukan apakah hasil pertanian yang diusahakan terutama untuk dijual atau untuk konsumsi rumah tangga sendiri. Ini penting untuk mengidentifikasi <strong>pekerja subsisten</strong>.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Modul 19 -->
+            <div id="modul19" class="tab-content">
+                <div class="module-header">
+                    <h2>MODUL 19 - JAM KERJA & SITUASI PEKERJAAN (WKI)</h2>
+                    <p>Modul ini mencatat jam kerja aktual dan biasa, serta mengidentifikasi mereka yang ingin menambah jam kerja atau mengubah kondisi pekerjaannya (underemployment).</p>
+                </div>
+                <div class="section">
+                    <h3 class="section-title"><i class="fas fa-question-circle"></i> Rincian Pertanyaan</h3>
+                    <div class="card">
+                        <div class="card-header">
+                            <h4 class="card-title">19.1 WKT_S - Jam kerja aktual seminggu terakhir</h4>
+                            <span class="card-badge">Pertanyaan</span>
+                        </div>
+                        <button class="collapsible" onclick="toggleCollapsible(this)">
+                            <span>Penjelasan</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </button>
+                        <div class="collapsible-content">
+                            <div class="collapsible-inner">
+                                <p>Mencatat total jam kerja (dari semua pekerjaan) setiap hari dalam seminggu terakhir, setelah dikurangi waktu istirahat.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header">
+                            <h4 class="card-title">19.2 WKT_USS - Jam kerja biasa per minggu</h4>
+                            <span class="card-badge">Pertanyaan</span>
+                        </div>
+                        <button class="collapsible" onclick="toggleCollapsible(this)">
+                            <span>Penjelasan</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </button>
+                        <div class="collapsible-content">
+                            <div class="collapsible-inner">
+                                <p>Mencatat total jam kerja normal yang biasa dilakukan setiap minggunya.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header">
+                            <h4 class="card-title">19.4 WKT_WNTMRH - Ingin menambah jam kerja?</h4>
+                            <span class="card-badge">Pertanyaan</span>
+                        </div>
+                        <button class="collapsible" onclick="toggleCollapsible(this)">
+                            <span>Penjelasan</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </button>
+                        <div class="collapsible-content">
+                            <div class="collapsible-inner">
+                                <p>Menanyakan apakah responden ingin bekerja lebih lama dari biasanya untuk menambah penghasilan. Ini adalah indikator kunci untuk <strong>setengah pengangguran</strong> (visible underemployment).</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Modul 20 -->
+            <div id="modul20" class="tab-content">
+                <div class="module-header">
+                    <h2>MODUL 20 - MENCARI PEKERJAAN & KESIAPAN BEKERJA (SRH)</h2>
+                    <p>Modul ini mengidentifikasi pengangguran, potensi angkatan kerja, dan hambatan yang dihadapi dalam mencari pekerjaan (ditanyakan untuk usia 15+).</p>
+                </div>
+                <div class="section">
+                    <h3 class="section-title"><i class="fas fa-question-circle"></i> Rincian Pertanyaan</h3>
+                    <div class="card">
+                        <div class="card-header">
+                            <h4 class="card-title">20.1 SRH_KERJA - Mencari pekerjaan (seminggu terakhir)</h4>
+                            <span class="card-badge">Pertanyaan</span>
+                        </div>
+                        <button class="collapsible" onclick="toggleCollapsible(this)">
+                            <span>Penjelasan</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </button>
+                        <div class="collapsible-content">
+                            <div class="collapsible-inner">
+                                <p>Menanyakan apakah responden aktif mencari pekerjaan atau melakukan tindakan untuk memulai usaha dalam seminggu terakhir. Ini adalah kriteria utama untuk <strong>pengangguran</strong>.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header">
+                            <h4 class="card-title">20.15 SRH_AVN - Siap mulai bekerja dalam 2 minggu?</h4>
+                            <span class="card-badge">Pertanyaan</span>
+                        </div>
+                        <button class="collapsible" onclick="toggleCollapsible(this)">
+                            <span>Penjelasan</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </button>
+                        <div class="collapsible-content">
+                            <div class="collapsible-inner">
+                                <p>Menanyakan kesiapan responden untuk mulai bekerja jika ada lowongan dalam dua minggu ke depan. Ini adalah kriteria "ketersediaan" (availability) untuk definisi pengangguran.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Modul 21 -->
+            <div id="modul21" class="tab-content">
+                <div class="module-header">
+                    <h2>MODUL 21 - PENGALAMAN KERJA (MPK)</h2>
+                    <p>Modul ini mengumpulkan informasi tentang pekerjaan terakhir responden sebelum pekerjaan saat ini atau sebelum menganggur, untuk menganalisis mobilitas ketenagakerjaan (ditanyakan untuk usia 15+).</p>
+                </div>
+                <div class="section">
+                    <h3 class="section-title"><i class="fas fa-question-circle"></i> Rincian Pertanyaan</h3>
+                    <div class="card">
+                        <div class="card-header">
+                            <h4 class="card-title">21.3 MPK_PERNAH - Pernah punya pekerjaan sebelumnya?</h4>
+                            <span class="card-badge">Pertanyaan</span>
+                        </div>
+                        <button class="collapsible" onclick="toggleCollapsible(this)">
+                            <span>Penjelasan</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </button>
+                        <div class="collapsible-content">
+                            <div class="collapsible-inner">
+                                <p>Menanyakan apakah responden pernah memiliki pekerjaan/usaha sebelum pekerjaan utama saat ini (bagi yang bekerja) atau sebelum menganggur (bagi yang tidak bekerja).</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header">
+                            <h4 class="card-title">21.12 MPK_ALSN - Alasan berhenti dari pekerjaan lama</h4>
+                            <span class="card-badge">Pertanyaan</span>
+                        </div>
+                        <button class="collapsible" onclick="toggleCollapsible(this)">
+                            <span>Penjelasan</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </button>
+                        <div class="collapsible-content">
+                            <div class="collapsible-inner">
+                                <p>Menanyakan alasan utama responden berhenti dari pekerjaan sebelumnya, seperti PHK, usaha bangkrut, atau mengurus rumah tangga.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Modul 22 -->
+            <div id="modul22" class="tab-content">
+                <div class="module-header">
+                    <h2>MODUL 22 - KEGIATAN LAIN (MKL)</h2>
+                    <p>Modul ini mengklasifikasikan kegiatan utama responden yang tidak bekerja selama seminggu terakhir (untuk usia 5+), seperti sekolah, mengurus rumah tangga, atau kegiatan lainnya.</p>
+                </div>
+                <div class="section">
+                    <h3 class="section-title"><i class="fas fa-question-circle"></i> Rincian Pertanyaan</h3>
+                    <div class="card">
+                        <div class="card-header">
+                            <h4 class="card-title">22.1 MKL_SKLH - Bersekolah/kuliah?</h4>
+                            <span class="card-badge">Pertanyaan</span>
+                        </div>
+                        <button class="collapsible" onclick="toggleCollapsible(this)">
+                            <span>Penjelasan</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </button>
+                        <div class="collapsible-content">
+                            <div class="collapsible-inner">
+                                <p>Menanyakan apakah responden bersekolah formal atau nonformal dalam seminggu terakhir.</p>
+                                <div class="note-box">
+                                    <h4>Catatan</h4>
+                                    <p>Siswa yang sedang libur sekolah dicatat sebagai "Tidak" untuk pertanyaan ini.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header">
+                            <h4 class="card-title">22.4 MKL_UTAMA - Kegiatan utama (selain bekerja)</h4>
+                            <span class="card-badge">Pertanyaan</span>
+                        </div>
+                        <button class="collapsible" onclick="toggleCollapsible(this)">
+                            <span>Penjelasan</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </button>
+                        <div class="collapsible-content">
+                            <div class="collapsible-inner">
+                                <p>Menanyakan kegiatan apa yang paling banyak menyita waktu responden dalam seminggu terakhir, di luar kegiatan bekerja. Pilihannya adalah sekolah, mengurus rumah tangga, kegiatan lain, atau tidak melakukan apa-apa.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Modul 23 -->
+            <div id="modul23" class="tab-content">
+                <div class="module-header">
+                    <h2>MODUL 23 - PENGALAMAN KERJA DI LUAR NEGERI (PKLN)</h2>
+                    <p>Modul ini mengumpulkan data pengalaman kerja sebagai buruh/karyawan/pegawai di luar negeri bagi ART yang sudah kembali ke Indonesia (ditanyakan untuk usia 15+).</p>
+                </div>
+                <div class="section">
+                    <h3 class="section-title"><i class="fas fa-info-circle"></i> Kriteria Penting</h3>
+                    <div class="note-box">
+                        <h4>Siapa yang ditanyakan?</h4>
+                        <p>ART yang pernah bekerja di luar negeri sebagai <strong>buruh/karyawan/pegawai</strong>, bukan pekerja komuter atau ABK, dan saat ini sudah kembali serta bermaksud menetap di Indonesia. Keberangkatan terakhir maksimal adalah Februari 2025.</p>
+                    </div>
+                </div>
+                <div class="section">
+                    <h3 class="section-title"><i class="fas fa-question-circle"></i> Rincian Pertanyaan</h3>
+                    <div class="card">
+                        <div class="card-header">
+                            <h4 class="card-title">23.1 PKLN_PERGI - Pernah bekerja di luar negeri?</h4>
+                            <span class="card-badge">Pertanyaan</span>
+                        </div>
+                        <button class="collapsible" onclick="toggleCollapsible(this)">
+                            <span>Penjelasan</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </button>
+                        <div class="collapsible-content">
+                            <div class="collapsible-inner">
+                                <p>Menanyakan apakah ART pernah berangkat ke luar negeri dengan tujuan utama untuk bekerja sebagai buruh/karyawan/pegawai.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header">
+                            <h4 class="card-title">23.11 PKLN_BIAYA - Biaya rekrutmen</h4>
+                            <span class="card-badge">Pertanyaan</span>
+                        </div>
+                        <button class="collapsible" onclick="toggleCollapsible(this)">
+                            <span>Penjelasan</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </button>
+                        <div class="collapsible-content">
+                            <div class="collapsible-inner">
+                                <p>Menanyakan total biaya yang dikeluarkan untuk mendapatkan pekerjaan pertama di luar negeri, termasuk biaya agen, visa, tiket, dan potongan gaji. Ini adalah indikator penting untuk SDGs.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </main>
+
+        <footer>
+            <p>&copy; 2026 - Direktorat Statistik Kependudukan dan Ketenagakerjaan. Dokumen ini untuk keperluan internal.</p>
+        </footer>
+    </div>
+
+    <script>
+        function openTab(evt, tabName) {
+            // Declare all variables
+            var i, tabcontent, tablinks;
+
+            // Get all elements with class="tab-content" and hide them
+            tabcontent = document.getElementsByClassName("tab-content");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].classList.remove("active");
+            }
+
+            // Get all elements with class="tab-button" and remove the class "active"
+            tablinks = document.getElementsByClassName("tab-button");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].classList.remove("active");
+            }
+
+            // Show the specific tab content
+            document.getElementById(tabName).classList.add("active");
+
+            // Add an "active" class to the button that opened the tab
+            evt.currentTarget.classList.add("active");
+        }
+
+        function toggleCollapsible(element) {
+            element.classList.toggle("active");
+            var content = element.nextElementSibling;
+            content.classList.toggle("show");
+        }
+    </script>
+</body>
+</html>

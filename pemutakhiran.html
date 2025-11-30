@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panduan Pemutakhiran Sakernas 2026</title>
+    <style>
+        /* CSS Dasar: Modern, Responsif, dan Menarik */
+        :root {
+            --color-primary: #007bff; /* Biru BPS */
+            --color-secondary: #6c757d;
+            --color-accent: #28a745; /* Hijau (Approved) */
+            --color-warning: #ffc107; /* Kuning (Pending/Revisi) */
+            --color-error: #dc3545; /* Merah (Reject) */
+            --color-bg: #f4f7f6;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--color-bg);
+            margin: 0;
+            padding: 20px;
+            color: #333;
+        }
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+        header {
+            background-color: white;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            margin-bottom: 20px;
+        }
+        .module-card {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+            border-left: 5px solid var(--color-primary);
+        }
+        h2 {
+            color: var(--color-primary);
+            border-bottom: 2px solid #e9ecef;
+            padding-bottom: 10px;
+            margin-top: 0;
+        }
+        /* Interaktivitas dan Dinamis */
+        details {
+            margin-bottom: 10px;
+            background-color: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 6px;
+        }
+        summary {
+            font-weight: 600;
+            padding: 15px;
+            cursor: pointer;
+            outline: none;
+            background-color: #e9ecef;
+            border-radius: 6px;
+        }
+        details[open] summary {
+            background-color: var(--color-primary);
+            color: white;
+            border-bottom: 1px solid var(--color-primary);
+        }
+        .details-content {
+            padding: 15px;
+            line-height: 1.6;
+        }
+        /* Badge Status FASIH */
+        .badge {
+            display: inline-block;
+            padding: 5px 10px;
+            border-radius: 50px;
+            font-size: 0.8em;
+            font-weight: bold;
+            color: white;
+            margin-right: 5px;
+        }
+        .badge-open { background-color: var(--color-secondary); }
+        .badge-submit { background-color: var(--color-primary); }
+        .badge-reject { background-color: var(--color-error); }
+        .badge-approved { background-color: var(--color-accent); }
+        .badge-pending { background-color: var(--color-warning); }
+
+        /* Tata Letak Responsif (Grid) */
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        
+        /* Table Styling */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background-color: #e9ecef;
+            color: var(--color-primary);
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1 style="color: var(--color-primary);">Panduan Pemutakhiran Sampel Rumah Tangga Sakernas 2026</h1>
+        <p>Ringkasan konsep dan mekanisme CAPI (FASIH) untuk Pemutakhiran dan Penarikan Sampel Rumah Tangga (RT) Sakernas 2026.</p>
+    </header>
+
+    <!-- BAGIAN 1: CAKUPAN DAN MEKANISME KEGIATAN (DINAMIS & MODERN) -->
+    <section id="scope" class="module-card">
+        <h2>1. Cakupan Kegiatan Pemutakhiran (The Mission)</h2>
+        
+        <p style="font-size: 1.1em; border-bottom: 1px dashed #ccc; padding-bottom: 10px;">
+            Pemutakhiran dilakukan untuk memperbarui informasi keluarga dan rumah tangga dengan mendatangi satu per satu bangunan tempat tinggal dalam cakupan SLS (*door to door*).
+        </p>
+
+        <div class="grid-3">
+            <div>
+                <h4 style="color: var(--color-accent);">Tujuan Utama</h4>
+                <ul>
+                    <li>Mendapatkan jumlah dan daftar rumah tangga sebagai kerangka sampel.</li>
+                    <li>Mendapatkan jumlah dan daftar keluarga yang *ter-update*.</li>
+                </ul>
+            </div>
+            <div>
+                <h4 style="color: var(--color-accent);">Waktu & Periode</h4>
+                <p>Kegiatan dilaksanakan **4 kali dalam satu tahun**, yaitu **Februari, Mei, Agustus, dan November**.</p>
+                <p>Hasil pemutakhiran Februari 2026 akan digunakan sebagai dasar pemilihan **panel sampel rumah tangga hingga tahun 2028**.</p>
+            </div>
+            <div>
+                <h4 style="color: var(--color-accent);">Metode Pelaksanaan (CAPI)</h4>
+                <p>Metode pengumpulan data menggunakan **CAPI (Computer Assisted Personal Interviewing)**.</p>
+                <p>Petugas utama adalah **PPL** (*door to door*) dan **PML** (pengawas/pemeriksa).</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- BAGIAN 2: WILAYAH KERJA STATISTIK (WILKERSTAT) -->
+    <section id="wilkerstat" class="module-card">
+        <h2>2. Hierarki Wilayah Kerja Statistik (Wilkerstat)</h2>
+        <p>Wilkerstat membagi habis wilayah administrasi terkecil (desa/kelurahan) sebagai area pencacahan.</p>
+        
+        <details>
+            <summary>Lihat Hierarki Wilayah Kerja Statistik</summary>
+            <div class="details-content">
+                <p>Hierarki Wilkerstat (dari terbesar ke terkecil):</p>
+                <ol>
+                    <li>Provinsi: Wilayah kerja gubernur.</li>
+                    <li>Kabupaten/Kota: Wilayah kerja bupati/walikota.</li>
+                    <li>Kecamatan: Wilayah kerja yang dipimpin camat.</li>
+                    <li>Desa/Kelurahan: Desa memiliki batas wilayah hukum yang berwenang mengatur urusan masyarakat. Kelurahan adalah wilayah kerja lurah sebagai perangkat daerah kabupaten/kota.</li>
+                    <li>Blok Sensus (BS).</li>
+                    <li>**Satuan Lingkungan Setempat (SLS) / Non-SLS** (Wilkerstat terkecil).</li>
+                </ol>
+            </div>
+        </details>
+
+        <!-- SUB-BAGIAN: SATUAN LINGKUNGAN SETEMPAT (SLS) -->
+        <h3>SLS, Non-SLS, dan Sub-SLS</h3>
+        <p>SLS adalah satuan lingkungan **di bawah desa/kelurahan**, dapat berupa RT, RW, dusun, atau lingkungan. Batas SLS bisa berupa batas alam/buatan atau batas imajiner.</p>
+        
+        <div class="grid-3">
+            <details>
+                <summary>SLS dan Tingkatan (Contoh Interaktif)</summary>
+                <div class="details-content">
+                    <p>SLS dapat terdiri dari 1, 2, atau 3 tingkatan di bawah desa (misalnya: Dusun, atau RT–RW, atau RT–RW–Dusun).</p>
+                    <p><strong>Contoh Konversi:</strong> Nagari (Sumatera Barat), Gampong (Aceh), Kampung (Papua) setara dengan Desa.</p>
+                </div>
+            </details>
+            <details>
+                <summary>Wilayah Non-SLS</summary>
+                <div class="details-content">
+                    <p>Dibentuk jika terdapat wilayah yang **tidak tercakup SLS manapun**.</p>
+                    <p>Non-SLS yang dicakup survei adalah wilayah yang **berpenghuni** atau **Kawasan Terbangun Permukiman**.</p>
+                    <p>Contoh: Afdeling PT. Pamor Ganda (Kawasan Terbangun Permukiman) atau Rumpun Bambu (Non-SLS tanpa permukiman, tidak dicacah).</p>
+                </div>
+            </details>
+            <details>
+                <summary>Sub-SLS (SLS Bermuatan Besar)</summary>
+                <div class="details-content">
+                    <p>Dibentuk ketika SLS memiliki muatan keluarga/penduduk yang sangat besar (lebih dari 240 keluarga) untuk memudahkan operasional.</p>
+                    <p>Sub-SLS dibentuk dengan muatan sekitar **120 hingga 180 rumah tangga**.</p>
+                    <p>Wilayah tugas PPL pada kasus ini hanya **di dalam batas Sub-SLS terpilih**.</p>
+                </div>
+            </details>
+        </div>
+    </section>
+    
+    <!-- BAGIAN 3: DINAMIKA PERUBAHAN SLS DAN PETA (PETA WS) -->
+    <section id="peta" class="module-card">
+        <h2>3. Dinamika SLS dan Peran Peta WS (Instrumen Identifikasi)</h2>
+
+        <details>
+            <summary>Fungsi Utama Peta WS (Peta SLS) dan Peta WA</summary>
+            <div class="details-content">
+                <p>Peta WS (Wilayah Satuan) berfungsi untuk:</p>
+                <ol>
+                    <li>Membantu pengenalan dan penelusuran batas SLS.</li>
+                    <li>Instrumen identifikasi cakupan wilayah sampel.</li>
+                    <li>Menggambarkan informasi/batas SLS yang mengalami perubahan/perbaikan.</li>
+                    <li>Melakukan **penggambaran/update titik dan nomor urut bangunan** pada saat kunjungan pemutakhiran.</li>
+                </ol>
+                <p>Peta WA (Wilayah Administrasi, setingkat Desa) berfungsi sebagai **panduan posisi SLS** dalam desa, mendukung identifikasi kondisi SLS terpilih.</p>
+            </div>
+        </details>
+        
+        <h3 style="margin-top: 20px;">Perubahan Batas dan Tanggapan PPL (Interaktifitas Lapangan)</h3>
+        
+        <table style="width: 100%;">
+            <thead>
+                <tr>
+                    <th>Jenis Perubahan SLS</th>
+                    <th>Definisi</th>
+                    <th>Tindakan PPL (Sesuai SOP)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td data-label="Perubahan">Pemekaran / Penggabungan</td>
+                    <td data-label="Definisi">SLS baru terbentuk dari 1 SLS lama atau dari penggabungan 2 SLS menjadi 1.</td>
+                    <td data-label="Tindakan PPL">PPL **tetap berpedoman pada SLS awal** sesuai peta WS dan batas awal.</td>
+                </tr>
+                <tr>
+                    <td data-label="Perubahan">Perubahan Tingkatan / Nama</td>
+                    <td data-label="Definisi">Wilayah tetap (kode tetap), tetapi terjadi perubahan tingkatan (misal RT-RW menjadi RT-RW-Dusun) atau perubahan nama.</td>
+                    <td data-label="Tindakan PPL">Coret nama lama pada peta, tulis nama baru. **Sesuaikan nama SLS pada rincian FASIH**.</td>
+                </tr>
+                <tr>
+                    <td data-label="Perubahan">Perubahan / Perbaikan Batas</td>
+                    <td data-label="Definisi">Batas kondisi lapangan berbeda dengan Peta WS (bukan akibat pemekaran/penggabungan).</td>
+                    <td data-label="Tindakan PPL">**Perbaiki batas pada peta WS** menggunakan garis hitam putus-putus. Cakupan pemutakhiran sesuai batas yang telah diperbaiki.</td>
+                </tr>
+            </tbody>
+        </table>
+        
+        <p style="margin-top: 20px;">**Mekanisme Kunjungan:** Kunjungan *door to door* diutamakan dimulai dari bangunan di **ujung Barat Daya SLS**, dilanjutkan secara berurutan (*zig-zag*).</p>
+    </section>
+
+    <!-- BAGIAN 4: KONSEP KUNCI (KELUARGA DAN RUMAH TANGGA) -->
+    <section id="concepts" class="module-card">
+        <h2>4. Konsep Kunci: Bangunan, Keluarga, dan Rumah Tangga</h2>
+        
+        <div class="grid-3">
+            <details open>
+                <summary style="background-color: #009688;">Bangunan Tempat Tinggal (BTT)</summary>
+                <div class="details-content">
+                    <p>Tempat berlindung tetap/sementara, beratap, berlantai, dan berdinding.</p>
+                    <ul>
+                        <li>**BTT:** Fungsi utama sebagai tempat tinggal penduduk (termasuk BBTT yang digunakan sebagai tempat tinggal).</li>
+                        <li>**BBTT:** Fungsi utama bukan tempat tinggal (toko, restoran, dll.).</li>
+                        <li>**Penomoran Bangunan:** Bangunan yang ditinggali diberi nomor urut (dimulai 1, 2, dst.) pada peta WS dan prelist, diutamakan dari arah barat daya.</li>
+                        <li>**Tagging Bangunan:** PPL wajib melakukan *tagging* lokasi bangunan tempat tinggal RT ditemukan.</li>
+                    </ul>
+                </div>
+            </details>
+            <details>
+                <summary style="background-color: #009688;">Keluarga (KK)</summary>
+                <div class="details-content">
+                    <p>Seseorang atau sekelompok orang yang terdaftar dalam Kartu Keluarga (KK) atau mengacu pada UU No. 52 Tahun 2009 (unit terkecil berdasarkan ikatan perkawinan).</p>
+                    <p>Daftar pemutakhiran (*preprinted*) bersumber dari **Data Tunggal Sosial dan Ekonomi Nasional (DTSEN)**.</p>
+                </div>
+            </details>
+            <details>
+                <summary style="background-color: #009688;">Rumah Tangga Biasa (RT)</summary>
+                <div class="details-content">
+                    <p>Unit sampel Sakernas. Seseorang/sekelompok orang yang mendiami bangunan dan biasanya tinggal bersama serta **makan bersama dari satu dapur**.</p>
+                    <p>Kriteria utama: **Satu pengelolaan urusan "dapur"** atau kebutuhan sehari-hari.</p>
+                    <p>Contoh: Seseorang yang menyewa kamar tetapi *makannya diurus sendiri*, dianggap sebagai satu rumah tangga biasa tersendiri.</p>
+                </div>
+            </details>
+        </div>
+        
+        <h3 style="margin-top: 20px;">Konversi Keluarga ke Rumah Tangga (Mekanisme Inti)</h3>
+        
+        <details>
+            <summary>Simulasi Konversi dan Kasus Khusus (Interaktif)</summary>
+            <div class="details-content">
+                <ol>
+                    <li>**1 Keluarga – 1 Rumah Tangga:** Jika seluruh anggota keluarga memiliki 1 pengelolaan kebutuhan (isian rincian 7 = 1).</li>
+                    <li>**1 Keluarga – Beberapa (n) Rumah Tangga:** Jika dalam 1 KK terdapat pemisahan pengelolaan makan/minum (Isian rincian 7 = >1). Kasus ini memerlukan **penambahan Rumah Tangga Baru** (RT Baru).
+                        <p style="margin-left: 20px; color: var(--color-error);">*Contoh: Keluarga Dahlan + Ismail (penyewa kamar yang makan terpisah). Ismail menjadi RT Baru.*</p>
+                    </li>
+                    <li>**Beberapa (m) Keluarga – 1 Rumah Tangga:** Jika beberapa keluarga (dari KK berbeda) tinggal bersama dan **bergabung dalam 1 pengelolaan**.
+                        <p style="margin-left: 20px; color: var(--color-accent);">*Contoh: Keluarga Junaedi dan keluarga mertuanya (Parulian) tinggal dan makan satu dapur. Keluarga Parulian (yang bergabung) diisi rincian 7 = 0.*</p>
+                    </li>
+                    <li>**Keluarga Baru:** Keluarga yang ditemukan di luar *prelist* (pindah masuk, pecahan keluarga/pisah KK). Keluarga baru harus diidentifikasi konversi RT-nya.</li>
+                </ol>
+            </div>
+        </details>
+    </section>
+
+    <!-- BAGIAN 5: SIMULASI FASIH MOBILE (APLIKASI DINAMIS) -->
+    <section id="fasih" class="module-card">
+        <h2>5. Mekanisme FASIH dan Siklus *Assignment* (Dinamis)</h2>
+        
+        <p>Pendataan menggunakan **E-Form SAK.FEB26-AK**. Pengiriman data menggunakan tombol **Kirim/Submit** setelah seluruh pertanyaan terisi dan tidak ada *error*.</p>
+
+        <h3>Status Progres *Assignment* (Interaktif)</h3>
+        <p>PPL dapat melihat progres penugasan pada aplikasi FASIH. Warna *assignment* mencerminkan statusnya:</p>
+        <div class="grid-3">
+            <p><span class="badge badge-open">OPEN</span>: Status awal sampel, belum disubmit.</p>
+            <p><span class="badge badge-submit">SUBMIT</span>: Sudah dikerjakan PPL dan dikirim ke server/PML.</p>
+            <p><span class="badge badge-pending">PENDING</span>: Disubmit, tetapi menunggu respon server (koneksi/antrian).</p>
+            <p><span class="badge badge-reject">REJECT</span>: Sampel ditolak/dikembalikan PML/Admin Kab/Kota karena ada ketidaksesuaian/kesalahan, harus diperbaiki PPL.</p>
+            <p><span class="badge badge-approved">APPROVED</span>: Sampel dinyatakan sesuai oleh PML/Admin Kab/Kota.</p>
+        </div>
+
+        <h3 style="margin-top: 20px;">Alur Kerja PPL dan PML</h3>
+        <details>
+            <summary>Simulasi Alur Kerja PPL (CAPI)</summary>
+            <div class="details-content">
+                <ol>
+                    <li>**Persiapan:** PPL memastikan HP siap, FASIH ter-instal, dan *prelist* terunduh. PPL wajib mengonfirmasi batas SLS dengan Ketua/Pengurus SLS.</li>
+                    <li>**Pengenalan Wilayah:** PPL menelusuri batas SLS, memosisikan arah Utara peta, dan mengenali batas luar SLS.</li>
+                    <li>**Kunjungan *Door to Door*:** Dimulai dari ujung Barat Daya, bergerak berurutan/zig-zag.</li>
+                    <li>**Mutakhirkan Informasi:** PPL mengidentifikasi keberadaan keluarga (Ditemukan, Tidak Ditemukan, Keluarga Baru) dan mengidentifikasi jumlah pengelolaan makan/minum (konversi RT).</li>
+                    <li>**Tagging & Update Peta WS:** PPL menggambarkan **titik** dan **nomor urut bangunan** pada Peta WS dan melakukan *geotagging* koordinat.</li>
+                    <li>**Selesai:** PPL menandai SLS selesai di FASIH dan Kirim/Submit data.</li>
+                </ol>
+            </div>
+        </details>
+        
+        <details>
+            <summary>Pengecekan dan Persetujuan (PML/Admin Kab/Kota)</summary>
+            <div class="details-content">
+                <p>PML bertugas memeriksa kelengkapan, kewajaran, dan konsistensi isian.</p>
+                <ul>
+                    <li>**Aspek yang Diperiksa PML:** Membandingkan jumlah keluarga sebelum dan sesudah pemutakhiran, memeriksa hasil konversi (jumlah RT dibandingkan KK), dan memeriksa Peta WS (titik dan nomor bangunan).</li>
+                    <li>**Penarikan Sampel (DSRT):** Dilakukan oleh **Admin Kab/Kota** menggunakan **FASIH-SM** (Web System), setelah status assignment dinyatakan *completed by PML* (Approved).</li>
+                    <li>**Metode Penarikan:** Menggunakan **Systematic Sampling** dengan *implicit stratification* (tingkat pendidikan KRT).</li>
+                    <li>**Mitigasi (Wawancara Telepon):** Jika tatap muka gagal, PPL dapat menggunakan wawancara telepon setelah mendapatkan persetujuan Ketua Tim Sakernas BPS Kab/Kota melalui PML.</li>
+                </ul>
+            </div>
+        </details>
+        
+        <h3 style="margin-top: 20px; color: var(--color-error);">Penanganan Kasus *Blankspot* (Tarik Sampel *Offline*)</h3>
+        <p>Khusus wilayah *blankspot* yang terdaftar di awal, PPL dapat melakukan Tarik Sampel *Offline* di FASIH Mobile.</p>
+        <p>Persyaratan utama: SLS sudah terdaftar *offline sampling*, PPL sudah mengunduh seluruh *assignment* pemutakhiran, dan **seluruh *assignment* pemutakhiran harus *clean validasi*** (tidak ada *error*).</p>
+    </section>
+
+    <footer>
+        <p style="text-align: center; font-size: 0.8em; color: var(--color-secondary);">
+            Sumber: Dokumen Pemutakhiran dan Penarikan Sampel Rumah Tangga, Tata Cara Pengisian E-Form SAK.FEB26-AK, dan FASIH Sakernas Februari 2026.
+        </p>
+    </footer>
+
+</div>
+
+</body>
+</html>
+```

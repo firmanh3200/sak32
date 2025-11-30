@@ -1,574 +1,1128 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KamusSAK-32</title>
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <!-- Custom CSS -->
-    <link rel="stylesheet" href="style.css">
+    <title>Survei Angkatan Kerja Nasional (Sakernas)</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #1a5276;
+            --secondary-color: #2874a6;
+            --accent-color: #3498db;
+            --light-color: #ebf5fb;
+            --dark-color: #17202a;
+            --success-color: #27ae60;
+            --warning-color: #f39c12;
+            --danger-color: #e74c3c;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f8f9fa;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* ==========================================================================
+           HEADER & NAVIGASI (VERSI PERBAIKAN TOTAL)
+           ========================================================================== */
+
+        header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 15px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo i {
+            font-size: 2rem;
+            margin-right: 15px;
+            color: var(--accent-color);
+        }
+
+        .logo h1 {
+            font-size: 1.8rem;
+            font-weight: 600;
+        }
+
+        /* --- Gaya Dasar Navigasi --- */
+        nav ul {
+            display: flex;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        nav ul li {
+            position: relative; /* Penting untuk penempatan dropdown */
+            margin-left: 5px;
+        }
+
+        nav ul li a {
+            display: block;
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 10px 15px;
+            border-radius: 4px;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        nav ul li a:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+            color: var(--light-color);
+        }
+
+        /* --- Gaya Khusus untuk Dropdown --- */
+        nav .dropdown-content {
+            display: none;
+            position: absolute;
+            top: 100%; /* Muncul tepat di bawah tombol */
+            left: 0;
+            background-color: var(--dark-color);
+            min-width: 250px;
+            box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+            z-index: 1001;
+            border-radius: 0 0 5px 5px;
+            overflow: hidden; /* Membuat rounded corner berfungsi */
+        }
+
+        /* Gaya untuk link di dalam dropdown */
+        nav .dropdown-content a {
+            color: white;
+            padding: 12px 20px;
+            text-decoration: none;
+            display: block;
+            text-align: left;
+            font-weight: 400;
+            font-size: 0.95rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            transition: background-color 0.3s ease;
+        }
+
+        nav .dropdown-content a:last-child {
+            border-bottom: none;
+        }
+
+        nav .dropdown-content a:hover {
+            background-color: var(--secondary-color);
+        }
+
+        /* Tampilkan dropdown saat hover */
+        nav ul li.dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        /* --- Penyesuaian untuk Tampilan Mobile --- */
+        @media screen and (max-width: 992px) {
+            .header-content {
+                flex-direction: column;
+            }
+            nav {
+                margin-top: 15px;
+                width: 100%;
+            }
+            nav ul {
+                justify-content: center;
+                flex-wrap: wrap;
+            }
+            nav ul li {
+                margin: 5px;
+            }
+        }
+
+        @media screen and (max-width: 768px) {
+            .logo h1 {
+                font-size: 1.5rem;
+            }
+            nav ul li a {
+                padding: 8px 12px;
+                font-size: 0.9rem;
+            }
+
+            /* Perbaikan Dropdown di Mobile */
+            nav .dropdown-content {
+                position: static; /* Kembali ke alur normal */
+                display: none; /* Sembunyikan secara default */
+                width: 100%;
+                box-shadow: none;
+                background-color: rgba(0, 0, 0, 0.2);
+                margin-top: 5px;
+                border-radius: 5px;
+            }
+
+            /* Tampilkan dropdown saat item <li> di-hover (atau di-tap di mobile) */
+            nav ul li.dropdown:hover .dropdown-content {
+                display: flex;
+                flex-direction: column;
+            }
+        }
+        
+        .hero {
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://images.unsplash.com/photo-1600880292203-757bb62b4baf?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 100px 0;
+            text-align: center;
+        }
+        
+        .hero h2 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto 30px;
+        }
+        
+        .btn {
+            display: inline-block;
+            background-color: var(--accent-color);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: background-color 0.3s;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .btn:hover {
+            background-color: var(--secondary-color);
+        }
+        
+        .section {
+            padding: 60px 0;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 40px;
+            color: var(--primary-color);
+        }
+        
+        .section-title h2 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+        
+        .section-title p {
+            font-size: 1.1rem;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        .tabs {
+            display: flex;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        .tab {
+            padding: 10px 20px;
+            cursor: pointer;
+            background-color: #f1f1f1;
+            border: 1px solid #ddd;
+            border-bottom: none;
+            margin-right: 5px;
+            border-radius: 5px 5px 0 0;
+            transition: background-color 0.3s;
+        }
+        
+        .tab.active {
+            background-color: var(--accent-color);
+            color: white;
+        }
+        
+        .tab:hover {
+            background-color: var(--secondary-color);
+            color: white;
+        }
+        
+        .tab-content {
+            display: none;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 0 0 5px 5px;
+            background-color: white;
+        }
+        
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.5s;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        .card-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        
+        .card {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .card-header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 15px;
+        }
+        
+        .card-body {
+            padding: 20px;
+        }
+        
+        .timeline {
+            position: relative;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .timeline::after {
+            content: '';
+            position: absolute;
+            width: 6px;
+            background-color: var(--primary-color);
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            margin-left: -3px;
+        }
+        
+        .timeline-item {
+            padding: 10px 40px;
+            position: relative;
+            background-color: inherit;
+            width: 50%;
+        }
+        
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            width: 25px;
+            height: 25px;
+            right: -17px;
+            background-color: white;
+            border: 4px solid var(--accent-color);
+            top: 15px;
+            border-radius: 50%;
+            z-index: 1;
+        }
+        
+        .left {
+            left: 0;
+        }
+        
+        .right {
+            left: 50%;
+        }
+        
+        .left::before {
+            content: " ";
+            height: 0;
+            position: absolute;
+            top: 22px;
+            width: 0;
+            z-index: 1;
+            right: 30px;
+            border: medium solid white;
+            border-width: 10px 0 10px 10px;
+            border-color: transparent transparent transparent white;
+        }
+        
+        .right::before {
+            content: " ";
+            height: 0;
+            position: absolute;
+            top: 22px;
+            width: 0;
+            z-index: 1;
+            left: 30px;
+            border: medium solid white;
+            border-width: 10px 10px 10px 0;
+            border-color: transparent white transparent transparent;
+        }
+        
+        .right::after {
+            left: -16px;
+        }
+        
+        .timeline-content {
+            padding: 20px 30px;
+            background-color: white;
+            position: relative;
+            border-radius: 6px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        .accordion {
+            background-color: white;
+            color: var(--primary-color);
+            cursor: pointer;
+            padding: 18px;
+            width: 100%;
+            border: none;
+            text-align: left;
+            outline: none;
+            font-size: 16px;
+            font-weight: 600;
+            transition: background-color 0.3s;
+            border-radius: 5px;
+            margin-bottom: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
+        .accordion:hover {
+            background-color: var(--light-color);
+        }
+        
+        .accordion.active {
+            background-color: var(--accent-color);
+            color: white;
+        }
+        
+        .panel {
+            padding: 0 18px;
+            background-color: white;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+            margin-bottom: 5px;
+            border-radius: 0 0 5px 5px;
+        }
+        
+        .accordion:after {
+            content: '\f078';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            float: right;
+            margin-left: 5px;
+            transition: transform 0.3s;
+        }
+        
+        .accordion.active:after {
+            transform: rotate(180deg);
+        }
+        
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        
+        .comparison-table th, .comparison-table td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        .comparison-table th {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        
+        .comparison-table tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        
+        .comparison-table tr:hover {
+            background-color: var(--light-color);
+        }
+        
+        .stat-card {
+            background-color: white;
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .stat-card i {
+            font-size: 2.5rem;
+            color: var(--accent-color);
+            margin-bottom: 15px;
+        }
+        
+        .stat-card h3 {
+            font-size: 2rem;
+            margin-bottom: 5px;
+            color: var(--primary-color);
+        }
+        
+        .stat-card p {
+            color: #666;
+        }
+        
+        footer {
+            background-color: var(--dark-color);
+            color: white;
+            padding: 40px 0;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+        
+        .footer-section h3 {
+            margin-bottom: 15px;
+            color: var(--accent-color);
+        }
+        
+        .footer-section ul {
+            list-style: none;
+        }
+        
+        .footer-section ul li {
+            margin-bottom: 8px;
+        }
+        
+        .footer-section ul li a {
+            color: #bbb;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-section ul li a:hover {
+            color: white;
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #444;
+            color: #bbb;
+        }
+        
+        @media screen and (max-width: 768px) {
+            .timeline::after {
+                left: 31px;
+            }
+            
+            .timeline-item {
+                width: 100%;
+                padding-left: 70px;
+                padding-right: 25px;
+            }
+            
+            .timeline-item::before {
+                left: 60px;
+                border: medium solid white;
+                border-width: 10px 10px 10px 0;
+                border-color: transparent white transparent transparent;
+            }
+            
+            .left::after, .right::after {
+                left: 15px;
+            }
+            
+            .right {
+                left: 0%;
+            }
+        }
+    </style>
 </head>
 <body>
-    <!-- Sticky Header -->
-    <header class="navbar navbar-expand-lg navbar-light bg-light fixed-top shadow-sm">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="#">Buku Saku SAKERNAS</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <i class="fas fa-chart-line"></i>
+                    <h1>Survei Angkatan Kerja Nasional (Sakernas)</h1>
+                </div>
+                <nav>
+                    <ul>
+                        <li><a href="#pendahuluan">Pendahuluan</a></li>
+                        <li><a href="#sejarah">Sejarah</a></li>
+                        <li><a href="#tujuan">Tujuan</a></li>
+                        <li><a href="#cakupan">Cakupan</a></li>
+                        <li><a href="#metodologi">Metodologi</a></li>
+                        
+                        <!-- MENU MODUL DRODOWN -->
+                        <li class="dropdown">
+                            <a href="javascript:void(0)" class="dropbtn">Modul <i class="fas fa-caret-down"></i></a>
+                            <div class="dropdown-content">
+                                <!-- Ganti '#' dengan URL yang sebenarnya -->
+                                <a href="pemutakhiran.html" target="_blank">Pemutakhiran</a>
+                                <a href="pendataan.html" target="_blank">Pendataan</a>
+                                <a href="icls.html" target="_blank">I C L S</a>
+                                <a href="modul0106.html" target="_blank">Modul 1 - 6</a>
+                                <a href="bekerja.html" target="_blank">Bekerja</a>
+                                <a href="pekerjaan.html" target="_blank">Pekerjaan Utama</a>
+                                <a href="sak2025/index.html" target="_blank">KBLI-KBJI</a>
+                            </div>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
         </div>
     </header>
 
-    <div class="container my-4">
-        <!-- Tab Navigation -->
-        <ul class="nav nav-tabs" id="myTab" role="tablist">
-            <li class="nav-item" role="presentation">
-                <button class="nav-link active" id="tab8-tab" data-bs-toggle="tab" data-bs-target="#tab8" type="button" role="tab" aria-controls="tab8" aria-selected="false">Monitoring</button>
-            </li>
-            <li class="nav-item" role="presentation">
-                <button class="nav-link" id="tab5-tab" data-bs-toggle="tab" data-bs-target="#tab5" type="button" role="tab" aria-controls="tab5" aria-selected="false">SAK-08</button>
-            </li>
-            <li class="nav-item" role="presentation">
-                <button class="nav-link" id="tab1-tab" data-bs-toggle="tab" data-bs-target="#tab1" type="button" role="tab" aria-controls="tab1" aria-selected="true">KBLI Jabar</button>
-            </li>
-            <li class="nav-item" role="presentation">
-                <button class="nav-link" id="tab2-tab" data-bs-toggle="tab" data-bs-target="#tab2" type="button" role="tab" aria-controls="tab2" aria-selected="false">Kode Pendidikan</button>
-            </li>
-            <li class="nav-item" role="presentation">
-                <button class="nav-link" id="tab3-tab" data-bs-toggle="tab" data-bs-target="#tab3" type="button" role="tab" aria-controls="tab3" aria-selected="false">Kode Pelatihan</button>
-            </li>
-            <li class="nav-item" role="presentation">
-                <button class="nav-link" id="tab4-tab" data-bs-toggle="tab" data-bs-target="#tab4" type="button" role="tab" aria-controls="tab4" aria-selected="false">K B J I</button>
-            </li>
-            <li class="nav-item" role="presentation">
-                <button class="nav-link" id="tab7-tab" data-bs-toggle="tab" data-bs-target="#tab7" type="button" role="tab" aria-controls="tab7" aria-selected="false">Q n A</button>
-            </li> 
-            <li class="nav-item" role="presentation">
-                <button class="nav-link" id="tab6-tab" data-bs-toggle="tab" data-bs-target="#tab6" type="button" role="tab" aria-controls="tab6" aria-selected="false">Rekaman</button>
-            </li> 
-        </ul>
+    <section class="hero">
+        <div class="container">
+            <h2>Survei Angkatan Kerja Nasional (Sakernas)</h2>
+            <p>Survei yang dirancang khusus untuk mengumpulkan data ketenagakerjaan secara berkesinambungan di Indonesia</p>
+            <a href="#pendahuluan" class="btn">Pelajari Lebih Lanjut</a>
+        </div>
+    </section>
 
-        <!-- Tab Content - Content will be dynamically loaded by JavaScript -->
-        <div class="tab-content border border-top-0 p-3" id="myTabContent">
-            <!-- Monev -->
-            <div class="tab-pane fade show active" id="tab8" role="tabpanel" aria-labelledby="tab8-tab">
-                <h3>Monitoring Fasih-SM</h3>
-                <br>
-                <div class="accordion" id="accordionTab8">
-                    <div class="accordion-item">
-                        <div class="flourish-embed" data-src="story/3292872"><script src="https://public.flourish.studio/resources/embed.js"></script><noscript><img src="https://public.flourish.studio/story/3292872/thumbnail" width="100%" alt="visualization" /></noscript></div>
-                    </div>
-                </div>
-                <a href="https://public.flourish.studio/story/3292872/" target="_blank">Buka Grafik di Tab Baru</a>
-            </div>
-
-            <!-- KBLI -->
-            <div class="tab-pane fade" id="tab1" role="tabpanel" aria-labelledby="tab1-tab">
-                <h3>Kode KBLI Umum di Jawa Barat</h3>
-                <br>
-                <div class="accordion" id="accordionTab1">
-                    <div class="accordion-item">
-                        <div class="flourish-embed flourish-table" data-src="visualisation/21818794">
-                                <script src="https://public.flourish.studio/resources/embed.js"></script>
-                                <noscript><img src="https://public.flourish.studio/visualisation/21818794/thumbnail" width="100%" alt="table visualization" /></noscript>
-                            </div>
-                        </div>
-                    </div>
-            </div>
-
-            <!-- Pendidikan -->
-            <div class="tab-pane fade" id="tab2" role="tabpanel" aria-labelledby="tab2-tab">
-                <div class="accordion" id="accordionTab2">
-                    <div class="accordion-item">
-                        <div class="flourish-embed flourish-table" data-src="visualisation/24040345">
-                                <script src="https://public.flourish.studio/resources/embed.js"></script>
-                                <noscript><img src="https://public.flourish.studio/visualisation/24040345/thumbnail" width="100%" alt="table visualization" /></noscript>
-                            </div>
-                        </div>
-                    </div>
-            </div>
-
-            <!-- Pelatihan -->
-            <div class="tab-pane fade" id="tab3" role="tabpanel" aria-labelledby="tab3-tab">
-                <div class="accordion" id="accordionTab3">
-                    <div class="accordion-item">
-                        <div class="flourish-embed flourish-table" data-src="visualisation/24042293">
-                                <script src="https://public.flourish.studio/resources/embed.js"></script>
-                                <noscript><img src="https://public.flourish.studio/visualisation/24042293/thumbnail" width="100%" alt="table visualization" /></noscript>
-                            </div>
-                        </div>
-                    </div>
-            </div>
-
-            <!-- KBJI -->
-            <div class="tab-pane fade" id="tab4" role="tabpanel" aria-labelledby="tab4-tab">
-                <div class="accordion" id="accordionTab4">
-                    <div class="accordion-item">
-                        <div class="flourish-embed flourish-table" data-src="visualisation/24059906"><script src="https://public.flourish.studio/resources/embed.js"></script><noscript><img src="https://public.flourish.studio/visualisation/24059906/thumbnail" width="100%" alt="table visualization" /></noscript></div>    
-                        </div>
-                    </div>
-            </div>
-
-            <!-- Knowledge -->
-            <div class="tab-pane fade" id="tab5" role="tabpanel" aria-labelledby="tab5-tab">
-                <div class="accordion" id="accordionTab5">
-                    <div class="accordion-item">
-                        <h2 class="accordion-header" id="heading1Tab5">
-                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse1Tab5" aria-expanded="true" aria-controls="collapse1Tab5">
-                                Histori ICLS
-                            </button>
-                        </h2>
-                        <div id="collapse1Tab5" class="accordion-collapse collapse" aria-labelledby="heading1Tab5" data-bs-parent="#accordionTab5">
-                            <div class="accordion-body">
-                                <p>
-                                    Pada tahun 2013, International Conference of Labour Statisticians (ICLS) ke-19 resolusi mengenai statistik pekerjaan, ketenagakerjaan, dan tenaga kerja yang kurang termanfaatkan (labour underutilization) menghadirkan statistik pasar tenaga kerja sesuai realitas abad ke-21, dengan pengukuran yang lebih luas terhadap semua bentuk pekerjaan, sekaligus memperbarui definisi pekerjaan yang hanya mencakup pekerjaan yang dilakukan untuk memperoleh penghasilan/keuntungan. Penekanan khusus ICLS ke-19 diberikan pada pengukuran tenaga kerja yang kurang termanfaatkan (labour underutilization), yang sangat penting diukur untuk konteks ekonomi tertentu dengan produksi subsistensi yang tinggi.
-                                </p>
-                                <p>
-                                    Pada Oktober 2018, resolusi ICLS ke-20 mengenai statistik hubungan kerja/status pekerjaan memperbarui International Classification of Status in Employment (ICSE) 1993 dengan memperkenalkan kerangka konseptual dan pengukuran bentuk-bentuk baru dari hubungan kerja seperti dependent contractors.
-                                </p>
-                                <p>
-                                    Pada Oktober 2023, resolusi ICLS ke-21 mengenai statistik ekonomi informal memperbarui konsep statistik sektor informal dan pekerjaan informal, yang menyesuaikan dengan standar statistik tenaga kerja saat ini, serta standar statistik ekonomi seperti System of National Accounts (SNA 2008), termasuk juga perubahan yang diharapkan dari SNA 2025 yang akan datang. Resolusi ICLS ke-21 juga memperluas pengukuran informalitas dari semua bentuk pekerjaan.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="accordion-item">
-                        <h2 class="accordion-header" id="heading2Tab5">
-                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse2Tab5" aria-expanded="true" aria-controls="collapse2Tab5">
-                                ICLS-13
-                            </button>
-                        </h2>
-                        <div id="collapse2Tab5" class="accordion-collapse collapse" aria-labelledby="heading2Tab5" data-bs-parent="#accordionTab5">
-                            <div class="accordion-body">
-                                
-                                <p>
-                                    <h5>Konsep Baku Ketenagakerjaan Berdasarkan ICLS ke-13</h5>
-                                    <ul>
-                                        <li>Penduduk dikelompokkan menjadi penduduk usia kerja (usia 15 tahun ke atas) dan penduduk bukan usia kerja.</li>
-                                        <li>Penduduk usia kerja dibedakan atas dua kelompok, angkatan kerja dan bukan angkatan kerja.</li>
-                                        <li>Pengukurannya didasarkan pada periode rujukan (time reference), yaitu kegiatan yang dilakukan selama seminggu terakhir, yang berakhir sehari sebelum pencacahan.</li>
-                                        <li>Angkatan kerja terdiri dari penduduk yang bekerja dan pengangguran.</li>
-                                        <li>Bukan angkatan kerja adalah penduduk usia kerja yang tidak bekerja dan tidak menganggur. Kegiatan utama mereka biasanya sekolah, mengurus rumah tangga, atau melaksanakan kegiatan lainnya selain kegiatan pribadi.</li>
-                                    </ul>
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="accordion-item">
-                        <h2 class="accordion-header" id="heading3Tab5">
-                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse3Tab5" aria-expanded="true" aria-controls="collapse3Tab5">
-                                ICLS-19
-                            </button>
-                        </h2>
-                        <div id="collapse3Tab5" class="accordion-collapse collapse" aria-labelledby="heading3Tab5" data-bs-parent="#accordionTab5">
-                            <div class="accordion-body">
-                    
-                                <p>
-                                    <h5>Ketenagakerjaan Berdasarkan ICLS ke-19</h5>
-                                    <ul>
-                                        <li>Penduduk dikelompokkan menjadi penduduk usia kerja (usia 15 tahun ke atas) dan penduduk bukan usia kerja.</li>
-                                        <li>Penduduk usia kerja dibedakan atas dua kelompok, angkatan kerja dan bukan angkatan kerja.</li>
-                                        <li>Angkatan kerja terdiri dari penduduk yang bekerja dan pengangguran.</li>
-                                        <li>
-                                            Bukan angkatan kerja mencakup mereka yang tidak bekerja atau menganggur tetapi:
-                                            <ol>
-                                                <li>Mencari pekerjaan/mempersiapkan usaha, namun belum bersedia/siap untuk segera memulai suatu pekerjaan baik dalam seminggu terakhir maupun 2 minggu ke depan;</li>
-                                                <li>Tidak mencari pekerjaan/mempersiapkan usaha, namun mengaku bersedia/siap untuk segera memulai suatu pekerjaan dalam dalam seminggu terakhir maupun 2 minggu ke depan;</li>
-                                                <li>Menginginkan suatu pekerjaan namun tidak sedang mencari pekerjaan/mempersiapkan usaha dan mengaku belum bersedia/siap untuk segera memulai suatu pekerjaan dalam 2 minggu ke depan;</li>
-                                                <li>Tidak bersedia bekerja dan tidak menginginkan pekerjaan.</li>
-                                            </ol>
-                                            <br><br>
-                                            <strong>Poin 1 dan 2 disebut sebagai angkatan kerja potensial.</strong>
-                                        </li>
-                                    </ul>
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="accordion-item">
-                        <h2 class="accordion-header" id="heading4Tab5">
-                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse4Tab5" aria-expanded="true" aria-controls="collapse4Tab5">
-                                ICLS 20
-                            </button>
-                        </h2>
-                        <div id="collapse4Tab5" class="accordion-collapse collapse" aria-labelledby="heading4Tab5" data-bs-parent="#accordionTab5">
-                            <div class="accordion-body">
-                    
-                                <p>
-                                    ICLS ke-20 mengadopsi resolusi mengenai statistik hubungan kerja dalam International Classification of Status Employment (ICSE) dari ICSE-93 menjadi ICSE-18.
-                                </p>
-                                <p>
-                                    <h5>Status Pekerjaan Menurut ICSE-18</h5>
-                                    <ul>
-                                        <li>ICLS ke-20 membahas tentang perubahan klasifikasi status pekerjaan (International Classification of Status Employment) (ICSE-18). ICSE 18 terdiri dari 10 kategori Status Pekerjaan dengan tujuan memberikan klasifikasi yang lebih rinci dan bermakna yang mencerminkan hubungan kerja di pasar tenaga kerja.</li>
-                                        <li>ICSE-18 membagi pekerja menjadi pekerja independen dan pekerja dependen. Pekerja independen yaitu pekerja yang bebas tidak tergantung pada unit ekonomi/individu lain. Sementara sebaliknya, pekerja dependen adalah pekerja yang tergantung pada unit ekonomi/individu lain.</li>
-                                        <li>ICSE-18 juga mencakup kategori baru yaitu Dependent Contractors yaitu seorang pekerja yang tidak berada dalam hubungan kerja formal (bukan karyawan), tetapi mengandalkan satu atau sebagian kecil klien/pemberi kerja untuk sebagian besar pendapatannya, dan biasanya tidak memiliki kendali penuh atas kondisi kerja, tarif, atau jam kerja mereka.</li>
-                                    </ul>
-                                    Dependent Contractors adalah pekerja yang memiliki pengaturan kontrak komersial, tetapi bergantung pada unit ekonomi tertentu untuk pekerjaan atau pendapatan mereka.<br><br>
-                                    Kontrak komersial adalah perjanjian antara dua pihak atau lebih yang mengatur transaksi bisnis atau hubungan yang berhubungan dengan jual beli barang atau jasa.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="accordion-item">
-                        <h2 class="accordion-header" id="heading5Tab5">
-                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse5Tab5" aria-expanded="true" aria-controls="collapse5Tab5">
-                                ICLS-21
-                            </button>
-                        </h2>
-                        <div id="collapse5Tab5" class="accordion-collapse collapse" aria-labelledby="heading5Tab5" data-bs-parent="#accordionTab5">
-                            <div class="accordion-body">
-                    
-                                <p>
-                                    ICLS ke-21 memperkenalkan pembaruan standar statistik terkait ekonomi informal yang lebih komprehensif tentang pekerjaan dan kegiatan ekonomi
-                                </p>
-                                <p>
-                                    <h5>Pekerja Informal Berdasarkan ICLS ke-21</h5>
-                                    Penentuan unit produksi (sektor formal, sektor informal, sektor rumah tangga)
-                                    <ol>
-                                        <li>Institusi tempat kerja</li>
-                                        <li>Perijinan</li>
-                                        <li>Pembukuan lengkap untuk tujuan perpajakan</li>
-                                        <li>Jika informasi poin 1-3 tidak diketahui, maka dapat dipertimbangkan lokasi kerja tetap dan jumlah karyawannya.</li>
-                                    </ol>
-                                    <br>
-                                    Penentuan sifat pekerjaan (pekerja formal atau pekerja informal)
-                                    <ol>
-                                        <li>untuk mereka yang berusaha, maka dilihat dari  sektornya</li>
-                                        <li>untuk buruh/ karyawan/ pekerja bebas maka dilihat dari jaminan sosial yang diberikan tempat kerjanya, cuti yang tidak memotong upah/gaji, kontrak kerja sesuai UU</li>
-                                        <li>untuk dependent contractors, dilihat dari kepemilikan NPWP usaha dan jaminan sosial yang dibayarkan sendiri</li>
-                                        <li>pekerja keluarga akan diidentifikasi sebagai pekerja informal</li>
-
-                                    </ol>
-                                    pada ICLS ke-21 ditambahkan ketentuan bahwa pekerja formal pasti bekerja di sektor formal.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="accordion-item">
-                        <h2 class="accordion-header" id="heading6Tab5">
-                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse6Tab5" aria-expanded="true" aria-controls="collapse6Tab5">
-                                Metodologi
-                            </button>
-                        </h2>
-                        <div id="collapse6Tab5" class="accordion-collapse collapse" aria-labelledby="heading6Tab5" data-bs-parent="#accordionTab5">
-                            <div class="accordion-body">
-                    
-                                <iframe src="https://drive.google.com/file/d/1G8XQwcylweJSgoWz1kHT5V4Qx7ik2FHH/preview" width="100%" height="480" allow="autoplay"></iframe>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="accordion-item">
-                        <h2 class="accordion-header" id="heading7Tab5">
-                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse7Tab5" aria-expanded="true" aria-controls="collapse7Tab5">
-                                Indikator yang Dihasilkan dari Sakernas
-                            </button>
-                        </h2>
-                        <div id="collapse7Tab5" class="accordion-collapse collapse" aria-labelledby="heading7Tab5" data-bs-parent="#accordionTab5">
-                            <div class="accordion-body">
-                                <iframe src="https://drive.google.com/file/d/17eXTRAMszOEiJwAGYBJkOeZP-uEYQE_9/preview" width="100%" height="480" allow="autoplay"></iframe>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="accordion-item">
-                        <h2 class="accordion-header" id="heading8Tab5">
-                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse8Tab5" aria-expanded="true" aria-controls="collapse8Tab5">
-                                Tata Cara Pendataan
-                            </button>
-                        </h2>
-                        <div id="collapse8Tab5" class="accordion-collapse collapse" aria-labelledby="heading8Tab5" data-bs-parent="#accordionTab5">
-                            <div class="accordion-body">
-                                <iframe src="https://drive.google.com/file/d/181BbxPPRV_S56gKZiA7fhRjDL53ICVi7/preview" width="100%" height="480" allow="autoplay"></iframe>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="accordion-item">
-                        <h2 class="accordion-header" id="heading9Tab5">
-                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse9Tab5" aria-expanded="true" aria-controls="collapse9Tab5">
-                                Tata Cara Pengisian Fasih
-                            </button>
-                        </h2>
-                        <div id="collapse9Tab5" class="accordion-collapse collapse" aria-labelledby="heading9Tab5" data-bs-parent="#accordionTab5">
-                            <div class="accordion-body">
-                                <iframe src="https://drive.google.com/file/d/1aMQpHqjvRRG06VWiwMg-g0ScnJ4SdoSL/preview" width="100%" height="480" allow="autoplay"></iframe>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="accordion-item">
-                        <h2 class="accordion-header" id="heading10Tab5">
-                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse10Tab5" aria-expanded="true" aria-controls="collapse10Tab5">
-                                ART dan Demografi
-                            </button>
-                        </h2>
-                        <div id="collapse10Tab5" class="accordion-collapse collapse" aria-labelledby="heading10Tab5" data-bs-parent="#accordionTab5">
-                            <div class="accordion-body">
-                                <iframe src="https://drive.google.com/file/d/1cz7snUV_2kHf_dT80ucskXCbiL2N_cCr/preview" width="100%" height="480" allow="autoplay"></iframe>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="accordion-item">
-                        <h2 class="accordion-header" id="heading11Tab5">
-                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse11Tab5" aria-expanded="true" aria-controls="collapse11Tab5">
-                                Pendidikan & Pelatihan
-                            </button>
-                        </h2>
-                        <div id="collapse11Tab5" class="accordion-collapse collapse" aria-labelledby="heading11Tab5" data-bs-parent="#accordionTab5">
-                            <div class="accordion-body">
-                                <iframe src="https://drive.google.com/file/d/1RT2H8CEJA9WK6-5DA0-AMQxOxnS7xhZ5/preview" width="100%" height="480" allow="autoplay"></iframe>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="accordion-item">
-                        <h2 class="accordion-header" id="heading13Tab5">
-                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse13Tab5" aria-expanded="true" aria-controls="collapse13Tab5">
-                                Migrasi
-                            </button>
-                        </h2>
-                        <div id="collapse13Tab5" class="accordion-collapse collapse" aria-labelledby="heading13Tab5" data-bs-parent="#accordionTab5">
-                            <div class="accordion-body">
-                                <iframe src="https://drive.google.com/file/d/1SXpSZjiImzc5BB3TMbilDXf02kZUGXoA/preview" width="100%" height="480" allow="autoplay"></iframe>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="accordion-item">
-                        <h2 class="accordion-header" id="heading14Tab5">
-                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse14Tab5" aria-expanded="true" aria-controls="collapse14Tab5">
-                                Disabilitas
-                            </button>
-                        </h2>
-                        <div id="collapse14Tab5" class="accordion-collapse collapse" aria-labelledby="heading14Tab5" data-bs-parent="#accordionTab5">
-                            <div class="accordion-body">
-                                <iframe src="https://drive.google.com/file/d/1n83WB-u8NFpr4bGRXqyxwWlscB0XVxML/preview" width="100%" height="480" allow="autoplay"></iframe>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="accordion-item">
-                        <h2 class="accordion-header" id="heading15Tab5">
-                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse15Tab5" aria-expanded="true" aria-controls="collapse15Tab5">
-                                Bekerja
-                            </button>
-                        </h2>
-                        <div id="collapse15Tab5" class="accordion-collapse collapse" aria-labelledby="heading15Tab5" data-bs-parent="#accordionTab5">
-                            <div class="accordion-body">
-                                <iframe src="https://drive.google.com/file/d/1eHxS88zQFZsrHONrAa06Y0SFh-J32HvG/preview" width="100%" height="480" allow="autoplay"></iframe>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="accordion-item">
-                        <h2 class="accordion-header" id="heading16Tab5">
-                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse16Tab5" aria-expanded="true" aria-controls="collapse16Tab5">
-                                Sementara Tidak Bekerja
-                            </button>
-                        </h2>
-                        <div id="collapse16Tab5" class="accordion-collapse collapse" aria-labelledby="heading16Tab5" data-bs-parent="#accordionTab5">
-                            <div class="accordion-body">
-                                <iframe src="https://drive.google.com/file/d/1DP04MBEJWfOFZaI7840qb0KuzcdQzSem/preview" width="100%" height="480" allow="autoplay"></iframe>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="accordion-item">
-                        <h2 class="accordion-header" id="heading17Tab5">
-                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse17Tab5" aria-expanded="true" aria-controls="collapse17Tab5">
-                                Mencari Pekerjaan
-                            </button>
-                        </h2>
-                        <div id="collapse17Tab5" class="accordion-collapse collapse" aria-labelledby="heading17Tab5" data-bs-parent="#accordionTab5">
-                            <div class="accordion-body">
-                                <iframe src="https://drive.google.com/file/d/1Q_bys-91DsFWpCO4fa8CZQvq1gqUOFMK/preview" width="100%" height="480" allow="autoplay"></iframe>
-                            </div>
-                        </div>
-                    </div>
-                            </div>
+    <section id="pendahuluan" class="section">
+        <div class="container">
+            <div class="section-title">
+                <h2>Pendahuluan</h2>
+                <p>Survei Angkatan Kerja Nasional (Sakernas) merupakan survei yang dirancang khusus untuk mengumpulkan data ketenagakerjaan secara berkesinambungan di Indonesia</p>
             </div>
             
-            <!-- QnA -->
-            <div class="tab-pane fade" id="tab7" role="tabpanel" aria-labelledby="tab7-tab">
-                <br>
-                <div class="accordion" id="accordionTab7">
-                    <div class="accordion-item">
-                        <h2 class="accordion-header" id="heading1Tab7">
-                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse1Tab7" aria-expanded="true" aria-controls="collapse1Tab7">
-                                DAFTAR RALAT
-                            </button>
-                        </h2>
-                        <div id="collapse1Tab7" class="accordion-collapse collapse" aria-labelledby="heading1Tab7" data-bs-parent="#accordionTab7">
-                            <div class="accordion-item">
-                                <div class="flourish-embed flourish-table" data-src="visualisation/24343800"><script src="https://public.flourish.studio/resources/embed.js"></script><noscript><img src="https://public.flourish.studio/visualisation/24343800/thumbnail" width="100%" alt="table visualization" /></noscript></div>
-                            </div>
-                        </div>
-
+            <div class="card-container">
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Latar Belakang</h3>
+                    </div>
+                    <div class="card-body">
+                        <p>Survei Angkatan Kerja Nasional (Sakernas) merupakan survei yang dirancang khusus untuk mengumpulkan data ketenagakerjaan secara berkesinambungan.</p>
+                        <p>Data dan indikator ketenagakerjaan hasil Sakernas sangat penting bagi kelangsungan pembangunan dan dipergunakan secara luas untuk perencanaan, monitoring, dan evaluasi program pembangunan pemerintah khususnya bidang ketenagakerjaan di berbagai sektor.</p>
                     </div>
                 </div>
-                <br>
-                <div class="accordion" id="accordionTab7">
-                    <div class="accordion-item">
-                        <h2 class="accordion-header" id="heading2Tab7">
-                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse2Tab7" aria-expanded="true" aria-controls="collapse2Tab7">
-                                DAFTAR PENEGASAN
-                            </button>
-                        </h2>
-                        <div id="collapse2Tab7" class="accordion-collapse collapse" aria-labelledby="heading2Tab7" data-bs-parent="#accordionTab7">
-                            <div class="accordion-item">
-                                <div class="flourish-embed flourish-table" data-src="visualisation/24343903"><script src="https://public.flourish.studio/resources/embed.js"></script><noscript><img src="https://public.flourish.studio/visualisation/24343903/thumbnail" width="100%" alt="table visualization" /></noscript></div>
-                            </div>
-                        </div>
+                
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Manfaat Data</h3>
+                    </div>
+                    <div class="card-body">
+                        <p>Dari Sakernas diperoleh estimasi data dan indikator pokok ketenagakerjaan seperti:</p>
+                        <ul>
+                            <li>Jumlah penduduk bekerja</li>
+                            <li>Jumlah pengangguran</li>
+                            <li>Tingkat Pengangguran Terbuka (TPT)</li>
+                            <li>Tingkat Partisipasi Angkatan Kerja (TPAK)</li>
+                        </ul>
+                        <p>Beberapa indikator ketenagakerjaan hasil Sakernas juga dapat digunakan untuk keperluan pemantauan indikator Sustainable Development Goals (SDGs) dan Rencana Pembangunan Jangka Menengah Nasional (RPJMN).</p>
                     </div>
                 </div>
-                <br>
-                <div class="accordion" id="accordionTab7">
-                    <div class="accordion-item">
-                        <h2 class="accordion-header" id="heading4Tab7">
-                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse4Tab7" aria-expanded="true" aria-controls="collapse7Tab7">
-                                Skema Bekerja
-                            </button>
-                        </h2>
-                        <div id="collapse4Tab7" class="accordion-collapse collapse" aria-labelledby="heading4Tab7" data-bs-parent="#accordionTab7">
-                            <div class="accordion-item">
-                                <img src="bagan-bekerja.png" width="100%">
-                            </div>
-                        </div>
+                
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Perkembangan</h3>
+                    </div>
+                    <div class="card-body">
+                        <p>Hingga saat ini, Sakernas telah mengalami berbagai perubahan baik waktu pelaksanaan, level estimasi, cakupan, metodologi, maupun kuesioner.</p>
+                        <p>Mulai tahun 2025, Sakernas akan dilaksanakan secara triwulanan (Februari, Mei, Agustus, dan November) dengan berbagai perubahan metodologi untuk meningkatkan kualitas data.</p>
                     </div>
                 </div>
-                <br>
-                <div class="accordion" id="accordionTab7">
-                    <div class="accordion-item">
-                        <h2 class="accordion-header" id="heading3Tab7">
-                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse3Tab7" aria-expanded="true" aria-controls="collapse3Tab7">
-                                QnA Pelatihan Innas
-                            </button>
-                        </h2>
-                        <div id="collapse3Tab7" class="accordion-collapse collapse" aria-labelledby="heading3Tab7" data-bs-parent="#accordionTab7">
-                            <div class="accordion-item">
-                                <div class="flourish-embed flourish-table" data-src="visualisation/24344091"><script src="https://public.flourish.studio/resources/embed.js"></script><noscript><img src="https://public.flourish.studio/visualisation/24344091/thumbnail" width="100%" alt="table visualization" /></noscript></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <br>
-                <div class="accordion" id="accordionTab7">
-                    <div class="accordion-item">
-                        <h2 class="accordion-header" id="heading5Tab7">
-                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse5Tab7" aria-expanded="true" aria-controls="collapse5Tab7">
-                                QnA Pelatihan Inda
-                            </button>
-                        </h2>
-                        <div id="collapse5Tab7" class="accordion-collapse collapse" aria-labelledby="heading5Tab7" data-bs-parent="#accordionTab7">
-                            <div class="accordion-body">
-                                
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Hiburan -->
-            <div class="tab-pane fade" id="tab6" role="tabpanel" aria-labelledby="tab6-tab">
-                <h3>
-                    Rekaman Pelatihan
-                </h3>
-                <div>
-                    <a href="https://youtube.com/live/ccGlKba81HM?feature=share" target="_blank">Hari Pertama</a>
-                    | <a href="https://youtube.com/live/123OrxguMnA?feature=share" target="_blank">Hari Kedua</a>
-                    | <a href="https://youtube.com/live/h_3cjei69n8?feature=share" target="_blank">Hari Ketiga</a>
-                    | <a href="https://www.youtube.com/live/kc_4OfMB4yE" target="_blank">Hari Keempat</a>
-                    <br>
-                    <a>===========================</a>
-                </div>
-                <br>
-                <h3>
-                    <a href="https://s.id/kamus32" target="_blank">SAKERNAS FEBRUARI 2025</a>
-                </h3>
-                <br>
-                    <a>===========================</a>
-                <br>
-                <h3>Kadang Hiburan Diperlukan untuk mengurangi Ketegangan dan Mengembalikan Fokus Kita</h3>
-                <br>
-                <div>
-                    <a href="https://www.youtube.com/watch?v=v9jwHwcqpk8&list=PLeULqPPfFuZwBwpFAFAR_BfdcIO8_8GRy" target="_blank">Youtube - BPS Jabar Berkibar</a>
-                    <br><br>
-                    <a href="https://www.youtube.com/watch?v=ZBZ-GajPwyM&list=PLeULqPPfFuZzainkiFKyTisnoEqsL2-Ra" target="_blank">Youtube - Lagu Untuk Mitra Statistik</a>
-                    <br><br>
-                    <a href="https://firmanh3200.github.io/mp3" target="_blank">MP3 Berkibar</a>
-                    <br><br>
-                    <a href="https://firmanh3200.github.io/mp3mitra" target="_blank">MP3 Lagu Mitra Berkibar</a>
-                    <br><br>
-                    jangan lupa Like, Subscribe dan Comment
-                </div>
-            </div>
-
-        
             </div>
         </div>
-    </main>
+    </section>
 
-    <footer class="text-center">
-        <p>@fhy3273</p>
+    <section id="sejarah" class="section" style="background-color: #f1f8ff;">
+        <div class="container">
+            <div class="section-title">
+                <h2>Sejarah Sakernas</h2>
+                <p>Perjalanan Survei Angkatan Kerja Nasional dari waktu ke waktu</p>
+            </div>
+            
+            <div class="timeline">
+                <div class="timeline-item left">
+                    <div class="timeline-content">
+                        <h2>1976</h2>
+                        <p>Sakernas pertama kali dilaksanakan di Indonesia oleh BPS (Badan Pusat Statistik)</p>
+                    </div>
+                </div>
+                <div class="timeline-item right">
+                    <div class="timeline-content">
+                        <h2>1986</h2>
+                        <p>Sakernas mulai rutin dilaksanakan dengan konsep ICLS ke-13</p>
+                    </div>
+                </div>
+                <div class="timeline-item left">
+                    <div class="timeline-content">
+                        <h2>2011-2014</h2>
+                        <p>Sakernas dilaksanakan secara triwulanan</p>
+                    </div>
+                </div>
+                <div class="timeline-item right">
+                    <div class="timeline-content">
+                        <h2>2015-2025</h2>
+                        <p>Sakernas dilaksanakan secara semesteran (Februari dan Agustus)</p>
+                    </div>
+                </div>
+                <div class="timeline-item left">
+                    <div class="timeline-content">
+                        <h2>Februari 2016</h2>
+                        <p>Pengumpulan data konsep ICLS ke-13 dan ke-19</p>
+                    </div>
+                </div>
+                <div class="timeline-item right">
+                    <div class="timeline-content">
+                        <h2>Agustus 2020-Februari 2022</h2>
+                        <p>Pandemi Covid-19: pengumpulan data kembali konsep ICLS ke-13 saja karena ada penyederhanaan kuesioner</p>
+                    </div>
+                </div>
+                <div class="timeline-item left">
+                    <div class="timeline-content">
+                        <h2>Februari 2023-Agustus 2024</h2>
+                        <p>Pengumpulan data konsep ICLS ke-13 dan ke-19</p>
+                    </div>
+                </div>
+                <div class="timeline-item right">
+                    <div class="timeline-content">
+                        <h2>Februari 2024</h2>
+                        <p>Dilakukan perubahan moda pengumpulan Computer-Assisted Personal Interviewing (CAPI)</p>
+                    </div>
+                </div>
+                <div class="timeline-item left">
+                    <div class="timeline-content">
+                        <h2>Februari 2025-Februari 2026</h2>
+                        <p>Pengumpulan data konsep ICLS ke-13, ke-19 (yang disempurnakan), ke-20 dan ke-21</p>
+                    </div>
+                </div>
+                <div class="timeline-item right">
+                    <div class="timeline-content">
+                        <h2>Mulai tahun 2025</h2>
+                        <p>Sakernas akan dilaksanakan secara triwulanan (Februari, Mei, Agustus, dan November)</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="tujuan" class="section">
+        <div class="container">
+            <div class="section-title">
+                <h2>Tujuan Sakernas</h2>
+                <p>Tujuan pelaksanaan Survei Angkatan Kerja Nasional</p>
+            </div>
+            
+            <div class="tabs">
+                <div class="tab active" onclick="openTab(event, 'umum')">Tujuan Umum</div>
+                <div class="tab" onclick="openTab(event, 'khusus')">Tujuan Khusus</div>
+            </div>
+            
+            <div id="umum" class="tab-content active">
+                <h3>Tujuan Umum</h3>
+                <p>Menyediakan data pokok ketenagakerjaan yang berkesinambungan.</p>
+                <p>Data ini sangat penting bagi kelangsungan pembangunan dan dipergunakan secara luas untuk perencanaan, monitoring, dan evaluasi program pembangunan pemerintah khususnya bidang ketenagakerjaan di berbagai sektor.</p>
+            </div>
+            
+            <div id="khusus" class="tab-content">
+                <h3>Tujuan Khusus</h3>
+                <ol>
+                    <li>Memperoleh estimasi jumlah penduduk bekerja dengan berbagai karakteristik pekerjaan, jumlah pengangguran dengan berbagai karakteristik sosial demografi, dan indikator ketenagakerjaan lainnya berdasarkan konsep ketenagakerjaan ICLS ke-13, serta perkembangannya yang representatif di tingkat nasional dan provinsi.</li>
+                    <li>Memperoleh indikator ketenagakerjaan berdasarkan konsep ketenagakerjaan ICLS ke-19, 20, dan 21, seperti penduduk bekerja, pengangguran, tenaga kerja yang kurang termanfaatkan (labour underutilization), status pekerjaan mengikuti ICSE-18, pekerja/usaha pada kegiatan formal, dan indikator ketenagakerjaan lainnya.</li>
+                </ol>
+            </div>
+        </div>
+    </section>
+
+    <section id="cakupan" class="section" style="background-color: #f1f8ff;">
+        <div class="container">
+            <div class="section-title">
+                <h2>Cakupan dan Level Estimasi</h2>
+                <p>Informasi mengenai cakupan wilayah dan tingkat estimasi data Sakernas</p>
+            </div>
+            
+            <div class="card-container">
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Februari</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="stat-card">
+                            <i class="fas fa-map-marked-alt"></i>
+                            <h3>7.740 SLS</h3>
+                            <p>77.400 Rumah Tangga</p>
+                        </div>
+                        <p>Level Estimasi: Provinsi</p>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Mei</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="stat-card">
+                            <i class="fas fa-map-marked-alt"></i>
+                            <h3>7.740 SLS</h3>
+                            <p>77.400 Rumah Tangga</p>
+                        </div>
+                        <p>Level Estimasi: Provinsi</p>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Agustus</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="stat-card">
+                            <i class="fas fa-map-marked-alt"></i>
+                            <h3>30.780 SLS</h3>
+                            <p>307.800 Rumah Tangga</p>
+                        </div>
+                        <p>Level Estimasi: Kabupaten/Kota</p>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header">
+                        <h3>November</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="stat-card">
+                            <i class="fas fa-map-marked-alt"></i>
+                            <h3>7.740 SLS</h3>
+                            <p>77.400 Rumah Tangga</p>
+                        </div>
+                        <p>Level Estimasi: Provinsi</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div style="margin-top: 40px;">
+                <h3>Moda Pendataan</h3>
+                <p>Sakernas 2026 dilaksanakan 4 kali setahun yaitu di bulan Februari, Mei, Agustus, dan November 2025, di seluruh wilayah Indonesia (38 provinsi dan 514 kab/kota) dengan menggunakan moda Computer-Assisted Personal Interviewing (CAPI).</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="data" class="section">
+        <div class="container">
+            <div class="section-title">
+                <h2>Data yang Dikumpulkan</h2>
+                <p>Informasi mengenai data yang dikumpulkan dalam Survei Angkatan Kerja Nasional</p>
+            </div>
+            
+            <button class="accordion active">A. Keterangan setiap anggota rumah tangga (ART)</button>
+            <div class="panel" style="max-height: 500px;">
+                <ol>
+                    <li>Nama ART</li>
+                    <li>Jenis kelamin</li>
+                    <li>Nomor Induk Kependudukan (NIK)</li>
+                    <li>Hubungan dengan kepala rumah tangga (KRT)</li>
+                    <li>Tanggal, bulan, dan tahun lahir</li>
+                    <li>Umur</li>
+                    <li>Tempat lahir</li>
+                    <li>Migrasi seumur hidup</li>
+                    <li>Kewarganegaraan</li>
+                </ol>
+            </div>
+            
+            <button class="accordion">B. Keterangan anggota rumah tangga yang berumur 5 tahun ke atas, 5-17 tahun, dan 15 tahun ke atas</button>
+            <div class="panel">
+                <ol>
+                    <li>Status perkawinan</li>
+                    <li>Pendidikan dan Pelatihan</li>
+                    <li>Migrasi Risen</li>
+                    <li>Kesulitan Fungsional</li>
+                    <li>Teknologi Informasi dan Komunikasi</li>
+                    <li>Bekerja</li>
+                    <li>Sementara Tidak Bekerja</li>
+                    <li>Pekerjaan Pertanian</li>
+                    <li>Pekerjaan Utama (Karakteristik, Tempat Kerja, Masa Kerja, dan Perjanjian Kerja)</li>
+                    <li>Pekerjaan Tambahan Utama (Karakteristik)</li>
+                    <li>Jam Kerja Seluruh Pekerjaan dan Situasi Pekerjaan</li>
+                    <li>Kegiatan Lain</li>
+                </ol>
+            </div>
+            
+            <button class="accordion">C. Keterangan anggota rumah tangga yang berumur 15 tahun ke atas saja</button>
+            <div class="panel">
+                <ol>
+                    <li>Pekerjaan Utama (Pekerja Informal, Independent Worker Relationship, dan Status Tempat Kerja)</li>
+                    <li>Pekerjaan Tambahan Utama (Dependent Contractors)</li>
+                    <li>Kegiatan Mencari Pekerjaan dan Kesiapan Bekerja</li>
+                    <li>Pengalaman Kerja di dalam dan luar negeri</li>
+                </ol>
+            </div>
+            
+            <button class="accordion">D. Keterangan Rumah Tangga</button>
+            <div class="panel">
+                <p>Sumber Pendapatan Rumah Tangga</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="metodologi" class="section" style="background-color: #f1f8ff;">
+        <div class="container">
+            <div class="section-title">
+                <h2>Metodologi Rotasi Panel</h2>
+                <p>Metodologi yang digunakan dalam Survei Angkatan Kerja Nasional 2026-2028</p>
+            </div>
+            
+            <div class="card-container">
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Pendahuluan</h3>
+                    </div>
+                    <div class="card-body">
+                        <p>Kegiatan Sakernas 2026-2028 dilakukan 4 kali dalam setahun yaitu pada bulan Februari, Mei, Agustus, dan November.</p>
+                        <p>Unit Observasi: Rumah tangga</p>
+                        <p>Unit Analisis: Rumah tangga dan individu</p>
+                        <p>Enumeration Area: Satuan Lingkungan Setempat (SLS)</p>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Jumlah Sampel</h3>
+                    </div>
+                    <div class="card-body">
+                        <p>Pada setiap SLS terpilih dilakukan pemilihan sampel sebanyak 10 rumah tangga.</p>
+                        <p>Sampel SLS Februari merupakan subsampel dari SLS Sakernas Agustus.</p>
+                        <p>Jumlah sampel Sakernas Februari, Mei, dan November masing-masing 7.740 SLS dengan 77.400 sampel rumah tangga.</p>
+                        <p>Sedangkan jumlah sampel untuk Sakernas Agustus sebanyak 30.780 SLS dengan jumlah sampel rumah tangga sebanyak 307.800 rumah tangga.</p>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Stratifikasi</h3>
+                    </div>
+                    <div class="card-body">
+                        <p>Stratifikasi dilakukan pada level EA SLS dan rumah tangga di EA SLS terpilih untuk menghasilkan representative sample.</p>
+                        <ul>
+                            <li><strong>Eksplisit:</strong> Seluruh populasi SLS dikelompokkan menurut klasifikasi perkotaan/pedesaan</li>
+                            <li><strong>Implisit:</strong> Stratifikasi didasarkan indeks kesejahteraan rumah tangga yang bersumber dari data Regsosek dengan metode Index of Concentration of Extreme (ICE) dan strata lapangan usaha yang bersumber dari DTSEN</li>
+                            <li><strong>Stratifikasi Rumah Tangga:</strong> Stratifikasi rumah tangga di SLS terpilih yang didasarkan tingkat pendidikan kepala rumah tangga untuk meningkatkan keterwakilan dan keragaman karakteristik social ekonomi rumah tangga</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div style="margin-top: 40px;">
+                <h3>Perbedaan Konsep ICLS ke-13 dan ICLS ke-19</h3>
+                <table class="comparison-table">
+                    <tr>
+                        <th>Konsep dan Definisi</th>
+                        <th>ICLS ke-13</th>
+                        <th>ICLS ke-19</th>
+                    </tr>
+                    <tr>
+                        <td>Bekerja</td>
+                        <td>Kegiatan untuk memperoleh atau membantu memperoleh penghasilan atau keuntungan, minimal selama 1 (satu) jam dalam seminggu yang lalu (termasuk petani subsisten)</td>
+                        <td>Kegiatan untuk memperoleh atau membantu memperoleh penghasilan atau keuntungan, minimal selama 1 (satu) jam dalam seminggu yang lalu (Tidak termasuk petani subsisten)</td>
+                    </tr>
+                    <tr>
+                        <td>Penganggur</td>
+                        <td>Penduduk Tidak Bekerja dan:
+                            <ul>
+                                <li>SEMINGGU YANG LALU mencari pekerjaan (termasuk yang HANYA sedang menunggu hasil lamaran), atau mempersiapkan suatu usaha.</li>
+                                <li>Tidak mencari pekerjaan dengan alasan sudah diterima bekerja tetapi belum mulai bekerja.</li>
+                                <li>Tidak mencari pekerjaan karena merasa tidak mungkin mendapat pekerjaan (putus asa).</li>
+                            </ul>
+                        </td>
+                        <td>Penduduk Tidak Bekerja dan:
+                            <ul>
+                                <li>SEBULAN YANG LALU AKTIF mencari pekerjaan/mempersiapkan suatu usaha, dan siap/bersedia bekerja dalam selang waktu 2 MINGGU KE DEPAN.</li>
+                                <li>Tidak mencari pekerjaan karena sudah diterima bekerja tetapi belum mulai bekerja, dimulainya pekerjaan tersebut dalam kurun waktu < 3 BULAN KE DEPAN, dan saat ini siap/bersedia bekerja dalam waktu 2 MINGGU KE DEPAN</li>
+                                <li>Tidak mencari pekerjaan karena merasa tidak mungkin mendapat pekerjaan (putus asa) TIDAK lagi termasuk pengangguran.</li>
+                            </ul>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Bukan Angkatan Kerja</td>
+                        <td>Mereka yang tidak bekerja dan tidak menganggur akan tetapi bersekolah, mengurus rumah tangga, atau melakukan kegiatan lainnya.</td>
+                        <td>
+                            <ul>
+                                <li>Angkatan kerja potensial (Potential Labour Force):
+                                    <ul>
+                                        <li>Mencari pekerjaan/ mempersiapkan usaha, namun belum bersedia/siap untuk segera memulai suatu pekerjaan.</li>
+                                        <li>Tidak mencari pekerjaan/ mempersiapkan usaha, namun mengaku bersedia/siap untuk segera memulai suatu pekerjaan. Termasuk yang merasa tidak mungkin mendapatkan pekerjaan (putus asa).</li>
+                                    </ul>
+                                </li>
+                                <li>Penduduk yang menginginkan pekerjaan namun tidak mencari pekerjaan/ mempersiapkan usaha dan mengaku saat ini belum bersedia/siap untuk segera memulai suatu pekerjaan.</li>
+                                <li>Penduduk yang tidak menginginkan pekerjaan.</li>
+                            </ul>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Setengah Penganggur</td>
+                        <td>Penduduk bekerja yang jam kerjanya kurang dari 35 jam seminggu:
+                            <ul>
+                                <li>Sedang mencari pekerjaan atau mempersiapkan usaha seminggu yang lalu</li>
+                                <li>Tidak mencari pekerjaan karena putus asa atau sudah diterima bekerja tapi belum mulai bekerja dan masih mau menerima pekerjaan.</li>
+                            </ul>
+                        </td>
+                        <td>Penduduk bekerja dengan jam kerja biasanya dalam seminggu dari seluruh pekerjaan kurang dari 40 jam seminggu dan menginginkan penambahan jam kerja dan siap/bersedia menambah jam kerja dalam rentang 2 minggu ke depan dan jam kerja tambahannya lebih dari nol.</td>
+                    </tr>
+                </table>
+            </div>
+            
+            <div style="margin-top: 40px;">
+                <h3>Tentang ICLS ke-20 dan ICLS ke-21</h3>
+                <div class="card-container">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>ICLS ke-20</h3>
+                        </div>
+                        <div class="card-body">
+                            <ul>
+                                <li>mengenai statistik hubungan kerja/status pekerjaan</li>
+                                <li>memperbarui International Classification of Status in Employment (ICSE) 1993</li>
+                                <li>memperkenalkan kerangka konseptual dan pengukuran bentuk-bentuk baru dari hubungan kerja seperti dependent contractors</li>
+                                <li>memberikan gambaran yang lebih jelas mengenai hubungan kerja saat ini di negara-negara yang menerapkan resolusi ini, terutama di negara-negara di mana bentuk-bentuk baru dari hubungan kerja/status pekerjaan berkembang dengan cepat seperti di Indonesia</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>ICLS ke-21</h3>
+                        </div>
+                        <div class="card-body">
+                            <ul>
+                                <li>mengenai statistik ekonomi informal</li>
+                                <li>memperbarui konsep statistik sektor informal dan pekerjaan informal, yang menyesuaikan dengan standar statistik tenaga kerja saat ini, serta standar statistik ekonomi seperti System of National Accounts (SNA 2008), termasuk juga perubahan yang diharapkan dari SNA 2025 yang akan datang</li>
+                                <li>memperluas pengukuran informalitas dari semua bentuk pekerjaan</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Tentang Sakernas</h3>
+                    <ul>
+                        <li><a href="#pendahuluan">Pendahuluan</a></li>
+                        <li><a href="#sejarah">Sejarah</a></li>
+                        <li><a href="#tujuan">Tujuan</a></li>
+                        <li><a href="#cakupan">Cakupan</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Metodologi</h3>
+                    <ul>
+                        <li><a href="#metodologi">Stratifikasi</a></li>
+                        <li><a href="#metodologi">Prosedur Penarikan Sampel</a></li>
+                        <li><a href="#metodologi">Sampling Scheme</a></li>
+                        <li><a href="#metodologi">Sampling Weight</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Konsep Ketenagakerjaan</h3>
+                    <ul>
+                        <li><a href="#metodologi">ICLS ke-13</a></li>
+                        <li><a href="#metodologi">ICLS ke-19</a></li>
+                        <li><a href="#metodologi">ICLS ke-20</a></li>
+                        <li><a href="#metodologi">ICLS ke-21</a></li>
+                    </ul>
+                </div>
+                
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Tim Sakernas BPS Jabar. Hak Cipta Dilindungi.</p>
+            </div>
+        </div>
     </footer>
-    <!-- Theme Settings Modal -->
-    <div class="modal fade" id="themeSettingsModal" tabindex="-1" aria-labelledby="themeSettingsModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="themeSettingsModalLabel">Theme Settings</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <div class="mb-3 form-check form-switch">
-                        <input class="form-check-input" type="checkbox" id="darkModeSwitch">
-                        <label class="form-check-label" for="darkModeSwitch">Dark Mode</label>
-                    </div>
-                    <hr>
-                    <p class="mb-2">Color Theme:</p>
-                    <div class="d-flex justify-content-around">
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" name="colorTheme" id="colorThemeBlue" value="blue">
-                            <label class="form-check-label" for="colorThemeBlue">
-                                <span class="color-swatch bg-primary"></span> Blue
-                            </label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" name="colorTheme" id="colorThemeGreen" value="green">
-                            <label class="form-check-label" for="colorThemeGreen">
-                                <span class="color-swatch bg-success"></span> Green
-                            </label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" name="colorTheme" id="colorThemeOrange" value="orange" checked>
-                            <label class="form-check-label" for="colorThemeOrange">
-                                <span class="color-swatch bg-warning"></span> Orange
-                            </label>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                </div>
-            </div>
-        </div>
-    </div>
 
-    <!-- Info Content Modal -->
-    <div class="modal fade" id="infoModal" tabindex="-1" aria-labelledby="infoModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="infoModalLabel">Information</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body" id="infoModalBody">
-                    <!-- Content will be injected here -->
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Bootstrap Bundle with Popper -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-    <!-- Custom JavaScript -->
-    <script type="module" src="script.js"></script>
+    <script>
+        // Tab functionality
+        function openTab(evt, tabName) {
+            var i, tabcontent, tablinks;
+            
+            tabcontent = document.getElementsByClassName("tab-content");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].style.display = "none";
+                tabcontent[i].classList.remove("active");
+            }
+            
+            tablinks = document.getElementsByClassName("tab");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].classList.remove("active");
+            }
+            
+            document.getElementById(tabName).style.display = "block";
+            document.getElementById(tabName).classList.add("active");
+            evt.currentTarget.classList.add("active");
+        }
+        
+        // Accordion functionality
+        var acc = document.getElementsByClassName("accordion");
+        var i;
+        
+        for (i = 0; i < acc.length; i++) {
+            acc[i].addEventListener("click", function() {
+                this.classList.toggle("active");
+                var panel = this.nextElementSibling;
+                if (panel.style.maxHeight) {
+                    panel.style.maxHeight = null;
+                } else {
+                    panel.style.maxHeight = panel.scrollHeight + "px";
+                }
+            });
+        }
+        
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
 </body>
 </html>

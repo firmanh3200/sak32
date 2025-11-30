@@ -1,0 +1,1313 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modul Survei Ketenagakerjaan</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #3498db;
+            --secondary-color: #2ecc71;
+            --accent-color: #e74c3c;
+            --light-color: #f8f9fa;
+            --dark-color: #343a40;
+            --text-color: #333;
+            --border-color: #ddd;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: #f5f7fa;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+            border-radius: 10px;
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow);
+        }
+        
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        header p {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .tabs {
+            display: flex;
+            flex-wrap: wrap;
+            margin-bottom: 2rem;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+        }
+        
+        .tab {
+            flex: 1;
+            min-width: 200px;
+            background-color: var(--light-color);
+            border: 1px solid var(--border-color);
+            padding: 15px 20px;
+            cursor: pointer;
+            transition: var(--transition);
+            text-align: center;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .tab:hover {
+            background-color: #e9ecef;
+        }
+        
+        .tab.active {
+            background-color: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+        }
+        
+        .tab i {
+            margin-right: 8px;
+        }
+        
+        .tab-content {
+            display: none;
+            background-color: white;
+            border-radius: 10px;
+            padding: 2rem;
+            box-shadow: var(--shadow);
+            animation: fadeIn 0.5s;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .module-header {
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid var(--primary-color);
+        }
+        
+        .module-header h2 {
+            color: var(--primary-color);
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .module-header p {
+            color: #666;
+            font-style: italic;
+        }
+        
+        .section {
+            margin-bottom: 2rem;
+        }
+        
+        .section-title {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 10px 15px;
+            border-radius: 5px;
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+        
+        .section-content {
+            padding: 1rem;
+            background-color: var(--light-color);
+            border-radius: 5px;
+        }
+        
+        .question {
+            margin-bottom: 1.5rem;
+            padding: 1rem;
+            border-left: 4px solid var(--secondary-color);
+            background-color: white;
+            border-radius: 0 5px 5px 0;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        
+        .question-title {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--dark-color);
+        }
+        
+        .question-content {
+            margin-bottom: 0.5rem;
+        }
+        
+        .options {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 0.5rem;
+        }
+        
+        .option {
+            background-color: #e9ecef;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+        }
+        
+        .note {
+            background-color: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 0 5px 5px 0;
+        }
+        
+        .example {
+            background-color: #d1ecf1;
+            border-left: 4px solid #17a2b8;
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 0 5px 5px 0;
+        }
+        
+        .warning {
+            background-color: #f8d7da;
+            border-left: 4px solid var(--accent-color);
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 0 5px 5px 0;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+        }
+        
+        table, th, td {
+            border: 1px solid var(--border-color);
+        }
+        
+        th {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 10px;
+            text-align: left;
+        }
+        
+        td {
+            padding: 10px;
+        }
+        
+        tr:nth-child(even) {
+            background-color: var(--light-color);
+        }
+        
+        footer {
+            text-align: center;
+            padding: 2rem 0;
+            margin-top: 2rem;
+            color: #666;
+            border-top: 1px solid var(--border-color);
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+            
+            header h1 {
+                font-size: 2rem;
+            }
+            
+            .tab {
+                min-width: 100px;
+                padding: 10px;
+                font-size: 0.9rem;
+            }
+            
+            .tab i {
+                display: none;
+            }
+            
+            .tab-content {
+                padding: 1rem;
+            }
+        }
+        
+        .accordion {
+            margin-bottom: 1rem;
+            border-radius: 5px;
+            overflow: hidden;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        
+        .accordion-header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 15px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: var(--transition);
+        }
+        
+        .accordion-header:hover {
+            background-color: #2980b9;
+        }
+        
+        .accordion-header i {
+            transition: var(--transition);
+        }
+        
+        .accordion.active .accordion-header i {
+            transform: rotate(180deg);
+        }
+        
+        .accordion-content {
+            background-color: white;
+            padding: 0;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+        
+        .accordion.active .accordion-content {
+            max-height: 2000px;
+            padding: 15px;
+        }
+        
+        .progress-bar {
+            height: 8px;
+            background-color: #e9ecef;
+            border-radius: 4px;
+            margin: 1rem 0;
+            overflow: hidden;
+        }
+        
+        .progress {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            border-radius: 4px;
+            width: 0;
+            transition: width 1s ease;
+        }
+        
+        .tooltip {
+            position: relative;
+            display: inline-block;
+            cursor: help;
+            color: var(--primary-color);
+            text-decoration: underline dotted;
+        }
+        
+        .tooltip .tooltiptext {
+            visibility: hidden;
+            width: 200px;
+            background-color: var(--dark-color);
+            color: white;
+            text-align: center;
+            border-radius: 6px;
+            padding: 10px;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%;
+            left: 50%;
+            margin-left: -100px;
+            opacity: 0;
+            transition: opacity 0.3s;
+            font-size: 0.9rem;
+        }
+        
+        .tooltip:hover .tooltiptext {
+            visibility: visible;
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Modul Survei Ketenagakerjaan</h1>
+            <p>Dokumen ini berisi panduan untuk pengisian berbagai modul survei ketenagakerjaan yang meliputi demografi, pendidikan, migrasi, kesulitan fungsional, serta teknologi informasi dan komunikasi.</p>
+        </header>
+        
+        <div class="tabs">
+            <div class="tab active" onclick="openTab(event, 'dem')">
+                <i class="fas fa-users"></i> Modul 2: Daftar ART & Demografi
+            </div>
+            <div class="tab" onclick="openTab(event, 'pp')">
+                <i class="fas fa-graduation-cap"></i> Modul 3: Pendidikan & Pelatihan
+            </div>
+            <div class="tab" onclick="openTab(event, 'mig')">
+                <i class="fas fa-plane"></i> Modul 4: Migrasi
+            </div>
+            <div class="tab" onclick="openTab(event, 'dis')">
+                <i class="fas fa-wheelchair"></i> Modul 5: Kesulitan Fungsional
+            </div>
+            <div class="tab" onclick="openTab(event, 'tik')">
+                <i class="fas fa-laptop"></i> Modul 6: TIK
+            </div>
+        </div>
+        
+        <!-- Modul 2: Daftar ART & Demografi -->
+        <div id="dem" class="tab-content active">
+            <div class="module-header">
+                <h2>MODUL 2: DAFTAR ART & DEMOGRAFI (DEM)</h2>
+                <p>Modul ini bertujuan untuk mencatat semua anggota rumah tangga (ART) dan mengumpulkan informasi karakteristik demografi setiap ART.</p>
+            </div>
+            
+            <div class="progress-bar">
+                <div class="progress" id="dem-progress"></div>
+            </div>
+            
+            <div class="section">
+                <div class="section-title">Tujuan Modul</div>
+                <div class="section-content">
+                    <ul>
+                        <li>Mencatat semua ART agar tidak ada seorang pun yang terlewat.</li>
+                        <li>Mengumpulkan informasi karakteristik demografi setiap ART.</li>
+                        <li>Sebagai saringan untuk modul-modul selanjutnya bagi anggota rumah tangga yang berusia 5 tahun ke atas.</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="accordion">
+                <div class="accordion-header">
+                    <h3>Prosedur Pengisian Daftar ART</h3>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="accordion-content">
+                    <ol>
+                        <li>Tekan tombol '+' pada E-Form untuk menambahkan anggota rumah tangga yang namanya belum tercantum pada DAFTAR ANGGOTA RUMAH TANGGA.</li>
+                        <li>Isikan nama setiap ART tambahan.</li>
+                        <li>Setelah semua nama ART berhasil dimasukkan ke dalam daftar ART, tekan tombol 'Lihat' untuk melanjutkan pengisian data demografi dan detail setiap ART.</li>
+                        <li>Jumlah ART dalam Daftar Anggota Rumah Tangga harus sesuai dengan isian jumlah ART pada Blok Ringkasan Rincian 1.</li>
+                    </ol>
+                    <div class="warning">
+                        <strong>Perhatian:</strong> Apabila muncul pesan error "Jumlah ART (Prelist dan Tambahan) tidak sama dengan isian Blok RINGKASAN Rincian 1", lakukan perbaikan isian pada Blok Ringkasan Rincian 1.
+                    </div>
+                </div>
+            </div>
+            
+            <div class="accordion">
+                <div class="accordion-header">
+                    <h3>Kriteria Anggota Rumah Tangga</h3>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="accordion-content">
+                    <h4>Termasuk Anggota Rumah Tangga:</h4>
+                    <ol>
+                        <li>Bayi yang baru lahir</li>
+                        <li>Seseorang yang sudah tinggal bersama rumah tangga tersebut selama 1 tahun atau lebih</li>
+                        <li>Seseorang yang tinggal bersama rumah tangga selama kurang dari 1 tahun tetapi berniat untuk menetap</li>
+                        <li>Pembantu rumah tangga, tukang kebun, atau sopir yang tinggal dan makan bergabung dengan rumah tangga majikan</li>
+                        <li>Kepala Rumah Tangga/ART lainnya yang bekerja di tempat lain (tidak punya tempat tinggal tetap), tidak pulang setiap hari tapi pulang secara periodik</li>
+                        <li>Seseorang yang bersekolah SD/SMP/SMA atau yang sederajat, yang tinggal di tempat lain (kos, boarding school, pondok pesantren)</li>
+                    </ol>
+                    
+                    <h4>Tidak Termasuk Anggota Rumah Tangga:</h4>
+                    <ol>
+                        <li>Seseorang yang sudah bepergian selama 1 tahun atau lebih</li>
+                        <li>Seseorang yang bepergian selama kurang dari 1 tahun tetapi berniat untuk pindah</li>
+                        <li>Pembantu rumah tangga yang tidak tinggal di rumah tangga majikan</li>
+                        <li>Seseorang yang sedang kuliah (diploma/universitas) yang tinggal di tempat lain</li>
+                        <li>KRT/ART yang bekerja dan memiliki tempat tinggal tetap di tempat lain dan tidak pulang secara reguler/rutin minimal sekali dalam seminggu</li>
+                    </ol>
+                </div>
+            </div>
+            
+            <div class="accordion">
+                <div class="accordion-header">
+                    <h3>Pertanyaan Demografi</h3>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="accordion-content">
+                    <div class="question">
+                        <div class="question-title">Nomor 2.1 PPNO (Nomor Urut Anggota Rumah Tangga)</div>
+                        <div class="question-content">Isian pertanyaan ini akan terisi otomatis berdasarkan Daftar ART dan tidak bisa diedit.</div>
+                    </div>
+                    
+                    <div class="question">
+                        <div class="question-title">Nomor 2.2 DEM_NAME1 (NAMA ANGGOTA RUMAH TANGGA)</div>
+                        <div class="question-content">Isian pertanyaan ini akan terisi otomatis berdasarkan Daftar ART dan tidak bisa diedit.</div>
+                    </div>
+                    
+                    <div class="question">
+                        <div class="question-title">Nomor 2.3 DEM_INFO</div>
+                        <div class="question-content">Pertanyaan ini bertujuan untuk mencatat nama ART yang memberikan jawaban terhadap pertanyaan-pertanyaan lebih lanjut untuk setiap ART.</div>
+                    </div>
+                    
+                    <div class="question">
+                        <div class="question-title">Nomor 2.4 DEM-SEX (Jenis Kelamin)</div>
+                        <div class="question-content">Tanyakan jenis kelamin ART. Pilih kode 1 jika "laki-laki" dan kode 2 jika "perempuan".</div>
+                        <div class="warning">
+                            <strong>PENTINGNYA ISIAN JENIS KELAMIN!</strong> Kesalahan pada keterangan jenis kelamin sangat fatal akibatnya pada kualitas data. Oleh karena itu JANGAN MENDUGA JENIS KELAMIN seseorang berdasarkan namanya.
+                        </div>
+                    </div>
+                    
+                    <div class="question">
+                        <div class="question-title">Nomor 2.5 DEM_NIK (Nomor Induk Kependudukan)</div>
+                        <div class="question-content">
+                            <p>Nomor Induk Kependudukan (NIK) adalah nomor identitas tunggal yang bersifat unik dan melekat pada setiap penduduk Indonesia.</p>
+                            <p>NIK mengandung informasi penting mengenai identitas kependudukan seseorang. Perhatikan karakteristik NIK yang valid:</p>
+                            <ul>
+                                <li>NIK adalah 16 digit angka unik tanpa karakter lain (huruf, simbol, dll.)</li>
+                                <li>Tidak diawali dengan angka "0"</li>
+                                <li>Enam digit pertama (digit 1-6) mengandung kode wilayah penerbitan NIK atau kode wilayah tempat lahir penduduk.</li>
+                                <li>Digit ke-7 dan ke-8 menunjukkan tanggal lahir. Perhatikan bahwa untuk perempuan, nilai tanggal lahir ini biasanya ditambah 40.</li>
+                                <li>Digit ke-9 dan ke-10 menunjukkan bulan lahir (01-12).</li>
+                                <li>Digit ke-11 dan ke-12 menunjukkan tahun lahir dua digit terakhir.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="question">
+                        <div class="question-title">Nomor 2.6 DEM_ALASN (Alasan Tidak Ada NIK)</div>
+                        <div class="question-content">Apabila NIK tidak terisi, tanyakan alasan utamanya kepada responden dan pilih salah satu jawaban yang sesuai.</div>
+                        <div class="options">
+                            <div class="option">1. Dokumen hilang/rusak</div>
+                            <div class="option">2. Belum/tidak punya KK/KTP</div>
+                            <div class="option">3. KK atau KTP ada di tempat lain</div>
+                            <div class="option">4. Lainnya, tuliskan</div>
+                        </div>
+                    </div>
+                    
+                    <div class="question">
+                        <div class="question-title">Nomor 2.7 DEM_REL (Hubungan dengan KRT)</div>
+                        <div class="question-content">Tanyakan hubungan ART dengan KRT dan pilih kode yang sesuai.</div>
+                        <div class="options">
+                            <div class="option">01. Kepala Rumah Tangga (KRT)</div>
+                            <div class="option">02. Istri/suami/pasangan KRT</div>
+                            <div class="option">03. Anak kandung</div>
+                            <div class="option">04. Anak tiri/angkat</div>
+                            <div class="option">05. Menantu</div>
+                            <div class="option">06. Cucu</div>
+                            <div class="option">07. Orang tua/mertua</div>
+                            <div class="option">08. Famili lain</div>
+                            <div class="option">09. Pembantu rumah tangga</div>
+                            <div class="option">10. Sopir/tukang kebun</div>
+                            <div class="option">11. Lainnya</div>
+                        </div>
+                    </div>
+                    
+                    <div class="question">
+                        <div class="question-title">Nomor 2.8 DEM_BTH (Tanggal Lahir)</div>
+                        <div class="question-content">
+                            <p>Informasi tanggal, bulan, dan tahun lahir setiap ART sangat penting untuk meningkatkan akurasi pencatatan umur.</p>
+                            <ul>
+                                <li>Jika responden hanya mengetahui tahun kelahirannya, maka isikan tahunnya sedangkan tanggal dan bulan kelahiran diisi 97.</li>
+                                <li>Jika responden tidak mengetahui tanggal, bulan, dan tahun kelahirannya maka tanggal, bulan, dan tahun kelahirannya diisi 97/97/9997.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="question">
+                        <div class="question-title">Nomor 2.9 DEM_AGE (Umur)</div>
+                        <div class="question-content">
+                            <p>Isikan umur responden pada ulang tahun terakhir ke dalam kotak yang tersedia.</p>
+                            <ul>
+                                <li>Untuk ART berumur kurang dari 1 tahun, isikan "0".</li>
+                                <li>ART yang berumur 98 tahun atau lebih, isikan "98".</li>
+                            </ul>
+                        </div>
+                        <div class="note">
+                            <strong>Catatan:</strong> Jika tanggal kelahiran tidak diketahui dan bulan lahir sama dengan bulan pendataan, maka dianggap sudah berulang tahun.
+                        </div>
+                    </div>
+                    
+                    <div class="question">
+                        <div class="question-title">Nomor 2.10 MRT (Status Perkawinan)</div>
+                        <div class="question-content">Kondisi aktual status perkawinan responden di lapangan bisa saja berbeda dengan informasi yang tercantum pada dokumen kependudukan seperti KTP atau KK.</div>
+                        <div class="options">
+                            <div class="option">1. BELUM KAWIN</div>
+                            <div class="option">2. KAWIN</div>
+                            <div class="option">3. CERAI HIDUP</div>
+                            <div class="option">4. CERAI MATI</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Modul 3: Pendidikan dan Pelatihan -->
+        <div id="pp" class="tab-content">
+            <div class="module-header">
+                <h2>MODUL 3: PENDIDIKAN DAN PELATIHAN (PP)</h2>
+                <p>Modul ini bertujuan menangkap informasi pendidikan terakhir, kegiatan pelatihan yang pernah/sedang dijalani, dan kegiatan magang/PKL.</p>
+            </div>
+            
+            <div class="progress-bar">
+                <div class="progress" id="pp-progress"></div>
+            </div>
+            
+            <div class="section">
+                <div class="section-title">Tujuan Modul</div>
+                <div class="section-content">
+                    <ul>
+                        <li>Menangkap informasi pendidikan terakhir</li>
+                        <li>Mengumpulkan data kegiatan pelatihan yang pernah/sedang dijalani</li>
+                        <li>Merekam kegiatan magang/PKL</li>
+                        <li>Mendukung disagregasi data penduduk usia kerja, angkatan kerja dan tenaga kerja berdasarkan tingkat pendidikan</li>
+                        <li>Menghasilkan indikator penduduk muda yang tidak bekerja, bersekolah atau pelatihan (NEET)</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="accordion">
+                <div class="accordion-header">
+                    <h3>Pertanyaan Pendidikan</h3>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="accordion-content">
+                    <div class="question">
+                        <div class="question-title">Nomor 3.1 (DEM_SKLH) - Apakah (NAMA) bersekolah?</div>
+                        <div class="question-content">Tanyakan status bersekolah responden saat ini.</div>
+                        <div class="options">
+                            <div class="option">1. BELUM BERSEKOLAH</div>
+                            <div class="option">2. MASIH BERSEKOLAH</div>
+                            <div class="option">3. TIDAK BERSEKOLAH LAGI</div>
+                        </div>
+                        
+                        <div class="note">
+                            <strong>Penegasan Status Bersekolah/Partisipasi Sekolah:</strong>
+                            <ul>
+                                <li>Jika sedang menempuh pendidikan dengan metode homeschooling dan sebelumnya sudah menamatkan suatu jenjang pendidikan formal atau non formal maka masuk kategori tidak bersekolah lagi.</li>
+                                <li>Jika hanya homeschooling saja tanpa pernah menamatkan suatu jenjang pendidikan formal atau non formal, maka masuk kategori tidak/belum pernah sekolah.</li>
+                                <li>Siswa pesantren dikategorikan masih bersekolah jika pesantren tersebut menerapkan kurikulum Kementerian Pendidikan Dasar dan Menengah, Kementerian Pendidikan Tinggi, Sains, dan Teknologi, Kementerian Kebudayaan, atau Kementerian Agama.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="question">
+                        <div class="question-title">Nomor 3.2 (DEM_EDL) - Apa jenjang pendidikan tertinggi yang (NAMA) tamatkan?</div>
+                        <div class="question-content">Pendidikan tertinggi dilihat dari ijazah tertinggi yang dimiliki.</div>
+                        <div class="options">
+                            <div class="option">01. TIDAK/BELUM TAMAT SD</div>
+                            <div class="option">02. SD/MI/SDLB/PAKET A</div>
+                            <div class="option">03. SMP/MTS/SMPLB/PAKET B</div>
+                            <div class="option">04. SMA/MA/SMLB/PAKET C</div>
+                            <div class="option">05. SMK</div>
+                            <div class="option">06. MAK</div>
+                            <div class="option">07. DIPLOMA I/II/III</div>
+                            <div class="option">08. DIPLOMA IV</div>
+                            <div class="option">09. S1</div>
+                            <div class="option">10. S2</div>
+                            <div class="option">11. S2 TERAPAN</div>
+                            <div class="option">12. S3</div>
+                        </div>
+                        
+                        <div class="note">
+                            <strong>Catatan:</strong> Pendidikan profesi yang dicakup dalam pertanyaan 3.2 adalah yang diselenggarakan oleh institusi pendidikan tinggi dan melekat pada jenjang pendidikan terakhir. Pendidikan profesi berbeda dengan pelatihan.
+                        </div>
+                    </div>
+                    
+                    <div class="question">
+                        <div class="question-title">Nomor 3.3 (DEM_PNYLGR) - Penyelenggara pada pendidikan tertinggi yang ditamatkan</div>
+                        <div class="question-content">Tanyakan siapa penyelenggara pendidikan tertinggi yang ditamatkan responden.</div>
+                        <div class="options">
+                            <div class="option">1. NEGERI</div>
+                            <div class="option">2. SWASTA</div>
+                            <div class="option">3. KEDINASAN</div>
+                            <div class="option">4. TIDAK TAHU</div>
+                        </div>
+                    </div>
+                    
+                    <div class="question">
+                        <div class="question-title">Nomor 3.4 (DEM_EDF) - Apa bidang studi/jurusan pendidikan (NAMA)?</div>
+                        <div class="question-content">Tuliskan secara lengkap bidang studi/jurusan pendidikan sesuai dengan ijazah/STTB tertinggi yang dimiliki responden.</div>
+                        <div class="note">
+                            <strong>Catatan:</strong> Pertanyaan 3.4 hanya ditanyakan apabila pertanyaan 3.2 terisi salah satu dari kode 04 s.d 12.
+                        </div>
+                    </div>
+                    
+                    <div class="question">
+                        <div class="question-title">Nomor 3.5 (DEM_LLS) - Kapan (NAMA) lulus sekolah/kuliah pada pendidikan tertinggi yang ditamatkan?</div>
+                        <div class="question-content">Pertanyaan ini selain untuk mendapatkan informasi mengenai fresh graduate juga bertujuan untuk mendapatkan informasi mengenai waktu tunggu, yaitu waktu yang diperlukan responden untuk mendapatkan pekerjaan terhitung sejak lulus pendidikan tertinggi terakhir.</div>
+                        <div class="note">
+                            <strong>Catatan:</strong> Pertanyaan 3.5 hanya ditanyakan apabila responden menjawab salah satu dari kode 02 s.d 12 pada Pertanyaan 3.2.
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="accordion">
+                <div class="accordion-header">
+                    <h3>Pertanyaan Pelatihan</h3>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="accordion-content">
+                    <div class="question">
+                        <div class="question-title">Nomor 3.6 (DEM_TRN) - Apakah (NAMA) pernah mengikuti pelatihan/kursus/training?</div>
+                        <div class="question-content">
+                            <p>Pelatihan/kursus/training adalah kegiatan yang memberikan suatu keterampilan tertentu yang sifatnya khusus pada batas waktu tertentu baik yang diselenggarakan oleh pemerintah maupun swasta.</p>
+                            <ul>
+                                <li>Termasuk pelatihan yang dilakukan di tempat kerja atau berkaitan dengan kegiatan yang dilakukan oleh responden.</li>
+                                <li>Pelatihan tidak selalu terkait dengan bidang pekerjaan yang sedang digeluti.</li>
+                            </ul>
+                        </div>
+                        <div class="options">
+                            <div class="option">1. YA</div>
+                            <div class="option">2. TIDAK</div>
+                        </div>
+                        
+                        <div class="note">
+                            <strong>Catatan:</strong>
+                            <ul>
+                                <li>Pelatihan/kursus/training yang diikuti baik memperoleh sertifikat maupun tidak memperoleh sertifikat, termasuk kategori mengikuti pelatihan.</li>
+                                <li>Seseorang yang mengikuti pelatihan online dikategorikan mengikuti pelatihan jika ada penyelenggaranya, jelas kurikulumnya, dan terdapat tes/ujian pada akhir periode pelatihan.</li>
+                                <li>Bimbel tidak termasuk pelatihan karena bertujuan untuk meningkatkan nilai di sekolah atau melanjutkan sekolah ke jenjang berikutnya.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="question">
+                        <div class="question-title">Nomor 3.7 (DEM_SERT) - Apakah dari pelatihan/kursus/training tersebut (NAMA) memperoleh sertifikat?</div>
+                        <div class="question-content">Pertanyaan ini untuk menanyakan apakah pelatihan/kursus/training yang pernah diikuti di 3.6 bersertifikat atau tidak.</div>
+                        <div class="options">
+                            <div class="option">1. YA</div>
+                            <div class="option">2. TIDAK</div>
+                        </div>
+                    </div>
+                    
+                    <div class="question">
+                        <div class="question-title">Nomor 3.8 (DEM_P1TH) - Apakah pelatihan/kursus/training tersebut dilaksanakan dalam setahun terakhir?</div>
+                        <div class="question-content">Pertanyaan ini bertujuan untuk memperoleh informasi mengenai waktu responden dalam mengikuti pelatihan/kursus/training, apakah dilakukan dalam periode setahun terakhir atau tidak.</div>
+                        <div class="options">
+                            <div class="option">1. YA</div>
+                            <div class="option">2. TIDAK</div>
+                        </div>
+                    </div>
+                    
+                    <div class="question">
+                        <div class="question-title">Nomor 3.9 (DEM_JMLP) - Jumlah pelatihan/kursus/training yang diikuti dalam setahun terakhir</div>
+                        <div class="question-content">Pertanyaan ini bertujuan untuk memperoleh informasi jumlah pelatihan/kursus/training yang diikuti dalam setahun terakhir.</div>
+                        <div class="note">
+                            <strong>Catatan:</strong> Isian berada di rentang 1-3. Jika pernah mengikuti lebih dari 3 pelatihan/kursus/training, maka hanya akan dicatat 3 pelatihan yang utama menurut perspektif responden.
+                        </div>
+                    </div>
+                    
+                    <div class="question">
+                        <div class="question-title">Nomor 3.10 (DEM_NMPL_X) - Pelatihan/kursus/training ke-XX dalam setahun terakhir</div>
+                        <div class="question-content">Isikan secara lengkap 1, 2, atau 3 nama/jenis pelatihan/kursus/training utama yang pernah diikuti responden dalam setahun terakhir.</div>
+                        <div class="note">
+                            <strong>Catatan:</strong> Jumlah pelatihan/kursus/training yang diisikan sesuai dengan jumlah yang diisikan pada pertanyaan 3.9. Jika mengikuti pelatihan lebih dari sekali, urutkan mulai dari yang paling berhubungan dengan pekerjaan utama sekarang.
+                        </div>
+                    </div>
+                    
+                    <div class="question">
+                        <div class="question-title">Nomor 3.11 (DEM_PYLG_X) - Apa lembaga penyelenggara pelatihan/kursus/training ke-XX yang (NAMA) ikuti dalam setahun terakhir?</div>
+                        <div class="question-content">Tanyakan lembaga penyelenggara pelatihan/kursus/training yang diikuti responden.</div>
+                        <div class="options">
+                            <div class="option">1. Lembaga Pelatihan Kerja Pemerintah</div>
+                            <div class="option">2. Lembaga Pelatihan Kerja Swasta</div>
+                            <div class="option">3. Lembaga Pelatihan Kerja Perusahaan</div>
+                        </div>
+                    </div>
+                    
+                    <div class="question">
+                        <div class="question-title">Nomor 3.12 (DEM_PL4MG) - Apakah pelaksanaan pelatihan/kursus/training ke-XX dilakukan dalam 4 minggu terakhir?</div>
+                        <div class="question-content">Pertanyaan ini bertujuan untuk memperoleh informasi mengenai waktu responden dalam mengikuti pelatihan/kursus/training, apakah dilakukan dalam periode 4 minggu terakhir atau tidak.</div>
+                        <div class="options">
+                            <div class="option">1. YA</div>
+                            <div class="option">2. TIDAK</div>
+                        </div>
+                    </div>
+                    
+                    <div class="question">
+                        <div class="question-title">Nomor 3.13 (DEM_SDGPL) - Apakah saat ini (NAMA) sedang mengikuti pelatihan/kursus/training?</div>
+                        <div class="question-content">Pertanyaan ini untuk menanyakan apakah responden saat ini sedang mengikuti pelatihan/kursus/training (tidak harus bersertifikat).</div>
+                        <div class="options">
+                            <div class="option">1. YA</div>
+                            <div class="option">2. TIDAK</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="accordion">
+                <div class="accordion-header">
+                    <h3>Pertanyaan Magang/PKL</h3>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="accordion-content">
+                    <div class="question">
+                        <div class="question-title">Nomor 3.14 (DEM_MG) - Dalam satu tahun terakhir, apakah (NAMA) pernah mengikuti Program Magang/Praktik Kerja Lapangan (PKL)?</div>
+                        <div class="question-content">
+                            <p>Magang/internship menurut UU No 13 Tahun 2013 tentang Ketenagakerjaan adalah bagian dari sistem pelatihan kerja yang diselenggarakan secara terpadu antara pelatihan di lembaga pelatihan dengan bekerja secara langsung di bawah bimbingan dan pengawasan instruktur atau pekerja/buruh yang lebih berpengalaman.</p>
+                            <p>PKL (Praktik Kerja Lapangan) dalam Permendikbud 50 tahun 2020 adalah pembelajaran bagi Peserta Didik pada SMK/MAK, SMALB, dan LKP yang dilaksanakan melalui praktik kerja di dunia kerja dalam jangka waktu tertentu sesuai dengan kurikulum dan kebutuhan dunia kerja.</p>
+                        </div>
+                        <div class="options">
+                            <div class="option">1. YA</div>
+                            <div class="option">2. TIDAK</div>
+                        </div>
+                        
+                        <div class="note">
+                            <strong>Catatan:</strong>
+                            <ul>
+                                <li>Tidak termasuk Magang/PKL yang masih/sedang dijalani</li>
+                                <li>Magang/PKL yang dimaksud disini adalah magang/PKL yang dibayar maupun yang tidak dibayar</li>
+                                <li>Pertanyaan 3.14 hanya ditanyakan apabila pertanyaan 3.2 (Pendidikan tertinggi yang ditamatkan) terisi salah satu dari kode 04 s.d 12 (SMA ke atas)</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="question">
+                        <div class="question-title">Nomor 3.15 (DEM_MGSERT) - Apakah dari kegiatan Program Magang/Praktik Kerja Lapangan (PKL) tersebut, (NAMA) memperoleh sertifikat?</div>
+                        <div class="question-content">Pertanyaan ini bertujuan menanyakan apakah responden mendapatkan sertifikat dari program magang/PKL yang pernah diikuti.</div>
+                        <div class="options">
+                            <div class="option">1. YA</div>
+                            <div class="option">2. TIDAK</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Modul 4: Migrasi -->
+        <div id="mig" class="tab-content">
+            <div class="module-header">
+                <h2>MODUL 4: MIGRASI (MIG)</h2>
+                <p>Modul Status Migrasi (MIG) mencakup karakteristik dasar untuk menangkap status migrasi internal (antarwilayah di Indonesia) dan migrasi internasional sebagai karakteristik latar belakang.</p>
+            </div>
+            
+            <div class="progress-bar">
+                <div class="progress" id="mig-progress"></div>
+            </div>
+            
+            <div class="section">
+                <div class="section-title">Tujuan Modul</div>
+                <div class="section-content">
+                    <ul>
+                        <li>Mendukung disagregasi data angkatan kerja berdasarkan lokasi kelahiran (kelahiran setempat dan pendatang)</li>
+                        <li>Mendukung disagregasi data angkatan kerja berdasarkan kewarganegaraan (WNI dan WNA)</li>
+                        <li>Mendukung disagregasi data angkatan kerja berdasarkan migran risen (recent) dan jangka panjang (long-term)</li>
+                        <li>Mendukung analisis alasan utama migrasi (berkaitan dengan pekerjaan dan nonpekerjaan)</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="accordion">
+                <div class="accordion-header">
+                    <h3>Karakteristik yang Dicatat</h3>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="accordion-content">
+                    <ul>
+                        <li>Tempat kelahiran</li>
+                        <li>Waktu tiba di Indonesia (untuk yang lahir di luar negeri)</li>
+                        <li>Alasan pindah ke Indonesia (untuk yang lahir di luar negeri)</li>
+                        <li>Tempat tinggal lima tahun yang lalu</li>
+                        <li>Kewarganegaraan</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="accordion">
+                <div class="accordion-header">
+                    <h3>Pertanyaan Migrasi</h3>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="accordion-content">
+                    <div class="question">
+                        <div class="question-title">Nomor 4.1 (MIG_BTH) - Di mana tempat lahir (NAMA)?</div>
+                        <div class="question-content">Identifikasi migrasi seumur hidup, baik internal (antarwilayah di Indonesia) maupun internasional.</div>
+                        <div class="options">
+                            <div class="option">1. Indonesia</div>
+                            <div class="option">2. Luar negeri</div>
+                        </div>
+                        
+                        <div class="note">
+                            <strong>Definisi Tempat Lahir:</strong>
+                            <ul>
+                                <li>Merujuk kepada provinsi dan kabupaten/kota atau negara tempat tinggal responden sejak lahir hingga umur satu tahun.</li>
+                                <li>Jika responden tinggal kurang dari setahun di tempat lahirnya (menumpang lahir), tempat lahir yang dicatat adalah tempat tinggal ibu kandungnya pada periode tersebut.</li>
+                                <li>Batas wilayah administrasi yang digunakan mengikuti yang terbaru.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="question">
+                        <div class="question-title">Nomor 4.2 (MIG_PROV) - Di provinsi manakah (NAMA) dilahirkan?</div>
+                        <div class="question-content">Jika responden lahir di Indonesia, pilih salah satu nama provinsi tempat lahir.</div>
+                        <div class="note">
+                            <strong>Batas Wilayah Administrasi:</strong> Menggunakan yang terbaru sesuai Fasih. Saat ini, Indonesia memiliki 38 provinsi.
+                        </div>
+                    </div>
+                    
+                    <div class="question">
+                        <div class="question-title">Nomor 4.3 (MIG_KAB) - Di kabupaten/kota manakah (NAMA) dilahirkan?</div>
+                        <div class="question-content">Setelah memilih provinsi tempat lahir, PPL perlu memilih nama kabupaten/kota kelahiran responden.</div>
+                        <div class="warning">
+                            <strong>Perhatian Khusus:</strong> Beberapa kabupaten dan kota memiliki nama yang sama, sehingga PPL harus berhati-hati.
+                        </div>
+                    </div>
+                    
+                    <div class="question">
+                        <div class="question-title">Nomor 4.4 (MIG_NEG) - Di negara manakah (NAMA) dilahirkan?</div>
+                        <div class="question-content">Jika responden lahir di luar negeri, PPL harus mencatat nama negara kelahiran secara spesifik.</div>
+                        <div class="warning">
+                            <strong>Perhatian Khusus:</strong> Beberapa negara memiliki nama yang umum atau serupa, sehingga PPL harus lebih teliti dalam menanyakan informasi ini demi keakuratan.
+                        </div>
+                    </div>
+                    
+                    <div class="question">
+                        <div class="question-title">Nomor 4.5 (MIG_LARR) - Kapan (NAMA) tiba untuk tinggal di Indonesia?</div>
+                        <div class="question-content">Pertanyaan ini hanya ditanyakan untuk ART yang lahir di luar negeri.</div>
+                        <div class="note">
+                            <strong>Tujuan:</strong> Membedakan antara migran baru-baru ini dan migran jangka panjang.
+                        </div>
+                    </div>
+                    
+                    <div class="question">
+                        <div class="question-title">Nomor 4.6 (MIG_5TH) - Pada Februari 2021 (lima tahun yang lalu), di mana tempat tinggal (NAMA)?</div>
+                        <div class="question-content">Mendapatkan informasi tentang migrasi risen, khususnya pada penduduk yang bekerja.</div>
+                        <div class="options">
+                            <div class="option">1. Di kabupaten/kota yang SAMA dengan tempat tinggal sekarang</div>
+                            <div class="option">2. Di kabupaten/kota yang BERBEDA dengan tempat tinggal sekarang</div>
+                            <div class="option">3. Di luar negeri</div>
+                        </div>
+                        
+                        <div class="note">
+                            <strong>Definisi Migran Risen:</strong> Seseorang dengan kabupaten/kota tempat tinggalnya pada lima tahun yang lalu (Februari 2021) berbeda dari kabupaten/kota tempat tinggalnya saat pendataan.
+                        </div>
+                    </div>
+                    
+                    <div class="question">
+                        <div class="question-title">Nomor 4.7 (MIG_5_PROV) - Sebutkan provinsi tempat tinggal (NAMA) pada Februari 2021 (lima tahun yang lalu)</div>
+                        <div class="question-content">Jika pada lima tahun lalu responden tinggal di kabupaten/kota yang BERBEDA dari kabupaten/kota tempat tinggal sekarang, pertanyaan lanjutan akan muncul untuk menanyakan provinsi.</div>
+                    </div>
+                    
+                    <div class="question">
+                        <div class="question-title">Nomor 4.8 (MIG_5_KAB) - Sebutkan kabupaten/kota tempat tinggal (NAMA) pada Februari 2021 (lima tahun yang lalu)</div>
+                        <div class="question-content">Jika pada lima tahun lalu responden tinggal di kabupaten/kota yang BERBEDA dari kabupaten/kota tempat tinggal sekarang, pertanyaan lanjutan akan muncul untuk menanyakan kabupaten/kota.</div>
+                    </div>
+                    
+                    <div class="question">
+                        <div class="question-title">Nomor 4.9 (MIG_5_NEG) - Sebutkan negara tempat tinggal (NAMA) pada Februari 2021 (lima tahun yang lalu)</div>
+                        <div class="question-content">Jika pada lima tahun lalu responden tinggal di luar negeri, pertanyaan lanjutan akan muncul untuk mendetailkan negaranya.</div>
+                    </div>
+                    
+                    <div class="question">
+                        <div class="question-title">Nomor 4.10 (MIG_REAS) - Apa alasan utama (Nama) pindah ke Indonesia?</div>
+                        <div class="question-content">Pertanyaan ini hanya diajukan kepada responden yang lahir di luar negeri.</div>
+                        <div class="options">
+                            <div class="option">01. MEMULAI SUATU PEKERJAAN</div>
+                            <div class="option">02. MUTASI PEKERJAAN</div>
+                            <div class="option">03. MENCARI PEKERJAAN/MEMPERSIAPKAN USAHA</div>
+                            <div class="option">04. SEKOLAH/KULIAH</div>
+                            <div class="option">05. PERKAWINAN</div>
+                            <div class="option">06. KELUARGA PINDAH/BERGABUNG DENGAN KELUARGA</div>
+                            <div class="option">07. PERAWATAN/TINDAKAN MEDIS, KESEHATAN</div>
+                            <div class="option">08. KONFLIK, KETIDAKAMANAN, BENCANA ALAM</div>
+                            <div class="option">09. GAYA HIDUP, BIAYA HIDUP</div>
+                            <div class="option">10. LAINNYA: TULISKAN</div>
+                        </div>
+                    </div>
+                    
+                    <div class="question">
+                        <div class="question-title">Nomor 4.11 (MIG_CTZ) - Apakah kewarganegaraan (NAMA)?</div>
+                        <div class="question-content">Tanyakan kewarganegaraan responden.</div>
+                        <div class="options">
+                            <div class="option">1. WNI</div>
+                            <div class="option">2. WNA</div>
+                        </div>
+                        
+                        <div class="note">
+                            <strong>Definisi Kewarganegaraan:</strong>
+                            <ul>
+                                <li>Warga Negara Indonesia (WNI): Orang Indonesia asli atau keturunan asing yang mendapat kewarganegaraan Indonesia.</li>
+                                <li>Warga Negara Asing (WNA): Mereka yang mempunyai kewarganegaraan selain WNI atau yang tanpa kewarganegaraan.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="question">
+                        <div class="question-title">Nomor 4.12 (MIG_CTZ_N) - Jika WNA, tuliskan kewarganegaraan (NAMA)</div>
+                        <div class="question-content">Jika responden adalah WNA, tuliskan negara kewarganegaraannya.</div>
+                        <div class="warning">
+                            <strong>Perhatian:</strong> Kewarganegaraan tidak selalu mengikuti garis keturunan atau etnisitas.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Modul 5: Kesulitan Fungsional -->
+        <div id="dis" class="tab-content">
+            <div class="module-header">
+                <h2>MODUL 5: KESULITAN FUNGSIONAL (DIS)</h2>
+                <p>Modul ini bertujuan untuk mendapatkan data mengenai tenaga kerja penyandang disabilitas atau tenaga kerja yang mengalami gangguan fungsi/kesulitan dalam melakukan aktivitas normal sehari-hari.</p>
+            </div>
+            
+            <div class="progress-bar">
+                <div class="progress" id="dis-progress"></div>
+            </div>
+            
+            <div class="section">
+                <div class="section-title">Konsep Definisi</div>
+                <div class="section-content">
+                    <p>Undang-Undang Republik Indonesia Nomor 8 Tahun 2016 tentang Penyandang Disabilitas, yang dimaksud penyandang disabilitas adalah setiap orang yang mengalami keterbatasan fisik, intelektual, mental, dan/atau sensorik dalam jangka waktu lama yang dalam berinteraksi dengan lingkungan dapat mengalami hambatan dan kesulitan untuk berpartisipasi secara penuh dan efektif dengan warga negara lainnya berdasarkan kesamaan hak.</p>
+                    
+                    <p>Gradasi/tingkat gangguan yang digunakan Sakernas:</p>
+                    <ol>
+                        <li>Tidak mengalami kesulitan</li>
+                        <li>Sedikit kesulitan/gangguan/keterbatasan</li>
+                        <li>Banyak mengalami kesulitan/gangguan/keterbatasan</li>
+                        <li>Sama sekali tidak dapat beraktivitas</li>
+                    </ol>
+                </div>
+            </div>
+            
+            <div class="accordion">
+                <div class="accordion-header">
+                    <h3>Pertanyaan Kesulitan Fungsional</h3>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="accordion-content">
+                    <div class="question">
+                        <div class="question-title">Nomor 5.1 DIF_SIGHT - Apakah (NAMA) mengalami kesulitan melihat meskipun memakai kacamata?</div>
+                        <div class="question-content">
+                            <p>Melihat adalah apabila seseorang menggunakan mata mereka untuk melihat dan mengamati apa yang terjadi di sekitar mereka.</p>
+                            <p>Gangguan Penglihatan (Tuna Netra) adalah terganggunya fungsi mata atau tidak memiliki bola mata baik disebabkan oleh bawaan lahir, penyakit, kecelakaan, atau lanjut usia.</p>
+                        </div>
+                        <div class="options">
+                            <div class="option">1. Tidak mengalami kesulitan/gangguan</div>
+                            <div class="option">2. Ya, sedikit kesulitan</div>
+                            <div class="option">3. Ya, banyak kesulitan</div>
+                            <div class="option">4. Ya, sama sekali tidak bisa melihat</div>
+                        </div>
+                        
+                        <div class="note">
+                            <strong>Penjelasan:</strong>
+                            <ul>
+                                <li>ART dikategorikan mengalami disabilitas penglihatan jika mengalami kesulitan penglihatan, baik dengan memakai kacamata/lensa kontak ataupun tidak.</li>
+                                <li>ART tidak dikategorikan sebagai penyandang disabilitas penglihatan jika dengan menggunakan kacamata plus/minus (kacamata biasa) sudah mampu untuk melihat/membaca secara jelas.</li>
+                                <li>ART dengan gangguan buta warna, tidak dikategorikan sebagai penyandang disabilitas penglihatan.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="question">
+                        <div class="question-title">Nomor 5.2 DIF_HEAR - Apakah (NAMA) mengalami kesulitan mendengar meskipun menggunakan alat bantu dengar?</div>
+                        <div class="question-content">
+                            <p>Mendengar adalah apabila seseorang mampu menggunakan telinga dan kapasitas pendengaran mereka untuk mengetahui apa saja yang dikatakan kepada mereka atau suara dari aktivitas di sekitar mereka, termasuk tanda bahaya.</p>
+                            <p>Gangguan Pendengaran adalah terganggunya fungsi organ pendengaran baik disebabkan oleh bawaan lahir, penyakit, kecelakaan, atau lanjut usia.</p>
+                        </div>
+                        <div class="options">
+                            <div class="option">1. Tidak mengalami kesulitan/gangguan</div>
+                            <div class="option">2. Ya, sedikit kesulitan</div>
+                            <div class="option">3. Ya, banyak kesulitan</div>
+                            <div class="option">4. Ya, sama sekali tidak bisa mendengar</div>
+                        </div>
+                    </div>
+                    
+                    <div class="question">
+                        <div class="question-title">Nomor 5.3 DIF_MOBI - Apakah (NAMA) mengalami kesulitan berjalan atau menaiki tangga?</div>
+                        <div class="question-content">
+                            <p>Mobilitas adalah kemampuan individu untuk berpindah/bergerak secara bebas, mudah, dan teratur untuk memenuhi kebutuhan aktivitas sehari-hari.</p>
+                            <p>Yang dimaksud dengan mengalami gangguan mobilitas adalah apabila ART mengalami kesulitan/gangguan dalam berjalan/naik tangga dengan/tanpa memakai alat bantu ataupun dengan/tanpa bantuan orang lain.</p>
+                        </div>
+                        <div class="options">
+                            <div class="option">1. Tidak mengalami kesulitan/gangguan</div>
+                            <div class="option">2. Ya, sedikit kesulitan</div>
+                            <div class="option">3. Ya, banyak kesulitan</div>
+                            <div class="option">4. Ya, sama sekali tidak bisa berjalan/naik tangga</div>
+                        </div>
+                    </div>
+                    
+                    <div class="question">
+                        <div class="question-title">Nomor 5.4 DIF_HAND - Apakah (NAMA) mengalami kesulitan/gangguan menggunakan/menggerakkan tangan/jari?</div>
+                        <div class="question-content">Tanyakan apakah responden mengalami kesulitan dalam mengambil/menggenggam/memungut sesuatu.</div>
+                        <div class="options">
+                            <div class="option">1. Tidak mengalami kesulitan/gangguan</div>
+                            <div class="option">2. Ya, sedikit kesulitan</div>
+                            <div class="option">3. Ya, banyak kesulitan</div>
+                            <div class="option">4. Ya, sama sekali tidak bisa menggunakan/menggerakkan tangan/jari</div>
+                        </div>
+                    </div>
+                    
+                    <div class="question">
+                        <div class="question-title">Nomor 5.5 DIF_CONC - Apakah (NAMA) mengalami kesulitan mengingat atau berkonsentrasi?</div>
+                        <div class="question-content">
+                            <p>Mengingat adalah kemampuan seseorang untuk memanggil kembali ingatannya tentang sesuatu yang dialaminya di masa lalu.</p>
+                            <p>Konsentrasi adalah kemampuan seseorang untuk tetap fokus pada satu tugas hingga tugas tersebut selesai tanpa terganggu dengan hal-hal lain.</p>
+                        </div>
+                        <div class="options">
+                            <div class="option">1. Tidak mengalami kesulitan/gangguan</div>
+                            <div class="option">2. Ya, sedikit kesulitan</div>
+                            <div class="option">3. Ya, banyak kesulitan</div>
+                            <div class="option">4. Ya, sama sekali tidak bisa mengingat/berkonsentrasi</div>
+                        </div>
+                    </div>
+                    
+                    <div class="question">
+                        <div class="question-title">Nomor 5.6 DIF_CARE - Apakah (NAMA) mengalami kesulitan dalam perawatan diri seperti membersihkan badan atau berpakaian?</div>
+                        <div class="question-content">
+                            <p>Mengurus diri sendiri adalah kemampuan seseorang untuk merawat kesehatan diri dimulai mandi, makan, berpakaian, buang air besar (BAB), buang air kecil (BAK) tanpa bantuan orang lain.</p>
+                            <p>Kesulitan mengurus diri sendiri dapat disebabkan karena adanya gangguan/keterbatasan fungsi fisik, intelektual, mental, dan/atau sensorik atau sebagai penyandang disabilitas.</p>
+                        </div>
+                        <div class="options">
+                            <div class="option">1. Tidak mengalami kesulitan/gangguan</div>
+                            <div class="option">2. Ya, sedikit kesulitan</div>
+                            <div class="option">3. Ya, banyak kesulitan</div>
+                            <div class="option">4. Ya, sama sekali tidak bisa merawat diri</div>
+                        </div>
+                        
+                        <div class="note">
+                            <strong>Penjelasan:</strong>
+                            <ul>
+                                <li>Petugas tidak boleh menyimpulkan kesulitan mengurus diri sendiri berdasarkan kondisi disabilitas responden, melainkan tetap harus mengajukan pertanyaan.</li>
+                                <li>Petugas harus berhati-hati dalam menentukan kesulitan mengurus diri sendiri pada responden yang masih kecil (misalnya anak-anak).</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="question">
+                        <div class="question-title">Nomor 5.7 DIF_COMM - Apakah (NAMA) mengalami kesulitan berkomunikasi, seperti sulit memahami atau dipahami oleh orang lain meskipun menggunakan bahasa yang biasa (NAMA) gunakan?</div>
+                        <div class="question-content">
+                            <p>Komunikasi adalah interaksi yang berupa percakapan yang dapat dipahami oleh orang lain dan memahami percakapan orang lain.</p>
+                            <p>Gangguan komunikasi adalah situasi di mana seseorang mengalami gangguan atau kesulitan dalam memahami perkataan orang lain dan juga sebaliknya perkataannya sulit dipahami orang lain.</p>
+                        </div>
+                        <div class="options">
+                            <div class="option">1. Tidak mengalami kesulitan/gangguan</div>
+                            <div class="option">2. Ya, sedikit kesulitan</div>
+                            <div class="option">3. Ya, banyak kesulitan</div>
+                            <div class="option">4. Ya, sama sekali tidak bisa berkomunikasi</div>
+                        </div>
+                    </div>
+                    
+                    <div class="question">
+                        <div class="question-title">Nomor 5.8 DIF_EMOSI - Apakah (NAMA) mengalami gangguan perilaku/emosional?</div>
+                        <div class="question-content">
+                            <p>Perilaku adalah semua kegiatan atau aktivitas manusia, baik yang diamati langsung, maupun yang tidak dapat diamati oleh pihak luar.</p>
+                            <p>Emosi adalah reaksi terhadap rangsangan dari luar dan dalam diri individu.</p>
+                            <p>Gangguan perilaku dan/atau emosional adalah kesulitan atau ketidakmampuan seseorang dalam mengontrol perilaku dan/atau emosi yang merugikan diri sendiri dan orang lain.</p>
+                        </div>
+                        <div class="options">
+                            <div class="option">1. Tidak mengalami kesulitan/gangguan</div>
+                            <div class="option">2. Ya, sedikit kesulitan</div>
+                            <div class="option">3. Ya, banyak kesulitan</div>
+                            <div class="option">4. Ya, sama sekali tidak bisa mengendalikan perilaku/emosional</div>
+                        </div>
+                        
+                        <div class="note">
+                            <strong>Jenis kesulitan dalam mengendalikan perilaku dan/atau emosi:</strong>
+                            <ul>
+                                <li>Hiperaktif</li>
+                                <li>Depresi</li>
+                                <li>Gangguan jiwa (psikologis/skizofrenia/halusinasi)</li>
+                                <li>Autis</li>
+                                <li>Lainnya</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Modul 6: Teknologi, Informasi dan Komunikasi -->
+        <div id="tik" class="tab-content">
+            <div class="module-header">
+                <h2>MODUL 6: TEKNOLOGI, INFORMASI DAN KOMUNIKASI (TIK)</h2>
+                <p>Modul ini bertujuan untuk memperoleh informasi mengenai penggunaan teknologi digital yang ditanyakan kepada responden yang berumur 5 tahun ke atas.</p>
+            </div>
+            
+            <div class="progress-bar">
+                <div class="progress" id="tik-progress"></div>
+            </div>
+            
+            <div class="section">
+                <div class="section-title">Definisi Teknologi Digital</div>
+                <div class="section-content">
+                    <p>Teknologi Digital adalah teknologi yang dalam penggunaannya:</p>
+                    <ul>
+                        <li>Tidak banyak menggunakan tenaga manusia, dan</li>
+                        <li>Dinyatakan dalam bentuk yang dapat dibaca dan digunakan oleh komputer atau perangkat elektronik lainnya.</li>
+                    </ul>
+                    
+                    <p>Ruang Lingkup Teknologi Digital (dalam konsep ini):</p>
+                    <ul>
+                        <li>Komputer, dan</li>
+                        <li>Teknologi digital lain yang masih dapat dimanfaatkan</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="accordion">
+                <div class="accordion-header">
+                    <h3>Pertanyaan TIK</h3>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="accordion-content">
+                    <div class="question">
+                        <div class="question-title">Nomor 6.1 (TIK_HP) - Dalam tiga bulan terakhir, apakah (NAMA) memiliki/menguasai telepon selular/telepon pintar (HP/smartphone)?</div>
+                        <div class="question-content">
+                            <p>Tujuan Pertanyaan: Menghitung indikator Sustainable Development Goals (SDGs) 5.b.1*: Proporsi individu yang memiliki telepon seluler/telepon pintar (HP/smartphone).</p>
+                        </div>
+                        <div class="options">
+                            <div class="option">1. YA</div>
+                            <div class="option">2. TIDAK</div>
+                        </div>
+                        
+                        <div class="note">
+                            <strong>Definisi Kepemilikan HP:</strong>
+                            <ul>
+                                <li>Memiliki HP = mempunyai HP dengan paling sedikit 1 kartu yang aktif untuk penggunaan pribadi.</li>
+                                <li>Menguasai HP = relatif dapat menggunakan HP secara penuh dan kontinu.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="question">
+                        <div class="question-title">Nomor 6.2 (TIK_TI) - Dalam tiga bulan terakhir, apakah (NAMA) menggunakan teknologi berikut ini?</div>
+                        <div class="question-content">Tanyakan penggunaan teknologi digital oleh responden dalam tiga bulan terakhir.</div>
+                        <div class="options">
+                            <div class="option">a. Komputer (PC, notebook, laptop, tablet, atau PDA)</div>
+                            <div class="option">b. Telepon seluler/telepon pintar (HP/smartphone)</div>
+                            <div class="option">c. Teknologi digital lain (televisi dengan set top box, smart TV, kamera digital, alat perekam suara, alat hitung digital, alat kesehatan digital dan alat digital lainnya)</div>
+                            <div class="option">d. Internet (Termasuk menggunakan whatsapp, facebook, instagram, x/twitter dan media sosial lainnya)</div>
+                            <div class="option">e. Tidak menggunakan teknologi digital</div>
+                        </div>
+                        
+                        <div class="note">
+                            <strong>Penjelasan Tambahan:</strong>
+                            <ul>
+                                <li>ART yang menggunakan telepon seluler untuk berkomunikasi namun tidak mengoperasikannya secara langsung, misalnya seorang anak yang dibantu untuk mengangkat telepon, maka sang anak dicatat menggunakan telepon seluler.</li>
+                                <li>Perangkat yang termasuk: handphone dan smartphone. Tidak termasuk: tablet, smartwatch, dan telepon tetap nirkabel.</li>
+                                <li>Telepon seluler yang digunakan, tidak harus dimiliki sendiri atau dibeli/dibayar sendiri oleh individu yang menggunakan.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="question">
+                        <div class="question-title">Nomor 6.3 (TIK_INET) - Dalam tiga bulan terakhir, apakah (NAMA) memanfaatkan internet untuk:</div>
+                        <div class="question-content">Tanyakan pemanfaatan internet oleh responden dalam tiga bulan terakhir.</div>
+                        <div class="options">
+                            <div class="option">a. Komunikasi</div>
+                            <div class="option">b. Mengakses informasi</div>
+                            <div class="option">c. Penjualan barang/jasa</div>
+                            <div class="option">d. Pembelian barang/jasa</div>
+                            <div class="option">e. Internet banking</div>
+                            <div class="option">f. Lainnya</div>
+                        </div>
+                        
+                        <div class="note">
+                            <strong>Penjelasan:</strong>
+                            <ul>
+                                <li>Komunikasi: Internet untuk komunikasi misalnya menggunakan whatsapp untuk telepon atau video call.</li>
+                                <li>Mengakses Informasi: Misalnya: menggunakan mesin pencari seperti Google untuk mencari berita, ilmu pengetahuan, tutorial, dsb</li>
+                                <li>Penjualan Barang/Jasa: Menjual barang atau jasa melalui internet dengan meletakkan gambar barang atau jasa yang dijual di internet.</li>
+                                <li>Pembelian Barang/Jasa: Melakukan pemesanan dan pembelian barang/jasa melalui internet.</li>
+                                <li>Internet Banking: Termasuk transaksi elektronik dengan bank untuk pembayaran, transfer, atau mencari informasi rekening.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="accordion">
+                <div class="accordion-header">
+                    <h3>Konsistensi Pertanyaan</h3>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="accordion-content">
+                    <div class="warning">
+                        <strong>PERHATIKAN konsistensi antara pertanyaan nomor 6.2 s/d 6.3, pertanyaan nomor 10.18 s/d 10.19.</strong>
+                    </div>
+                    
+                    <div class="example">
+                        <strong>Contoh:</strong> Jika responden menggunakan laptop dan HP pada pekerjaan utama (10.18.a dan 10.18.b jawabannya "YA") untuk melakukan komunikasi dan penjualan barang melalui marketplace (10.19.a dan 10.19.e jawabannya "YA"), maka 6.2.a dan 6.2.b jawabannya "YA" serta 6.3.a dan 6.3.c jawabannya "YA".
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <footer>
+            <p>&copy; 2023 Modul Survei Ketenagakerjaan. Dokumen ini disusun untuk keperluan pelatihan dan pendataan ketenagakerjaan.</p>
+        </footer>
+    </div>
+    
+    <script>
+        // Function to open tabs
+        function openTab(evt, tabName) {
+            var i, tabcontent, tabs;
+            
+            // Hide all tab content
+            tabcontent = document.getElementsByClassName("tab-content");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].classList.remove("active");
+            }
+            
+            // Remove active class from all tabs
+            tabs = document.getElementsByClassName("tab");
+            for (i = 0; i < tabs.length; i++) {
+                tabs[i].classList.remove("active");
+            }
+            
+            // Show the specific tab content and add active class to the button that opened the tab
+            document.getElementById(tabName).classList.add("active");
+            evt.currentTarget.classList.add("active");
+            
+            // Animate progress bar
+            animateProgressBar(tabName);
+        }
+        
+        // Function to animate progress bar
+        function animateProgressBar(tabName) {
+            const progressBar = document.getElementById(tabName + "-progress");
+            progressBar.style.width = "0";
+            
+            setTimeout(function() {
+                progressBar.style.width = "100%";
+            }, 100);
+        }
+        
+        // Initialize accordions
+        document.addEventListener('DOMContentLoaded', function() {
+            const accordions = document.querySelectorAll('.accordion');
+            
+            accordions.forEach(accordion => {
+                const header = accordion.querySelector('.accordion-header');
+                
+                header.addEventListener('click', function() {
+                    accordion.classList.toggle('active');
+                });
+            });
+            
+            // Animate initial progress bar
+            animateProgressBar('dem');
+        });
+    </script>
+</body>
+</html>
